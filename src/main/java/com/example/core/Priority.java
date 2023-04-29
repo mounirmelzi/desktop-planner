@@ -3,12 +3,12 @@ package com.example.core;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-public enum Category {
-    STUDIES("Studies"), WORK("Work"), HOBBY("Hobby"), SPORT("Sport"), HEALTH("Health");
+public enum Priority {
+    LOW("Low"), MEDIUM("Medium"), HIGH("High");
 
     private final String name;
 
-    Category(String name) {
+    Priority(String name) {
         this.name = name;
     }
 
@@ -18,15 +18,9 @@ public enum Category {
 
     @NotNull
     @Contract(pure = true)
-    public static String getDefaultColor() {
-        return "WHITE";
-    }
-
-    @NotNull
-    @Contract(pure = true)
     @Override
     public String toString() {
-        return "Category{" +
+        return "Priority{" +
                 "name='" + name + '\'' +
                 '}';
     }

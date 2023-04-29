@@ -3,12 +3,16 @@ package com.example.core;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-public enum Category {
-    STUDIES("Studies"), WORK("Work"), HOBBY("Hobby"), SPORT("Sport"), HEALTH("Health");
+public enum State {
+    NOT_REALIZED("Not Realized"),
+    COMPLETED("Completed"),
+    IN_PROGRESS("In Progress"),
+    CANCELLED("Cancelled"),
+    DELAYED("Delayed");
 
     private final String name;
 
-    Category(String name) {
+    State(String name) {
         this.name = name;
     }
 
@@ -18,15 +22,9 @@ public enum Category {
 
     @NotNull
     @Contract(pure = true)
-    public static String getDefaultColor() {
-        return "WHITE";
-    }
-
-    @NotNull
-    @Contract(pure = true)
     @Override
     public String toString() {
-        return "Category{" +
+        return "State{" +
                 "name='" + name + '\'' +
                 '}';
     }
