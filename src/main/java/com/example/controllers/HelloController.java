@@ -1,4 +1,4 @@
-package com.example.planner;
+package com.example.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
