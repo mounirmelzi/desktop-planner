@@ -1,9 +1,15 @@
 package com.example.core;
 
-import java.time.LocalDate;
+import org.jetbrains.annotations.NotNull;
 
-public class Day implements Comparable<Day> {
-    LocalDate date;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.TreeSet;
+
+public class Day implements Comparable<Day>, Serializable {
+    private LocalDate date;
+    private final TreeSet<Creneau> creneaux = new TreeSet<>();
+    private static int nbrTachesRealiseesMin;
 
     @Override
     public boolean equals(Object o) {
@@ -18,9 +24,8 @@ public class Day implements Comparable<Day> {
         return date.hashCode();
     }
 
-
     @Override
-    public int compareTo(Day other) {
+    public int compareTo(@NotNull Day other) {
         return date.compareTo(other.date);
     }
 }
