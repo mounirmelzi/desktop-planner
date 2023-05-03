@@ -1,33 +1,29 @@
 package com.example.core;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+public class Category {
+    private String name;
+    private String color;
 
-public enum Category {
-    STUDIES("Studies"), WORK("Work"), HOBBY("Hobby"), SPORT("Sport"), HEALTH("Health");
-
-    private final String name;
-
-    Category(String name) {
+    public Category(String name) {
         this.name = name;
+        this.color = "WHITE";
     }
 
-    public String getName() {
-        return name;
+    public Category(String name, String color) {
+        this(name);
+        this.color = color;
     }
 
-    @NotNull
-    @Contract(pure = true)
-    public static String getDefaultColor() {
-        return "WHITE";
-    }
-
-    @NotNull
-    @Contract(pure = true)
     @Override
-    public String toString() {
-        return "Category{" +
-                "name='" + name + '\'' +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return name.equals(category.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 }

@@ -9,7 +9,6 @@ import java.util.TreeSet;
 public class Day implements Comparable<Day>, Serializable {
     private LocalDate date;
     private final TreeSet<Creneau> creneaux = new TreeSet<>();
-    private static int nbrTachesRealiseesMin;
 
     @Override
     public boolean equals(Object o) {

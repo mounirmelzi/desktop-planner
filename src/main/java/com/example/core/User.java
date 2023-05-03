@@ -1,16 +1,21 @@
 package com.example.core;
 
 import java.io.*;
+import java.time.Duration;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class User implements Serializable {
 
     //region Attributes
 
-    private HashMap<Badge, Integer> badges;
     private String pseudo;
     private Calendrier calendrier;
-    private HashMap<Category, String> categoriesColor;
+    private HashSet<Category> categories;
+    private HashMap<Badge, Integer> badges;
+    private Duration dureeCreneauLibreMin;
+    private int nbrTachesMinParJour;
 
     //endregion
 
@@ -18,27 +23,19 @@ public class User implements Serializable {
 
     public User(String pseudo) {
         this.pseudo = pseudo;
-        this.badges = new HashMap<>();
+
         this.calendrier = new Calendrier();
+        this.badges = new HashMap<>();
+        this.dureeCreneauLibreMin = Duration.ofMinutes(30);
+        this.nbrTachesMinParJour = 3;
 
-        // init categoriesColor to the default color
-        categoriesColor = new HashMap<>();
-        for (Category category : Category.values()) categoriesColor.put(category, Category.getDefaultColor());
-    }
-
-    public User(String pseudo, Calendrier calendrier) {
-        this(pseudo);
-        this.calendrier = calendrier;
-    }
-
-    public User(String pseudo, Calendrier calendrier, HashMap<Badge, Integer> badges) {
-        this(pseudo, calendrier);
-        this.badges = badges;
-    }
-
-    public User(String pseudo, Calendrier calendrier, HashMap<Badge, Integer> badges, HashMap<Category, String> categoriesColor) {
-        this(pseudo, calendrier, badges);
-        this.categoriesColor = categoriesColor;
+        this.categories = new HashSet<>(Arrays.asList(
+                new Category("Studies"),
+                new Category("Work"),
+                new Category("Hobby"),
+                new Category("Sport"),
+                new Category("Health")
+        ));
     }
 
     //endregion
@@ -111,8 +108,10 @@ public class User implements Serializable {
 
             this.pseudo = user.pseudo;
             this.calendrier = user.calendrier;
+            this.categories = user.categories;
             this.badges = user.badges;
-            this.categoriesColor = user.categoriesColor;
+            this.dureeCreneauLibreMin = user.dureeCreneauLibreMin;
+            this.nbrTachesMinParJour = user.nbrTachesMinParJour;
         } catch (FileNotFoundException ex) {
             System.out.println("Le fichier qui contient l'utilisateur n'existe pas pour le charcher");
         } catch (EOFException ex) {
@@ -135,15 +134,5 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         return pseudo.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "badges=" + badges +
-                ", pseudo='" + pseudo + '\'' +
-                ", calendrier=" + calendrier +
-                ", categoriesColor=" + categoriesColor +
-                '}';
     }
 }

@@ -1,21 +1,20 @@
 package com.example.core;
 
 import java.io.Serializable;
-import java.util.Comparator;
-import java.util.TreeSet;
+import java.util.ArrayList;
 
 public class Project implements Serializable {
     private String nom;
     private String description;
-    private TreeSet<Tache> taches;
+    private ArrayList<Tache> taches;
 
     public Project(String nom, String description) {
         this.nom = nom;
         this.description = description;
-        this.taches = new TreeSet<>(Comparator.reverseOrder());
+        this.taches = new ArrayList<>();
     }
 
-    public Project(String nom, String description, TreeSet<Tache> taches) {
+    public Project(String nom, String description, ArrayList<Tache> taches) {
         this(nom, description);
         this.taches = taches;
     }
