@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -46,12 +47,18 @@ public class Day implements Comparable<Day>, Serializable {
      * @return Boolean: True si le creneau est ajouté avec succès, False si non
      */
     public Boolean ajouterCreneauLibre(CreneauLibre creneauLibre) {
-        Boolean success = Boolean.FALSE;
-
-        //TODO: implémenter la methode qui ajoute un creneau libre dans une journée
-        creneaux.add(creneauLibre);
-
-        return success;
+        Boolean inserable = Boolean.TRUE ;
+        Iterator<Creneau> it = creneaux.iterator();
+        while ((it.hasNext())) {
+            Creneau c = it.next() ;
+            if (!((c.avant(creneauLibre)== 1)||(creneauLibre.avant(c)== 1))) {
+                inserable = Boolean.FALSE ;
+                break ;
+            }
+        }
+        if (inserable == Boolean.TRUE) { creneaux.add(creneauLibre);}
+        else {System.out.println("nonInserable"); }
+        return inserable;
     }
 
 
