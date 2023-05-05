@@ -22,8 +22,8 @@ public class CreneauOccupe extends Creneau {
         return "CreneauOccupe{" +
                 "tache=" + tache +
                 ", blocked=" + blocked +
-                ", heureDebut=" + heureDebut +
-                ", heureFin=" + heureFin +
+                ", heureDebut=" + getHeureDebut() +
+                ", heureFin=" + getHeureFin() +
                 '}';
     }
 }
