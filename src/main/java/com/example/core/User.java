@@ -48,26 +48,16 @@ public class User implements Serializable {
      * @param pseudo user's pseudo
      * @return User object
      */
-    public static User load(String pseudo) {
-        User user = null;
+    public static User load(String pseudo) throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(String.format(
+                "data%susers%s%s.bin", File.separator, File.separator, pseudo
+        ));
+        ObjectInputStream ois = new ObjectInputStream(fis);
 
-        try {
-            FileInputStream fis = new FileInputStream(String.format(
-                    "data%susers%s%s.bin", File.separator, File.separator, pseudo
-            ));
-            ObjectInputStream ois = new ObjectInputStream(fis);
+        User user = (User) ois.readObject();
 
-            user = (User) ois.readObject();
-
-            ois.close();
-            fis.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println("Le fichier qui contient l'utilisateur n'existe pas pour le charcher");
-        } catch (EOFException ex) {
-            System.out.println("Le fichier qui contient l'utilisateur est endommagé");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        ois.close();
+        fis.close();
 
         return user;
     }
@@ -75,57 +65,31 @@ public class User implements Serializable {
     /**
      * Save an User object in .bin file
      */
-    public void save() {
-        try {
-            // create the save folder if it doesn't exist
-            File folder = new File(String.format("data%susers", File.separator));
-            if (!folder.exists()) {
-                Boolean success = folder.mkdirs();
-            }
-
-            // save the User object
-            FileOutputStream fos = new FileOutputStream(String.format(
-                    "data%susers%s%s.bin", File.separator, File.separator, this.pseudo
-            ));
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-            oos.writeObject(this);
-
-            oos.close();
-            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void save() throws IOException {
+        // create the save folder if it doesn't exist
+        File folder = new File(String.format("data%susers", File.separator));
+        if (!folder.exists()) {
+            Boolean success = folder.mkdirs();
         }
+
+        // save the User object
+        FileOutputStream fos = new FileOutputStream(String.format(
+                "data%susers%s%s.bin", File.separator, File.separator, this.pseudo
+        ));
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        oos.writeObject(this);
+
+        oos.close();
+        fos.close();
     }
 
-    /**
-     * Read an User data from .bin file
-     */
-    public void load() {
-        try {
-            FileInputStream fis = new FileInputStream(String.format(
-                    "data%susers%s%s.bin", File.separator, File.separator, this.pseudo
-            ));
-            ObjectInputStream ois = new ObjectInputStream(fis);
+    //endregion
 
-            User user = (User) ois.readObject();
+    //region Setter and Getters
 
-            ois.close();
-            fis.close();
-
-            this.pseudo = user.pseudo;
-            this.calendrier = user.calendrier;
-            this.categories = user.categories;
-            this.badges = user.badges;
-            this.dureeCreneauLibreMin = user.dureeCreneauLibreMin;
-            this.nbrTachesMinParJour = user.nbrTachesMinParJour;
-        } catch (FileNotFoundException ex) {
-            System.out.println("Le fichier qui contient l'utilisateur n'existe pas pour le charcher");
-        } catch (EOFException ex) {
-            System.out.println("Le fichier qui contient l'utilisateur est endommagé");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+    public String getPseudo() {
+        return pseudo;
     }
 
     //endregion

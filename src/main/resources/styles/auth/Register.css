@@ -1,0 +1,70 @@
+.root-container {
+    -fx-background-color: #f2f2f2;
+    -fx-alignment: CENTER;
+    -fx-spacing: 20px;
+}
+
+.page-title {
+    -fx-font-size: 24px;
+    -fx-padding: 0 0 40px 0;
+}
+
+.pseudo-container {
+    -fx-alignment: center;
+    -fx-spacing: 10px
+}
+
+.pseudo-label {
+    -fx-font-size: 16px;
+}
+
+.pseudo-textfield {
+    -fx-prompt-text-fill: #aaa;
+    -fx-font-size: 16px;
+    -fx-background-color: #f2f2f2;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px 10px;
+    -fx-border-width: 1px;
+    -fx-border-color: #ccc;
+    -fx-focus-color: transparent;
+}
+
+.pseudo-textfield:focused {
+    -fx-border-color: #0088FF;
+}
+
+.btns-container {
+    -fx-alignment: center;
+    -fx-spacing: 30px
+}
+
+.login-container {
+    -fx-alignment: CENTER;
+    -fx-spacing: 10px;
+}
+
+.login-label {
+    -fx-font-size: 14px;
+}
+
+.btn {
+    -fx-background-color: #0088FF;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #fff;
+    -fx-font-size: 16px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+}
+
+.btn:hover {
+    -fx-background-color: #0077CC;
+}
+
+.message {
+    -fx-padding: 10px 0 0 0;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.controllers.auth.RegisterController"
+      stylesheets="@../../styles/auth/Register.css"
+      styleClass="root-container"
+      prefWidth="600" prefHeight="400"
+>
+    <Label text="Register Page" styleClass="page-title"/>
+
+    <HBox styleClass="pseudo-container">
+        <Label text="Pseudo" styleClass="pseudo-label"/>
+        <TextField fx:id="pseudoTextField" promptText="Entrer votre pseudo" focusTraversable="false"
+                   styleClass="pseudo-textfield"/>
+    </HBox>
+
+    <VBox styleClass="btns-container">
+        <Button text="Creer un compte" styleClass="btn" onAction="#handleRegisterButtonAction"/>
+
+        <VBox styleClass="login-container">
+            <Label text="Vous avez un compte?" styleClass="login-label"/>
+            <Button text="Login" styleClass="btn" onAction="#handleLoginButtonAction"/>
+        </VBox>
+    </VBox>
+
+    <Label fx:id="messageLabel" styleClass="message"/>
+</VBox>
