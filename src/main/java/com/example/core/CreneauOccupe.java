@@ -4,7 +4,7 @@ import java.time.LocalTime;
 
 public class CreneauOccupe extends Creneau {
     private Tache tache;
-    private Boolean blocked;
+    private boolean blocked;
 
     public CreneauOccupe(LocalTime heureDebut, LocalTime heureFin, Tache tache) {
         super(heureDebut, heureFin);
@@ -12,7 +12,7 @@ public class CreneauOccupe extends Creneau {
         this.blocked = false;
     }
 
-    public CreneauOccupe(LocalTime heureDebut, LocalTime heureFin, Tache tache, Boolean blocked) {
+    public CreneauOccupe(LocalTime heureDebut, LocalTime heureFin, Tache tache, boolean blocked) {
         this(heureDebut, heureFin, tache);
         this.blocked = blocked;
     }

@@ -69,7 +69,7 @@ public class User implements Serializable {
         // create the save folder if it doesn't exist
         File folder = new File(String.format("data%susers", File.separator));
         if (!folder.exists()) {
-            Boolean success = folder.mkdirs();
+            boolean success = folder.mkdirs();
         }
 
         // save the User object

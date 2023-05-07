@@ -44,19 +44,19 @@ public class Day implements Comparable<Day>, Serializable {
      * ajouter un creneau libre dans les creneau de la journée
      *
      * @param creneauLibre le creneau libre à ajouter
-     * @return Boolean: True si le creneau est ajouté avec succès, False si non
+     * @return boolean: True si le creneau est ajouté avec succès, False si non
      */
-    public Boolean ajouterCreneauLibre(CreneauLibre creneauLibre) {
-        Boolean inserable = Boolean.TRUE ;
+    public boolean ajouterCreneauLibre(CreneauLibre creneauLibre) {
+        boolean inserable = true ;
         Iterator<Creneau> it = creneaux.iterator();
         while ((it.hasNext())) {
             Creneau c = it.next() ;
             if (!((c.avant(creneauLibre)== 1)||(creneauLibre.avant(c)== 1))) {
-                inserable = Boolean.FALSE ;
+                inserable = false ;
                 break ;
             }
         }
-        if (inserable == Boolean.TRUE) { creneaux.add(creneauLibre);}
+        if (inserable) { creneaux.add(creneauLibre);}
         else {System.out.println("nonInserable"); }
         return inserable;
     }
