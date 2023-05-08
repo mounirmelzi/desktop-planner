@@ -11,14 +11,14 @@ public class User implements Serializable {
 
     //region Attributes
 
+    private final TreeSet<Tache> taches = new TreeSet<>(); // les taches no programmées : unscheduled (l'ensemble des taches)
+    private final HashSet<Project> projects = new HashSet<>();
     private String pseudo;
     private Calendrier calendrier;
     private HashSet<Category> categories;
     private HashMap<Badge, Integer> badges;
     private Duration dureeCreneauLibreMin;
     private int nbrTachesMinParJour;
-    private final TreeSet<Tache> taches = new TreeSet<>(); // les taches no programmées : unscheduled (l'ensemble des taches)
-    private final HashSet<Project> projects = new HashSet<>();
 
     //endregion
 
@@ -29,8 +29,10 @@ public class User implements Serializable {
 
         this.calendrier = new Calendrier();
         this.badges = new HashMap<>();
-        this.dureeCreneauLibreMin = Duration.ofMinutes(30);
         this.nbrTachesMinParJour = 3;
+
+        this.dureeCreneauLibreMin = Duration.ofMinutes(30);
+        CreneauLibre.setDureeMin(this.dureeCreneauLibreMin);
 
         this.categories = new HashSet<>(Arrays.asList(
                 new Category("Studies"),
@@ -62,6 +64,7 @@ public class User implements Serializable {
         ois.close();
         fis.close();
 
+        CreneauLibre.setDureeMin(user.dureeCreneauLibreMin);
         return user;
     }
 
