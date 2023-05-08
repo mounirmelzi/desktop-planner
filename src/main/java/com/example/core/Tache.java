@@ -15,6 +15,33 @@ public abstract class Tache implements Comparable<Tache>, Serializable {
     protected Category category;
     protected State state;
 
+    public Tache(String nom, Duration duree, Priority priority, LocalDateTime deadline) {
+        this.nom = nom;
+        this.duree = duree;
+        this.priority = priority;
+        this.deadline = deadline;
+    }
+
+    public Tache(String nom, Duration duree, Priority priority, LocalDateTime deadline, Category category) {
+        this(nom, duree, priority, deadline);
+        this.category = category;
+    }
+
+    public Tache(String nom, Duration duree, Priority priority, LocalDateTime deadline, State state) {
+        this(nom, duree, priority, deadline);
+        this.state = state;
+    }
+
+    public Tache(String nom, Duration duree, Priority priority, LocalDateTime deadline, Category category, State state) {
+        this(nom, duree, priority, deadline);
+        this.category = category;
+        this.state = state;
+    }
+
+    public Duration getDuree() {
+        return duree;
+    }
+
     @Override
     public int compareTo(@NotNull Tache other) {
         Comparator<Tache> priorityComparator = new PriorityComparator();

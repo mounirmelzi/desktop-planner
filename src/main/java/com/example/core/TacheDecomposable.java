@@ -1,12 +1,44 @@
 package com.example.core;
 
+import com.example.core.exceptions.DecompositionImpossibleException;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.TreeSet;
 
 public class TacheDecomposable extends Tache implements IDecomposable<Planning, TacheSimple> {
     private TreeSet<TacheSimple> children;
 
+    public TacheDecomposable(String nom, Duration duree, Priority priority, LocalDateTime deadline) {
+        super(nom, duree, priority, deadline);
+        children = new TreeSet<>();
+    }
+
+    public TacheDecomposable(String nom, Duration duree, Priority priority, LocalDateTime deadline, Category category) {
+        super(nom, duree, priority, deadline, category);
+        children = new TreeSet<>();
+    }
+
+    public TacheDecomposable(String nom, Duration duree, Priority priority, LocalDateTime deadline, State state) {
+        super(nom, duree, priority, deadline, state);
+        children = new TreeSet<>();
+    }
+
+    public TacheDecomposable(String nom, Duration duree, Priority priority, LocalDateTime deadline, Category category, State state) {
+        super(nom, duree, priority, deadline, category, state);
+        children = new TreeSet<>();
+    }
+
+    public TreeSet<TacheSimple> getChildren() {
+        return children;
+    }
+
+    public void setChildren(TreeSet<TacheSimple> children) {
+        this.children = children;
+    }
+
     @Override
-    public TreeSet<TacheSimple> decomposer(Planning decomposer) {
+    public TreeSet<TacheSimple> decomposer(Planning decomposer) throws DecompositionImpossibleException {
         //TODO: implémenter la methode decomposer pour les taches décomposables
         return null;
     }
