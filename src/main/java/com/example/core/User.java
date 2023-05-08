@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.TreeSet;
 
 public class User implements Serializable {
 
@@ -16,6 +17,8 @@ public class User implements Serializable {
     private HashMap<Badge, Integer> badges;
     private Duration dureeCreneauLibreMin;
     private int nbrTachesMinParJour;
+    private final TreeSet<Tache> taches = new TreeSet<>(); // les taches no programmées : unscheduled (l'ensemble des taches)
+    private final HashSet<Project> projects = new HashSet<>();
 
     //endregion
 
