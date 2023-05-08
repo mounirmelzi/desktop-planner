@@ -7,7 +7,13 @@ import java.time.LocalDateTime;
 import java.util.TreeSet;
 
 public class TacheDecomposable extends Tache implements IDecomposable<Planning, TacheSimple> {
+    //region Attributes
+
     private TreeSet<TacheSimple> children;
+
+    //endregion
+
+    //region Constructors
 
     public TacheDecomposable(String nom, Duration duree, Priority priority, LocalDateTime deadline) {
         super(nom, duree, priority, deadline);
@@ -29,6 +35,10 @@ public class TacheDecomposable extends Tache implements IDecomposable<Planning, 
         children = new TreeSet<>();
     }
 
+    //endregion
+
+    //region Setter and Getters
+
     public TreeSet<TacheSimple> getChildren() {
         return children;
     }
@@ -36,6 +46,10 @@ public class TacheDecomposable extends Tache implements IDecomposable<Planning, 
     public void setChildren(TreeSet<TacheSimple> children) {
         this.children = children;
     }
+
+    //endregion
+
+    //region Methods
 
     @Override
     public TreeSet<TacheSimple> decomposer(Planning decomposer) throws DecompositionImpossibleException {
@@ -55,4 +69,6 @@ public class TacheDecomposable extends Tache implements IDecomposable<Planning, 
                 ", state=" + state +
                 '}';
     }
+
+    //endregion
 }

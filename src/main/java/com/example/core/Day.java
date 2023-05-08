@@ -9,8 +9,14 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class Day implements Comparable<Day>, Serializable {
+    //region Attributes
+
     private LocalDate date;
     private TreeSet<Creneau> creneaux;
+
+    //endregion
+
+    //region Constructors
 
     public Day(LocalDate date) {
         this.date = date;
@@ -21,6 +27,10 @@ public class Day implements Comparable<Day>, Serializable {
         this(date);
         this.creneaux = creneaux;
     }
+
+    //endregion
+
+    //region Setter and Getters
 
     public TreeSet<CreneauLibre> getCreneauxLibres() {
         return creneaux.stream()
@@ -39,6 +49,10 @@ public class Day implements Comparable<Day>, Serializable {
     public TreeSet<Creneau> getCreneaux() {
         return creneaux;
     }
+
+    //endregion
+
+    //region Methods
 
     /**
      * ajouter un creneau libre dans les creneau de la journée
@@ -79,4 +93,6 @@ public class Day implements Comparable<Day>, Serializable {
     public int compareTo(@NotNull Day other) {
         return date.compareTo(other.date);
     }
+
+    //endregion
 }

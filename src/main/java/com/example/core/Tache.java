@@ -8,12 +8,18 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 
 public abstract class Tache implements Comparable<Tache>, Serializable {
+    //region Attributes
+
     protected String nom;
     protected Duration duree;
     protected Priority priority;
     protected LocalDateTime deadline;
     protected Category category;
     protected State state;
+
+    //endregion
+
+    //region Constructors
 
     public Tache(String nom, Duration duree, Priority priority, LocalDateTime deadline) {
         this.nom = nom;
@@ -38,9 +44,17 @@ public abstract class Tache implements Comparable<Tache>, Serializable {
         this.state = state;
     }
 
+    //endregion
+
+    //region Setter and Getters
+
     public Duration getDuree() {
         return duree;
     }
+
+    //endregion
+
+    //region Methods
 
     @Override
     public int compareTo(@NotNull Tache other) {
@@ -64,6 +78,8 @@ public abstract class Tache implements Comparable<Tache>, Serializable {
                 ", state=" + state +
                 '}';
     }
+
+    //endregion
 
 
     public static class PriorityComparator implements Comparator<Tache> {

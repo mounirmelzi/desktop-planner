@@ -3,8 +3,14 @@ package com.example.core;
 import java.io.Serializable;
 
 public class Category implements Serializable {
+    //region Attributes
+
     private String name;
     private String color;
+
+    //endregion
+
+    //region Constructors
 
     public Category(String name) {
         this.name = name;
@@ -15,6 +21,14 @@ public class Category implements Serializable {
         this(name);
         this.color = color;
     }
+
+    //endregion
+
+    //region Setter and Getters
+
+    //endregion
+
+    //region Methods
 
     @Override
     public boolean equals(Object o) {
@@ -28,4 +42,6 @@ public class Category implements Serializable {
     public int hashCode() {
         return name.hashCode();
     }
+
+    //endregion
 }

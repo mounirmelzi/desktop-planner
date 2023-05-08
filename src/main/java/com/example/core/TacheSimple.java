@@ -4,7 +4,13 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class TacheSimple extends Tache {
+    //region Attributes
+
     private int periodicity;
+
+    //endregion
+
+    //region Constructors
 
     public TacheSimple(String nom, Duration duree, Priority priority, LocalDateTime deadline) {
         super(nom, duree, priority, deadline);
@@ -26,6 +32,10 @@ public class TacheSimple extends Tache {
         periodicity = 0;
     }
 
+    //endregion
+
+    //region Setter and Getters
+
     public int getPeriodicity() {
         return periodicity;
     }
@@ -33,6 +43,10 @@ public class TacheSimple extends Tache {
     public void setPeriodicity(int periodicity) {
         this.periodicity = periodicity;
     }
+
+    //endregion
+
+    //region Methods
 
     @Override
     public String toString() {
@@ -46,4 +60,6 @@ public class TacheSimple extends Tache {
                 ", state=" + state +
                 '}';
     }
+
+    //endregion
 }

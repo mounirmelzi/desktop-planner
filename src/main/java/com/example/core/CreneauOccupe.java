@@ -3,8 +3,14 @@ package com.example.core;
 import java.time.LocalTime;
 
 public class CreneauOccupe extends Creneau {
+    //region Attributes
+
     private Tache tache;
     private boolean blocked;
+
+    //endregion
+
+    //region Constructors
 
     public CreneauOccupe(LocalTime heureDebut, LocalTime heureFin, Tache tache) {
         super(heureDebut, heureFin);
@@ -17,6 +23,14 @@ public class CreneauOccupe extends Creneau {
         this.blocked = blocked;
     }
 
+    //endregion
+
+    //region Setter and Getters
+
+    //endregion
+
+    //region Methods
+
     @Override
     public String toString() {
         return "CreneauOccupe{" +
@@ -26,4 +40,6 @@ public class CreneauOccupe extends Creneau {
                 ", heureFin=" + getHeureFin() +
                 '}';
     }
+
+    //endregion
 }

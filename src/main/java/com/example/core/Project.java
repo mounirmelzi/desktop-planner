@@ -4,9 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Project implements Serializable {
+    //region Attributes
+
     private String nom;
     private String description;
     private ArrayList<Tache> taches;
+
+    //endregion
+
+    //region Constructors
 
     public Project(String nom, String description) {
         this.nom = nom;
@@ -18,6 +24,14 @@ public class Project implements Serializable {
         this(nom, description);
         this.taches = taches;
     }
+
+    //endregion
+
+    //region Setter and Getters
+
+    //endregion
+
+    //region Methods
 
     @Override
     public boolean equals(Object o) {
@@ -40,4 +54,6 @@ public class Project implements Serializable {
                 ", taches=" + taches +
                 '}';
     }
+
+    //endregion
 }

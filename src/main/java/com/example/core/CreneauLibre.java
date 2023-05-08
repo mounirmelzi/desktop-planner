@@ -9,7 +9,13 @@ import java.util.List;
 import java.util.TreeSet;
 
 public class CreneauLibre extends Creneau implements IDecomposable<Tache, Creneau> {
+    //region Attributes
+
     private static Duration dureeMin = Duration.ofMinutes(30);
+
+    //endregion
+
+    //region Constructors
 
     public CreneauLibre(LocalTime heureDebut, LocalTime heureFin) throws CreneauLibreDurationException {
         super(heureDebut, heureFin);
@@ -19,6 +25,10 @@ public class CreneauLibre extends Creneau implements IDecomposable<Tache, Crenea
         }
     }
 
+    //endregion
+
+    //region Setter and Getters
+
     public static Duration getDureeMin() {
         return dureeMin;
     }
@@ -26,6 +36,10 @@ public class CreneauLibre extends Creneau implements IDecomposable<Tache, Crenea
     public static void setDureeMin(Duration dureeMin) {
         CreneauLibre.dureeMin = dureeMin;
     }
+
+    //endregion
+
+    //region Methods
 
     /**
      * decomposer un creneau libre en un creneau occupée par une tache et un autre creneau libre
@@ -66,4 +80,6 @@ public class CreneauLibre extends Creneau implements IDecomposable<Tache, Crenea
                 ", heureFin=" + getHeureFin() +
                 '}';
     }
+
+    //endregion
 }

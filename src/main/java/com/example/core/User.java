@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.TreeSet;
 
 public class User implements Serializable {
-
     //region Attributes
 
     private final TreeSet<Tache> taches = new TreeSet<>(); // les taches no programmées : unscheduled (l'ensemble des taches)
@@ -41,6 +40,14 @@ public class User implements Serializable {
                 new Category("Sport"),
                 new Category("Health")
         ));
+    }
+
+    //endregion
+
+    //region Setter and Getters
+
+    public String getPseudo() {
+        return pseudo;
     }
 
     //endregion
@@ -90,16 +97,6 @@ public class User implements Serializable {
         fos.close();
     }
 
-    //endregion
-
-    //region Setter and Getters
-
-    public String getPseudo() {
-        return pseudo;
-    }
-
-    //endregion
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -112,4 +109,6 @@ public class User implements Serializable {
     public int hashCode() {
         return pseudo.hashCode();
     }
+
+    //endregion
 }
