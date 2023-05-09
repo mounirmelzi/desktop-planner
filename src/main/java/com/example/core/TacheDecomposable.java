@@ -1,6 +1,7 @@
 package com.example.core;
 
 import com.example.core.exceptions.DecompositionImpossibleException;
+import com.example.core.exceptions.UnscheduledException;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -51,6 +52,23 @@ public class TacheDecomposable extends Tache implements IDecomposable<Planning, 
 
     //region Methods
 
+    public boolean hasChildren() {
+        return !children.isEmpty();
+    }
+
+    /**
+     * @param planning planning le planning dans le quel la tache décomposable sera planifiée
+     * @throws UnscheduledException si la tache ne peut pas etre planifiée dans le planning
+     */
+    @Override
+    public void planifier(Planning planning) throws UnscheduledException {
+        if (hasChildren()) {
+            // TODO: implémenter la planification d'une tache décomposable
+        } else {
+            planning.planifier(this);
+        }
+    }
+
     @Override
     public TreeSet<TacheSimple> decomposer(Planning decomposer) throws DecompositionImpossibleException {
         //TODO: implémenter la methode decomposer pour les taches décomposables
@@ -61,12 +79,12 @@ public class TacheDecomposable extends Tache implements IDecomposable<Planning, 
     public String toString() {
         return "TacheDecomposable{" +
                 "children=" + children +
-                ", nom='" + nom + '\'' +
-                ", duree=" + duree +
-                ", priority=" + priority +
-                ", deadline=" + deadline +
-                ", category=" + category +
-                ", state=" + state +
+                ", nom='" + getNom() + '\'' +
+                ", duree=" + getDuree() +
+                ", priority=" + getPriority() +
+                ", deadline=" + getDeadline() +
+                ", category=" + getCategory() +
+                ", state=" + getState() +
                 '}';
     }
 

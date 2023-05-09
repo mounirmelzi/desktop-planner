@@ -1,10 +1,10 @@
 package com.example.core;
 
+import com.example.core.exceptions.UnscheduledException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Iterator;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -18,12 +18,12 @@ public class Day implements Comparable<Day>, Serializable {
 
     //region Constructors
 
-    public Day(LocalDate date) {
+    public Day(@NotNull LocalDate date) {
         this.date = date;
         this.creneaux = new TreeSet<>();
     }
 
-    public Day(LocalDate date, TreeSet<Creneau> creneaux) {
+    public Day(@NotNull LocalDate date, TreeSet<Creneau> creneaux) {
         this(date);
         this.creneaux = creneaux;
     }
@@ -50,31 +50,63 @@ public class Day implements Comparable<Day>, Serializable {
         return creneaux;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
     //endregion
 
     //region Methods
 
     /**
-     * ajouter un creneau libre dans les creneau de la journée
-     *
-     * @param creneauLibre le creneau libre à ajouter
-     * @return boolean: True si le creneau est ajouté avec succès, False si non
+     * verifier s'il y a un creneau dans une journée
+     * @return true s'il y a au moins un creneau, false si non
      */
-    public boolean ajouterCreneauLibre(CreneauLibre creneauLibre) {
-        boolean inserable = true ;
-        Iterator<Creneau> it = creneaux.iterator();
-        while ((it.hasNext())) {
-            Creneau c = it.next() ;
-            if (!((c.avant(creneauLibre)== 1)||(creneauLibre.avant(c)== 1))) {
-                inserable = false ;
-                break ;
-            }
-        }
-        if (inserable) { creneaux.add(creneauLibre);}
-        else {System.out.println("nonInserable"); }
-        return inserable;
+    public boolean hasCreneaux() {
+        return !creneaux.isEmpty();
     }
 
+    /**
+     * ajouter un creneau libre dans les creneaux de la journée
+     * @param creneauLibre le creneau libre à ajouter
+     * @return boolean: true si le creneau est ajouté avec succès, false si non
+     */
+    public boolean ajouterCreneauLibre(CreneauLibre creneauLibre) {
+        if (creneauLibre == null)
+            return false;
+
+        for (Creneau c : creneaux) {
+            if (!(creneauLibre.isAvant(c) || creneauLibre.isApres(c))) {
+                return false;
+            }
+        }
+
+        creneaux.add(creneauLibre);
+        return true;
+    }
+
+    /**
+     * planifier une tache automatiquement dans une journée
+     * @param tache la tache qui va etre planifier dans cette journée
+     * @return TreeSet<Creneau> (CreneauOccupe, CreneauLibre?)
+     * @throws UnscheduledException si la tache ne peut pas etre planifiée dans aucun creneau libre
+     */
+    public TreeSet<Creneau> planifier(@NotNull Tache tache) throws UnscheduledException {
+        for (CreneauLibre creneauLibre : getCreneauxLibres()) {
+            if (!tache.checkDeadline(this, creneauLibre))
+                throw new UnscheduledException();
+
+            try {
+                TreeSet<Creneau> creneaux = creneauLibre.planifier(tache);
+
+                getCreneaux().remove(creneauLibre);
+                getCreneaux().addAll(creneaux);
+                return creneaux;
+            } catch (UnscheduledException ignored) {}
+        }
+
+        throw new UnscheduledException();
+    }
 
     @Override
     public boolean equals(Object o) {

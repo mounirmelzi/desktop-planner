@@ -1,9 +1,11 @@
 package com.example.core;
 
+import com.example.core.exceptions.UnscheduledException;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Project implements Serializable {
+public class Project implements IPlanifiable, Serializable {
     //region Attributes
 
     private String nom;
@@ -32,6 +34,15 @@ public class Project implements Serializable {
     //endregion
 
     //region Methods
+
+    /**
+     * @param planning planning le planning dans le quel le projet sera planifié
+     * @throws UnscheduledException si le projet ne peut pas etre planifié dans le planning
+     */
+    @Override
+    public void planifier(Planning planning) throws UnscheduledException {
+        // TODO: implémenter la planification d'un projet
+    }
 
     @Override
     public boolean equals(Object o) {

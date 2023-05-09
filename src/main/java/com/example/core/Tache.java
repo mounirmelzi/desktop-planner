@@ -7,15 +7,15 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 
-public abstract class Tache implements Comparable<Tache>, Serializable {
+public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializable {
     //region Attributes
 
-    protected String nom;
-    protected Duration duree;
-    protected Priority priority;
-    protected LocalDateTime deadline;
-    protected Category category;
-    protected State state;
+    private String nom;
+    private Duration duree;
+    private Priority priority;
+    private LocalDateTime deadline;
+    private Category category;
+    private State state;
 
     //endregion
 
@@ -48,13 +48,57 @@ public abstract class Tache implements Comparable<Tache>, Serializable {
 
     //region Setter and Getters
 
+    public String getNom() {
+        return nom;
+    }
+
     public Duration getDuree() {
         return duree;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public State getState() {
+        return state;
     }
 
     //endregion
 
     //region Methods
+
+    /**
+     * vérifier si le deadline d'une tache est respecté si elle est planifier dans un créneau libre d'une journée donnée
+     * @param day une journée
+     * @param creneauLibre un créneau libre
+     * @return true si le deadline est respecté, false si non
+     */
+    public boolean checkDeadline(@NotNull Day day, CreneauLibre creneauLibre) {
+        if (day.getDate().isAfter(deadline.toLocalDate()))
+            return false;
+
+        if (creneauLibre == null)
+            return true;
+
+        if (day.getDate().isEqual(deadline.toLocalDate())) {
+            if (creneauLibre.getHeureDebut().isAfter(deadline.toLocalTime()))
+                return false;
+
+            if (creneauLibre.getHeureDebut().plus(getDuree()).isAfter(deadline.toLocalTime()))
+                return false;
+        }
+
+        return true;
+    }
 
     @Override
     public int compareTo(@NotNull Tache other) {
@@ -84,14 +128,14 @@ public abstract class Tache implements Comparable<Tache>, Serializable {
 
     public static class PriorityComparator implements Comparator<Tache> {
         @Override
-        public int compare(Tache t1, Tache t2) {
+        public int compare(@NotNull Tache t1, @NotNull Tache t2) {
             return t1.priority.compareTo(t2.priority);
         }
     }
 
     public static class DeadlineComparator implements Comparator<Tache> {
         @Override
-        public int compare(Tache t1, Tache t2) {
+        public int compare(@NotNull Tache t1, @NotNull Tache t2) {
             return t1.deadline.compareTo(t2.deadline);
         }
     }

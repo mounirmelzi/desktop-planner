@@ -1,5 +1,7 @@
 package com.example.core;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.*;
 import java.time.Duration;
 import java.util.Arrays;
@@ -14,6 +16,7 @@ public class User implements Serializable {
     private final HashSet<Project> projects = new HashSet<>();
     private String pseudo;
     private Calendrier calendrier;
+    private Planning planning;
     private HashSet<Category> categories;
     private HashMap<Badge, Integer> badges;
     private Duration dureeCreneauLibreMin;
@@ -27,6 +30,7 @@ public class User implements Serializable {
         this.pseudo = pseudo;
 
         this.calendrier = new Calendrier();
+        this.planning = null;
         this.badges = new HashMap<>();
         this.nbrTachesMinParJour = 3;
 
@@ -54,13 +58,22 @@ public class User implements Serializable {
 
     //region Methods
 
+    public void creerPlanning () {
+        // TODO: creer un planning: attacher a ce planning le calendrier de l'utilisateur
+    }
+
+    public void planifierAuto() {
+        // TODO: planifier l'ensemble des taches this.taches automatiquement dans this.planning
+    }
+
     /**
      * Read an User object from .bin file
      *
      * @param pseudo user's pseudo
      * @return User object
      */
-    public static User load(String pseudo) throws IOException, ClassNotFoundException {
+    @NotNull
+    public static User load(@NotNull String pseudo) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(String.format(
                 "data%susers%s%s.bin", File.separator, File.separator, pseudo
         ));

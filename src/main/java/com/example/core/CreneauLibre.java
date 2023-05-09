@@ -2,6 +2,8 @@ package com.example.core;
 
 import com.example.core.exceptions.CreneauLibreDurationException;
 import com.example.core.exceptions.DecompositionImpossibleException;
+import com.example.core.exceptions.UnscheduledException;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -20,7 +22,7 @@ public class CreneauLibre extends Creneau implements IDecomposable<Tache, Crenea
     public CreneauLibre(LocalTime heureDebut, LocalTime heureFin) throws CreneauLibreDurationException {
         super(heureDebut, heureFin);
 
-        if (this.getDuration().compareTo(CreneauLibre.getDureeMin()) < 0) {
+        if (getDuration().compareTo(CreneauLibre.getDureeMin()) < 0) {
             throw new CreneauLibreDurationException();
         }
     }
@@ -43,33 +45,43 @@ public class CreneauLibre extends Creneau implements IDecomposable<Tache, Crenea
 
     /**
      * decomposer un creneau libre en un creneau occupée par une tache et un autre creneau libre
-     *
-     * @param decomposer la tache qui va etre planifier dans ce creneau libre
-     * @return TreeSet<Creneau> [CreneauOccupe, CreneauLibre?]
-     * @throws DecompositionImpossibleException si la durée de la tache est plus grande que la durée de creneau libre
+     * @param decomposer la tache qui va décomposer ce creneau libre
+     * @return TreeSet<Creneau> [CreneauOccupe, CreneauLibre]
+     * @throws DecompositionImpossibleException si on ne peut pas décomposer le Creneau Libre
      */
     @Override
     public TreeSet<Creneau> decomposer(Tache decomposer) throws DecompositionImpossibleException {
-        Duration dureeTache = decomposer.getDuree();
-        Duration dureeCreneau = this.getDuration();
-
-        if (dureeCreneau.compareTo(dureeTache) < 0) {
+        if (decomposer == null) {
             throw new DecompositionImpossibleException();
         }
 
-        LocalTime heureDebut = this.getHeureDebut();
-        LocalTime heureFin = this.getHeureFin();
-        LocalTime heureDecomposition = (LocalTime) dureeTache.addTo(heureDebut);
+        LocalTime heureDecomposition = (LocalTime) decomposer.getDuree().addTo(getHeureDebut());
 
         try {
-            CreneauLibre nouveauCreneauLibre = new CreneauLibre(heureDecomposition, heureFin);
-            CreneauOccupe nouveauCreneauOccupe = new CreneauOccupe(heureDebut, heureDecomposition, decomposer);
+            CreneauLibre nouveauCreneauLibre = new CreneauLibre(heureDecomposition, getHeureFin());
+            CreneauOccupe nouveauCreneauOccupe = new CreneauOccupe(getHeureDebut(), heureDecomposition, decomposer);
 
             return new TreeSet<>(List.of(nouveauCreneauOccupe, nouveauCreneauLibre));
         } catch (CreneauLibreDurationException exception) {
-            return new TreeSet<>(List.of(
-                    new CreneauOccupe(heureDebut, heureFin, decomposer)
-            ));
+            throw new DecompositionImpossibleException();
+        }
+    }
+
+    /**
+     * planifier une tache dans un creneau libre
+     * @param tache la tache qui va etre planifier dans ce creneau libre
+     * @return TreeSet<Creneau> (CreneauOccupe, CreneauLibre?)
+     * @throws UnscheduledException si la durée de la tache est plus grande que la durée de creneau libre
+     */
+    public TreeSet<Creneau> planifier(@NotNull Tache tache) throws UnscheduledException {
+        if (getDuration().compareTo(tache.getDuree()) < 0) {
+            throw new UnscheduledException();
+        }
+
+        try {
+            return decomposer(tache);
+        } catch (DecompositionImpossibleException e) {
+            return new TreeSet<>(List.of(new CreneauOccupe(getHeureDebut(), getHeureFin(), tache)));
         }
     }
 

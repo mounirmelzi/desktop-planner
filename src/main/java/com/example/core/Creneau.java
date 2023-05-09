@@ -17,9 +17,16 @@ public abstract class Creneau implements Comparable<Creneau>, Serializable {
 
     //region Constructors
 
-    public Creneau(LocalTime heureDebut, LocalTime heureFin) {
+    public Creneau(@NotNull LocalTime heureDebut, @NotNull LocalTime heureFin) {
+        //TODO: penser dans les cas speciales suivantes: 'heureDebut < now' ou 'heureFin < now'
+
         this.heureDebut = heureDebut;
         this.heureFin = heureFin;
+
+        if (heureDebut.isAfter(heureFin)) {
+            this.heureDebut = heureFin;
+            this.heureFin = heureDebut;
+        }
     }
 
     //endregion
@@ -51,15 +58,21 @@ public abstract class Creneau implements Comparable<Creneau>, Serializable {
     //region Methods
 
     /**
-     * compare la position de deux creneaux, si this est avant creneau elle retourne 1
-     * @param creneau the object to be compared.
-     * @return
+     * compare la position de deux creneaux
+     * @param creneau le creneau a comparer avec
+     * @return true si this est avant creneau, false si non
      */
-    public int avant(Creneau creneau) {
-        if ((creneau.getHeureDebut()).compareTo(this.getHeureFin())>=0) {
-            return 1 ;
-        }
-        else {return -1; }
+    public boolean isAvant(@NotNull Creneau creneau) {
+        return getHeureFin().isBefore(creneau.getHeureDebut());
+    }
+
+    /**
+     * compare la position de deux creneaux
+     * @param creneau le creneau a comparer avec
+     * @return true si this est apres creneau, false si non
+     */
+    public boolean isApres(@NotNull Creneau creneau) {
+        return getHeureDebut().isAfter(creneau.getHeureFin());
     }
 
     @Override

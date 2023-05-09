@@ -1,5 +1,7 @@
 package com.example.core;
 
+import com.example.core.exceptions.UnscheduledException;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -48,16 +50,25 @@ public class TacheSimple extends Tache {
 
     //region Methods
 
+    /**
+     * @param planning planning le planning dans le quel la tache simple sera planifiée
+     * @throws UnscheduledException si la tache ne peut pas etre planifiée dans le planning
+     */
+    @Override
+    public void planifier(Planning planning) throws UnscheduledException {
+        planning.planifier(this);
+    }
+
     @Override
     public String toString() {
         return "TacheSimple{" +
                 "periodicity=" + periodicity +
-                ", nom='" + nom + '\'' +
-                ", duree=" + duree +
-                ", priority=" + priority +
-                ", deadline=" + deadline +
-                ", category=" + category +
-                ", state=" + state +
+                ", nom='" + getNom() + '\'' +
+                ", duree=" + getDuree() +
+                ", priority=" + getPriority() +
+                ", deadline=" + getDeadline() +
+                ", category=" + getCategory() +
+                ", state=" + getState() +
                 '}';
     }
 
