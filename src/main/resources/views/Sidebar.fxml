@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            stylesheets="@../styles/Sidebar.css"
+            fx:controller="com.example.controllers.SidebarController"
+            fx:id="root">
+    <left>
+        <BorderPane fx:id="menu" styleClass="sidebar">
+            <top>
+                <VBox styleClass="logo-container">
+                    <ImageView fx:id="logoImageView" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                               preserveRatio="true"/>
+                    <Label fx:id="usernameLabel" styleClass="title"/>
+                    <Separator/>
+                </VBox>
+            </top>
+            <center>
+                <VBox prefWidth="150.0" styleClass="menu">
+                    <Button text="Home" onAction="#handleHome" styleClass="menu-item"/>
+                    <Button text="Calendar" onAction="#handleCalendar" styleClass="menu-item"/>
+                </VBox>
+            </center>
+            <bottom>
+                <VBox prefWidth="150.0" styleClass="menu">
+                    <Button text="Logout" onAction="#handleLogout" styleClass="menu-item"/>
+                </VBox>
+            </bottom>
+        </BorderPane>
+    </left>
+    <center>
+        <AnchorPane fx:id="pageContent"/>
+    </center>
+</BorderPane>

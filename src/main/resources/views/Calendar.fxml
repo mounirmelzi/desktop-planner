@@ -8,7 +8,7 @@
 
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.controllers.HomeController">
-    <Label text="Home page"/>
+            fx:controller="com.example.controllers.CalendarController">
+    <Label text="Calendar page"/>
     <Label fx:id="myLabel"/>
 </VBox>

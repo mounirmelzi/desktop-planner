@@ -1,5 +1,6 @@
 package com.example.controllers.auth;
 
+import com.example.controllers.Controller;
 import com.example.core.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +10,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class RegisterController {
+public class RegisterController extends Controller {
     @FXML
     private TextField pseudoTextField;
     @FXML
@@ -32,6 +33,7 @@ public class RegisterController {
                 setSuccessMessage("La creation du compte est effectuée avec succes");
             } catch (IOException ioException) {
                 setErrorMessage("Account creation failed, try again later");
+                ioException.printStackTrace();
             } catch (Exception exception) {
                 setErrorMessage(exception.getMessage());
                 exception.printStackTrace();

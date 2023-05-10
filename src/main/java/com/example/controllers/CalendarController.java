@@ -8,13 +8,13 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HomeController extends Controller implements Initializable {
+public class CalendarController extends Controller implements Initializable {
     @FXML
     private Label myLabel;
 
     private User user;
 
-    public HomeController(User user) {
+    public CalendarController(User user) {
         this.user = user;
     }
 
