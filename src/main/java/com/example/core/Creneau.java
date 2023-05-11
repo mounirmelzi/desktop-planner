@@ -63,7 +63,7 @@ public abstract class Creneau implements Comparable<Creneau>, Serializable {
      * @return true si this est avant creneau, false si non
      */
     public boolean isAvant(@NotNull Creneau creneau) {
-        return getHeureFin().isBefore(creneau.getHeureDebut());
+        return !getHeureFin().isAfter(creneau.getHeureDebut());
     }
 
     /**
@@ -72,7 +72,7 @@ public abstract class Creneau implements Comparable<Creneau>, Serializable {
      * @return true si this est apres creneau, false si non
      */
     public boolean isApres(@NotNull Creneau creneau) {
-        return getHeureDebut().isAfter(creneau.getHeureFin());
+        return !getHeureDebut().isBefore(creneau.getHeureFin());
     }
 
     @Override
