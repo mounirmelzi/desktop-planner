@@ -18,7 +18,7 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
     private LocalDateTime deadline;
     private Category category;
     private State state;
-    private boolean isUnscheduled;
+    private LocalDateTime planificationDateTime;
 
     //endregion
 
@@ -29,7 +29,7 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
         this.duree = duree;
         this.priority = priority;
         this.deadline = deadline;
-        this.isUnscheduled = true;
+        this.planificationDateTime = null;
     }
 
     public Tache(String nom, Duration duree, Priority priority, LocalDateTime deadline, Category category) {
@@ -76,12 +76,12 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
         return state;
     }
 
-    public boolean isUnscheduled() {
-        return isUnscheduled;
+    public LocalDateTime getPlanificationDateTime() {
+        return planificationDateTime;
     }
 
-    public void setUnscheduled(boolean unscheduled) {
-        isUnscheduled = unscheduled;
+    public void setPlanificationDateTime(LocalDateTime planificationDateTime) {
+        this.planificationDateTime = planificationDateTime;
     }
 
     //endregion
@@ -112,6 +112,14 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
         return true;
     }
 
+    /**
+     * vérifier si une tache est planifiée ou non
+     * @return true si la tache n'est pas planifiée, false si non
+     */
+    public boolean isUnscheduled() {
+        return planificationDateTime == null;
+    }
+
     @Override
     public int compareTo(@NotNull Tache other) {
         Comparator<Tache> priorityComparator = new PriorityComparator();
@@ -132,7 +140,7 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
                 .add("deadline=" + deadline)
                 .add("category=" + category)
                 .add("state=" + state)
-                .add("isUnscheduled=" + isUnscheduled)
+                .add("planificationDateTime=" + planificationDateTime)
                 .toString();
     }
 

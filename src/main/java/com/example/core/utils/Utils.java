@@ -34,7 +34,7 @@ public class Utils {
         }
 
         assert creneauOccupe != null;
-        return LocalDateTime.of(date, creneauOccupe.getHeureFin());
+        return LocalDateTime.of(date, creneauOccupe.getHeureDebut());
     }
 
     public static int compareBetweenDateTimePair(Pair<Day, TreeSet<Creneau>> pair1, Pair<Day, TreeSet<Creneau>> pair2) {

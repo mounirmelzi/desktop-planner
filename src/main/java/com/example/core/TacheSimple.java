@@ -1,12 +1,10 @@
 package com.example.core;
 
 import com.example.core.exceptions.UnscheduledException;
-import com.example.core.utils.Pair;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.TreeSet;
 
 public class TacheSimple extends Tache {
     //region Attributes
@@ -57,13 +55,13 @@ public class TacheSimple extends Tache {
      * planifier une tache automatiquement dans un planning
      * @param planning le planning dans lequel la tache sera planifiée
      * @param startDateTime la journée et le temps du début de planification
-     * @return (Day, TreeSet<Creneau> (CreneauOccupe, CreneauLibre?))
+     * @return LocalDateTime
      * @throws UnscheduledException si la tache ne peut pas etre planifiée dans le planning
      */
     @Override
-    public Pair<Day, TreeSet<Creneau>> planifier(@NotNull Planning planning, LocalDateTime startDateTime) throws UnscheduledException {
-        Pair<Day, TreeSet<Creneau>> infos = planning.planifier(this, startDateTime);
-        setUnscheduled(false);
+    public LocalDateTime planifier(@NotNull Planning planning, LocalDateTime startDateTime) throws UnscheduledException {
+        LocalDateTime infos = planning.planifier(this, startDateTime);
+        setPlanificationDateTime(infos);
         return infos;
     }
 

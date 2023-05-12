@@ -2,7 +2,6 @@ package com.example.core;
 
 import com.example.core.exceptions.DecompositionImpossibleException;
 import com.example.core.exceptions.UnscheduledException;
-import com.example.core.utils.Pair;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -58,7 +57,7 @@ public class TacheDecomposable extends Tache implements IDecomposable<Planning, 
     }
 
     @Override
-    public Pair<Day, TreeSet<Creneau>> planifier(Planning planning, LocalDateTime startDateTime) throws UnscheduledException {
+    public LocalDateTime planifier(Planning planning, LocalDateTime startDateTime) throws UnscheduledException {
         //TODO: implémenter la methode planifier pour les taches décomposables
         return null;
     }

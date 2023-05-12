@@ -3,6 +3,7 @@ package com.example.core;
 import com.example.core.exceptions.InvalidDateTimeException;
 import com.example.core.exceptions.UnscheduledException;
 import com.example.core.utils.Pair;
+import com.example.core.utils.Utils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
@@ -83,10 +84,10 @@ public class Planning implements Serializable {
      * planifier une tache automatiquement dans un planning
      * @param tache la tache qui va etre planifier dans cette journée
      * @param startDateTime la journée et le temps du début de planification
-     * @return (Day, TreeSet<Creneau> (CreneauOccupe, CreneauLibre?))
+     * @return LocalDateTime
      * @throws UnscheduledException si la tache ne peut pas etre planifiée dans aucune journée
      */
-    public Pair<Day, TreeSet<Creneau>> planifier(@NotNull Tache tache, LocalDateTime startDateTime) throws UnscheduledException {
+    public LocalDateTime planifier(@NotNull Tache tache, LocalDateTime startDateTime) throws UnscheduledException {
         if (startDateTime == null)
             startDateTime = LocalDateTime.now();
 
@@ -99,7 +100,7 @@ public class Planning implements Serializable {
 
             try {
                 TreeSet<Creneau> creneaux = day.planifier(tache, startDateTime);
-                return new Pair<>(day, creneaux);
+                return Utils.dateTimePairToLocalDateTime(new Pair<>(day, creneaux));
             } catch (UnscheduledException ignored) {}
         }
 
