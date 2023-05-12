@@ -2,6 +2,7 @@ package com.example.core;
 
 import com.example.core.exceptions.DecompositionImpossibleException;
 import com.example.core.exceptions.UnscheduledException;
+import com.example.core.utils.Pair;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -56,18 +57,10 @@ public class TacheDecomposable extends Tache implements IDecomposable<Planning, 
         return !children.isEmpty();
     }
 
-    /**
-     * @param planning planning le planning dans le quel la tache décomposable sera planifiée
-     * @throws UnscheduledException si la tache ne peut pas etre planifiée dans le planning
-     */
     @Override
-    public void planifier(Planning planning) throws UnscheduledException {
-        if (hasChildren()) {
-            // TODO: implémenter la planification d'une tache décomposable
-        } else {
-            planning.planifier(this);
-            setUnscheduled(false);
-        }
+    public Pair<Day, TreeSet<Creneau>> planifier(Planning planning, LocalDateTime startDateTime) throws UnscheduledException {
+        //TODO: implémenter la methode planifier pour les taches décomposables
+        return null;
     }
 
     @Override

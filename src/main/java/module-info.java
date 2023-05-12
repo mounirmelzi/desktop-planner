@@ -12,4 +12,5 @@ module com.example.planner {
     exports com.example.controllers.auth;
     opens com.example.controllers.auth to javafx.fxml;
     exports com.example.core.exceptions;
+    exports com.example.core.utils;
 }

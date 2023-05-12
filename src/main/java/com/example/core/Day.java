@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -80,6 +81,8 @@ public class Day implements Comparable<Day>, Serializable {
             if (!(creneauLibre.isAvant(c) || creneauLibre.isApres(c))) {
                 return false;
             }
+
+            // TODO: merger les créneaux dans le cas dateFin = dateDebut ou dateDebut = dateFin
         }
 
         creneaux.add(creneauLibre);
@@ -93,25 +96,24 @@ public class Day implements Comparable<Day>, Serializable {
      * @return TreeSet<Creneau> (CreneauOccupe, CreneauLibre?)
      * @throws UnscheduledException si la tache ne peut pas etre planifiée dans aucun creneau libre
      */
-    public TreeSet<Creneau> planifier(@NotNull Tache tache, @NotNull LocalDateTime startDateTime) throws UnscheduledException {
-        if (date.isBefore(startDateTime.toLocalDate()))
+    TreeSet<Creneau> planifier(@NotNull Tache tache, @NotNull LocalDateTime startDateTime) throws UnscheduledException {
+        LocalDate startDate = startDateTime.toLocalDate();
+        LocalTime startTime = startDateTime.toLocalTime();
+
+        if (date.isBefore(startDate))
             throw new UnscheduledException();
 
-        boolean isToday = date.isEqual(startDateTime.toLocalDate());
+        boolean isToday = date.isEqual(startDate);
 
         for (CreneauLibre creneauLibre : getCreneauxLibres()) {
-            if (!tache.checkDeadline(this, startDateTime.toLocalTime()))
+            if (!tache.checkDeadline(this, startTime))
                 break;
 
-            if (isToday && !creneauLibre.getHeureFin().isAfter(startDateTime.toLocalTime()))
+            if (isToday && !startTime.isBefore(creneauLibre.getHeureFin()))
                 continue;
 
             try {
-                TreeSet<Creneau> creneaux;
-                if (isToday)
-                    creneaux = creneauLibre.planifier(tache, startDateTime.toLocalTime());
-                else
-                    creneaux = creneauLibre.planifier(tache);
+                TreeSet<Creneau> creneaux = creneauLibre.planifier(tache, isToday ? startTime : null);
 
                 this.creneaux.remove(creneauLibre);
                 this.creneaux.addAll(creneaux);

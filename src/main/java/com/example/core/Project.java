@@ -1,9 +1,12 @@
 package com.example.core;
 
 import com.example.core.exceptions.UnscheduledException;
+import com.example.core.utils.Pair;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class Project implements IPlanifiable, Serializable {
     //region Attributes
@@ -35,13 +38,10 @@ public class Project implements IPlanifiable, Serializable {
 
     //region Methods
 
-    /**
-     * @param planning planning le planning dans le quel le projet sera planifié
-     * @throws UnscheduledException si le projet ne peut pas etre planifié dans le planning
-     */
     @Override
-    public void planifier(Planning planning) throws UnscheduledException {
-        // TODO: implémenter la planification d'un projet
+    public Pair<Day, TreeSet<Creneau>> planifier(Planning planning, LocalDateTime startDateTime) throws UnscheduledException {
+        //TODO: implémenter la methode planifier pour les projets
+        return null;
     }
 
     @Override

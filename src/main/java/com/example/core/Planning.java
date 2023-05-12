@@ -2,6 +2,7 @@ package com.example.core;
 
 import com.example.core.exceptions.InvalidDateTimeException;
 import com.example.core.exceptions.UnscheduledException;
+import com.example.core.utils.Pair;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
@@ -9,7 +10,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 import java.util.TreeSet;
 
 public class Planning implements Serializable {
@@ -52,6 +52,29 @@ public class Planning implements Serializable {
         );
     }
 
+    public TreeSet<Day> getDays(LocalDate dateDebut) {
+        if (dateDebut.isBefore(this.dateDebut))
+            dateDebut = this.dateDebut;
+
+        return (TreeSet<Day>) calendrier.getDays().subSet(
+                new Day(dateDebut), true,
+                new Day(dateFin), true
+        );
+    }
+
+    public TreeSet<Day> getDays(LocalDate dateDebut, LocalDate dateFin) {
+        if (dateDebut.isBefore(this.dateDebut))
+            dateDebut = this.dateDebut;
+
+        if (dateFin.isAfter(this.dateFin))
+            dateFin = this.dateFin;
+
+        return (TreeSet<Day>) calendrier.getDays().subSet(
+                new Day(dateDebut), true,
+                new Day(dateFin), true
+        );
+    }
+
     //endregion
 
     //region Methods
@@ -63,34 +86,24 @@ public class Planning implements Serializable {
      * @return (Day, TreeSet<Creneau> (CreneauOccupe, CreneauLibre?))
      * @throws UnscheduledException si la tache ne peut pas etre planifiée dans aucune journée
      */
-    public List<Object> planifier(@NotNull Tache tache, LocalDateTime startDateTime) throws UnscheduledException {
+    public Pair<Day, TreeSet<Creneau>> planifier(@NotNull Tache tache, LocalDateTime startDateTime) throws UnscheduledException {
         if (startDateTime == null)
             startDateTime = LocalDateTime.now();
 
         if (dateFin.isBefore(startDateTime.toLocalDate()))
             throw new UnscheduledException();
 
-        for (Day day : getDays()) {
+        for (Day day : getDays(startDateTime.toLocalDate(), tache.getDeadline().toLocalDate())) {
             if (!tache.checkDeadline(day, null))
                 break;
 
             try {
                 TreeSet<Creneau> creneaux = day.planifier(tache, startDateTime);
-                return List.of(day, creneaux);
+                return new Pair<>(day, creneaux);
             } catch (UnscheduledException ignored) {}
         }
 
         throw new UnscheduledException();
-    }
-
-    /**
-     * planifier une tache automatiquement dans un planning
-     * @param tache la tache qui va etre planifier dans cette journée
-     * @return (Day, TreeSet<Creneau> (CreneauOccupe, CreneauLibre?))
-     * @throws UnscheduledException si la tache ne peut pas etre planifiée dans aucune journée
-     */
-    public List<Object> planifier(@NotNull Tache tache) throws UnscheduledException {
-        return planifier(tache, null);
     }
 
     //endregion
