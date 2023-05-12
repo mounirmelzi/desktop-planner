@@ -68,6 +68,32 @@ public class CreneauLibre extends Creneau implements IDecomposable<Tache, Crenea
     }
 
     /**
+     * decomposer un creneau libre en un creneau occupée par une tache et un autre creneau libre
+     * @param decomposer la tache qui va décomposer ce creneau libre
+     * @param startTime le temps du début de décomposition : this.getHeureDebut() < startTime < this.getHeureFin()
+     * @return TreeSet<Creneau> [CreneauOccupe, CreneauLibre]
+     */
+    @NotNull
+    private TreeSet<Creneau> decomposer(@NotNull Tache decomposer, @NotNull LocalTime startTime) {
+        TreeSet<Creneau> creneaux = new TreeSet<>();
+
+        LocalTime heureDecomposition = startTime.plus(decomposer.getDuree());
+
+        try{
+            creneaux.add(new CreneauLibre(getHeureDebut(), startTime));
+        } catch (CreneauLibreDurationException ignored) {}
+
+        try {
+            creneaux.add(new CreneauLibre(heureDecomposition, getHeureFin()));
+            creneaux.add(new CreneauOccupe(startTime, heureDecomposition, decomposer));
+        } catch (CreneauLibreDurationException ignored) {
+            creneaux.add(new CreneauOccupe(startTime, getHeureFin(), decomposer));
+        }
+
+        return creneaux;
+    }
+
+    /**
      * planifier une tache dans un creneau libre
      * @param tache la tache qui va etre planifier dans ce creneau libre
      * @return TreeSet<Creneau> (CreneauOccupe, CreneauLibre?)
@@ -83,6 +109,27 @@ public class CreneauLibre extends Creneau implements IDecomposable<Tache, Crenea
         } catch (DecompositionImpossibleException e) {
             return new TreeSet<>(List.of(new CreneauOccupe(getHeureDebut(), getHeureFin(), tache)));
         }
+    }
+
+    /**
+     * planifier une tache dans un creneau libre
+     * @param tache la tache qui va etre planifier dans ce creneau libre
+     * @param startTime le temps du début de planification
+     * @return TreeSet<Creneau> (CreneauOccupe, CreneauLibre?)
+     * @throws UnscheduledException si la durée de la tache est plus grande que la durée de creneau libre
+     */
+    public TreeSet<Creneau> planifier(@NotNull Tache tache, @NotNull LocalTime startTime) throws UnscheduledException {
+        if (!startTime.isAfter(getHeureDebut()))
+            return planifier(tache);
+
+        if (!startTime.isBefore(getHeureFin()))
+            throw new UnscheduledException();
+
+        Duration duration = Duration.between(startTime, getHeureFin());
+        if (duration.compareTo(tache.getDuree()) < 0)
+            throw new UnscheduledException();
+
+        return decomposer(tache, startTime);
     }
 
     @Override

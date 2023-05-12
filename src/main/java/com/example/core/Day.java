@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -88,19 +89,32 @@ public class Day implements Comparable<Day>, Serializable {
     /**
      * planifier une tache automatiquement dans une journée
      * @param tache la tache qui va etre planifier dans cette journée
+     * @param startDateTime la journée et le temps du début de planification
      * @return TreeSet<Creneau> (CreneauOccupe, CreneauLibre?)
      * @throws UnscheduledException si la tache ne peut pas etre planifiée dans aucun creneau libre
      */
-    public TreeSet<Creneau> planifier(@NotNull Tache tache) throws UnscheduledException {
+    public TreeSet<Creneau> planifier(@NotNull Tache tache, @NotNull LocalDateTime startDateTime) throws UnscheduledException {
+        if (date.isBefore(startDateTime.toLocalDate()))
+            throw new UnscheduledException();
+
+        boolean isToday = date.isEqual(startDateTime.toLocalDate());
+
         for (CreneauLibre creneauLibre : getCreneauxLibres()) {
-            if (!tache.checkDeadline(this, creneauLibre))
-                throw new UnscheduledException();
+            if (!tache.checkDeadline(this, startDateTime.toLocalTime()))
+                break;
+
+            if (isToday && !creneauLibre.getHeureFin().isAfter(startDateTime.toLocalTime()))
+                continue;
 
             try {
-                TreeSet<Creneau> creneaux = creneauLibre.planifier(tache);
+                TreeSet<Creneau> creneaux;
+                if (isToday)
+                    creneaux = creneauLibre.planifier(tache, startDateTime.toLocalTime());
+                else
+                    creneaux = creneauLibre.planifier(tache);
 
-                getCreneaux().remove(creneauLibre);
-                getCreneaux().addAll(creneaux);
+                this.creneaux.remove(creneauLibre);
+                this.creneaux.addAll(creneaux);
                 return creneaux;
             } catch (UnscheduledException ignored) {}
         }

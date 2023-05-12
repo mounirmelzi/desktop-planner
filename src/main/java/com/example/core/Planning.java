@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -58,24 +59,38 @@ public class Planning implements Serializable {
     /**
      * planifier une tache automatiquement dans un planning
      * @param tache la tache qui va etre planifier dans cette journée
+     * @param startDateTime la journée et le temps du début de planification
      * @return (Day, TreeSet<Creneau> (CreneauOccupe, CreneauLibre?))
      * @throws UnscheduledException si la tache ne peut pas etre planifiée dans aucune journée
      */
-    public List<Object> planifier(@NotNull Tache tache) throws UnscheduledException {
-        for (Day day : getDays()) {
-            if (day.getDate().isBefore(LocalDate.now()))
-                continue;
+    public List<Object> planifier(@NotNull Tache tache, LocalDateTime startDateTime) throws UnscheduledException {
+        if (startDateTime == null)
+            startDateTime = LocalDateTime.now();
 
+        if (dateFin.isBefore(startDateTime.toLocalDate()))
+            throw new UnscheduledException();
+
+        for (Day day : getDays()) {
             if (!tache.checkDeadline(day, null))
-                throw new UnscheduledException();
+                break;
 
             try {
-                TreeSet<Creneau> creneaux = day.planifier(tache);
+                TreeSet<Creneau> creneaux = day.planifier(tache, startDateTime);
                 return List.of(day, creneaux);
             } catch (UnscheduledException ignored) {}
         }
 
         throw new UnscheduledException();
+    }
+
+    /**
+     * planifier une tache automatiquement dans un planning
+     * @param tache la tache qui va etre planifier dans cette journée
+     * @return (Day, TreeSet<Creneau> (CreneauOccupe, CreneauLibre?))
+     * @throws UnscheduledException si la tache ne peut pas etre planifiée dans aucune journée
+     */
+    public List<Object> planifier(@NotNull Tache tache) throws UnscheduledException {
+        return planifier(tache, null);
     }
 
     //endregion

@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Comparator;
 
 public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializable {
@@ -79,21 +80,21 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
     /**
      * vérifier si le deadline d'une tache est respecté si elle est planifier dans un créneau libre d'une journée donnée
      * @param day une journée
-     * @param creneauLibre un créneau libre
+     * @param heureDebut l'heure de début de planification dans le créneau libre
      * @return true si le deadline est respecté, false si non
      */
-    public boolean checkDeadline(@NotNull Day day, CreneauLibre creneauLibre) {
+    public boolean checkDeadline(@NotNull Day day, LocalTime heureDebut) {
         if (day.getDate().isAfter(deadline.toLocalDate()))
             return false;
 
-        if (creneauLibre == null)
+        if (heureDebut == null)
             return true;
 
         if (day.getDate().isEqual(deadline.toLocalDate())) {
-            if (creneauLibre.getHeureDebut().isAfter(deadline.toLocalTime()))
+            if (heureDebut.isAfter(deadline.toLocalTime()))
                 return false;
 
-            if (creneauLibre.getHeureDebut().plus(getDuree()).isAfter(deadline.toLocalTime()))
+            if (heureDebut.plus(getDuree()).isAfter(deadline.toLocalTime()))
                 return false;
         }
 
