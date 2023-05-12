@@ -7,6 +7,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Comparator;
+import java.util.StringJoiner;
 
 public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializable {
     //region Attributes
@@ -17,6 +18,7 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
     private LocalDateTime deadline;
     private Category category;
     private State state;
+    private boolean isUnscheduled;
 
     //endregion
 
@@ -27,6 +29,7 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
         this.duree = duree;
         this.priority = priority;
         this.deadline = deadline;
+        this.isUnscheduled = true;
     }
 
     public Tache(String nom, Duration duree, Priority priority, LocalDateTime deadline, Category category) {
@@ -73,6 +76,14 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
         return state;
     }
 
+    public boolean isUnscheduled() {
+        return isUnscheduled;
+    }
+
+    public void setUnscheduled(boolean unscheduled) {
+        isUnscheduled = unscheduled;
+    }
+
     //endregion
 
     //region Methods
@@ -114,14 +125,15 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
 
     @Override
     public String toString() {
-        return "Tache{" +
-                "nom='" + nom + '\'' +
-                ", duree=" + duree +
-                ", priority=" + priority +
-                ", deadline=" + deadline +
-                ", category=" + category +
-                ", state=" + state +
-                '}';
+        return new StringJoiner(", ", Tache.class.getSimpleName() + "{", "}")
+                .add("nom='" + nom + "'")
+                .add("duree=" + duree)
+                .add("priority=" + priority)
+                .add("deadline=" + deadline)
+                .add("category=" + category)
+                .add("state=" + state)
+                .add("isUnscheduled=" + isUnscheduled)
+                .toString();
     }
 
     //endregion

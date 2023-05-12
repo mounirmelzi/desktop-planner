@@ -66,6 +66,7 @@ public class TacheDecomposable extends Tache implements IDecomposable<Planning, 
             // TODO: implémenter la planification d'une tache décomposable
         } else {
             planning.planifier(this);
+            setUnscheduled(false);
         }
     }
 
@@ -77,15 +78,7 @@ public class TacheDecomposable extends Tache implements IDecomposable<Planning, 
 
     @Override
     public String toString() {
-        return "TacheDecomposable{" +
-                "children=" + children +
-                ", nom='" + getNom() + '\'' +
-                ", duree=" + getDuree() +
-                ", priority=" + getPriority() +
-                ", deadline=" + getDeadline() +
-                ", category=" + getCategory() +
-                ", state=" + getState() +
-                '}';
+        return "TacheDecomposable{children=" + children + ", super=" + super.toString() + "}";
     }
 
     //endregion

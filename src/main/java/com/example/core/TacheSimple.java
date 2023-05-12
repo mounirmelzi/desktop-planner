@@ -57,19 +57,12 @@ public class TacheSimple extends Tache {
     @Override
     public void planifier(Planning planning) throws UnscheduledException {
         planning.planifier(this);
+        setUnscheduled(false);
     }
 
     @Override
     public String toString() {
-        return "TacheSimple{" +
-                "periodicity=" + periodicity +
-                ", nom='" + getNom() + '\'' +
-                ", duree=" + getDuree() +
-                ", priority=" + getPriority() +
-                ", deadline=" + getDeadline() +
-                ", category=" + getCategory() +
-                ", state=" + getState() +
-                '}';
+        return "TacheSimple{periodicity=" + periodicity + ", super=" + super.toString() + "}";
     }
 
     //endregion
