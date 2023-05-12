@@ -2,12 +2,16 @@ package com.example.core;
 
 import com.example.core.exceptions.DecompositionImpossibleException;
 import com.example.core.exceptions.UnscheduledException;
+import com.example.core.utils.Pair;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.TreeSet;
 
-public class TacheDecomposable extends Tache implements IDecomposable<Planning, TacheSimple> {
+public class TacheDecomposable extends Tache implements IDecomposable<Pair<Planning, LocalDateTime>, TacheSimple> {
     //region Attributes
 
     private TreeSet<TacheSimple> children;
@@ -62,10 +66,67 @@ public class TacheDecomposable extends Tache implements IDecomposable<Planning, 
         return null;
     }
 
+    /**
+     * décomposer une tache décomposable en des taches simples si possible
+     * @param decomposer le planning pour lequel la tache sera décomposée et le temp du debut de décomposée (planification)
+     * @return TreeSet<TacheSimple>
+     * @throws DecompositionImpossibleException si la décomposition n'est pas possible
+     */
     @Override
-    public TreeSet<TacheSimple> decomposer(Planning decomposer) throws DecompositionImpossibleException {
-        //TODO: implémenter la methode decomposer pour les taches décomposables
-        return null;
+    public TreeSet<TacheSimple> decomposer(@NotNull Pair<Planning, LocalDateTime> decomposer) throws DecompositionImpossibleException {
+        Planning planning = decomposer.getFirst();
+        LocalDateTime startDateTime = decomposer.getSecond();
+
+        if (startDateTime == null)
+            startDateTime = LocalDateTime.now().plusHours(1);
+
+        LocalDate startDate = startDateTime.toLocalDate();
+        LocalTime startTime = startDateTime.toLocalTime();
+
+        if (planning.getDateFin().isBefore(startDate))
+            throw new DecompositionImpossibleException();
+
+        int subTacheCount = 1;
+        Duration saveDuration = getDuree();
+        TreeSet<TacheSimple> tachesSimples = new TreeSet<>();
+
+
+        for (Day day : planning.getDays(startDate, getDeadline().toLocalDate())) {
+            boolean isToday = startDate.isEqual(day.getDate());
+
+            for (CreneauLibre creneauLibre : day.getCreneauxLibres()) {
+                if (!isToday || startTime.isBefore(creneauLibre.getHeureDebut()))
+                    startTime = creneauLibre.getHeureDebut();
+
+                if (!checkDeadline(day, startTime)) {
+                    setDuree(saveDuration);
+                    throw new DecompositionImpossibleException();
+                }
+
+                if (isToday && !startTime.isBefore(creneauLibre.getHeureFin()))
+                    continue;
+
+                Duration duration = Duration.between(startTime, creneauLibre.getHeureFin());
+                if (getDuree().compareTo(duration) <= 0)
+                {
+                    tachesSimples.add(new TacheSimple(getNom() + " [" + subTacheCount + "]", getDuree(), getPriority(), getDeadline(), getCategory(), getState()));
+                    setDuree(saveDuration);
+                    return tachesSimples;
+                } else {
+                    tachesSimples.add(new TacheSimple(getNom() + " [" + subTacheCount + "]", duration, getPriority(), getDeadline(), getCategory(), getState()));
+                    setDuree(getDuree().minus(duration));
+                    subTacheCount++;
+
+                    if (!getDuree().isPositive()) {
+                        setDuree(saveDuration);
+                        return tachesSimples;
+                    }
+                }
+            }
+        }
+
+        setDuree(saveDuration);
+        throw new DecompositionImpossibleException();
     }
 
     @Override

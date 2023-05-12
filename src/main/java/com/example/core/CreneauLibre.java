@@ -75,9 +75,6 @@ public class CreneauLibre extends Creneau implements IDecomposable<Pair<Tache, L
      * @throws UnscheduledException si la durée de la tache est plus grande que la durée de creneau libre
      */
     TreeSet<Creneau> planifier(@NotNull Tache tache, LocalTime startTime) throws UnscheduledException {
-        if (startTime == null || startTime.isBefore(getHeureDebut()))
-            startTime = getHeureDebut();
-
         Duration duration = Duration.between(startTime, getHeureFin());
         if (duration.compareTo(tache.getDuree()) < 0)
             throw new UnscheduledException();

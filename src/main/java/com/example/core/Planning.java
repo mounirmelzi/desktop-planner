@@ -53,7 +53,7 @@ public class Planning implements Serializable {
         );
     }
 
-    public TreeSet<Day> getDays(LocalDate dateDebut) {
+    public TreeSet<Day> getDays(@NotNull LocalDate dateDebut) {
         if (dateDebut.isBefore(this.dateDebut))
             dateDebut = this.dateDebut;
 
@@ -63,7 +63,7 @@ public class Planning implements Serializable {
         );
     }
 
-    public TreeSet<Day> getDays(LocalDate dateDebut, LocalDate dateFin) {
+    public TreeSet<Day> getDays(@NotNull LocalDate dateDebut, @NotNull LocalDate dateFin) {
         if (dateDebut.isBefore(this.dateDebut))
             dateDebut = this.dateDebut;
 
@@ -74,6 +74,14 @@ public class Planning implements Serializable {
                 new Day(dateDebut), true,
                 new Day(dateFin), true
         );
+    }
+
+    public LocalDate getDateDebut() {
+        return dateDebut;
+    }
+
+    public LocalDate getDateFin() {
+        return dateFin;
     }
 
     //endregion
@@ -95,9 +103,6 @@ public class Planning implements Serializable {
             throw new UnscheduledException();
 
         for (Day day : getDays(startDateTime.toLocalDate(), tache.getDeadline().toLocalDate())) {
-            if (!tache.checkDeadline(day, null))
-                break;
-
             try {
                 TreeSet<Creneau> creneaux = day.planifier(tache, startDateTime);
                 return Utils.dateTimePairToLocalDateTime(new Pair<>(day, creneaux));

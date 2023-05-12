@@ -60,6 +60,10 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
         return duree;
     }
 
+    public void setDuree(Duration duree) {
+        this.duree = duree;
+    }
+
     public Priority getPriority() {
         return priority;
     }

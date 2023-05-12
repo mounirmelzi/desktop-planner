@@ -100,12 +100,12 @@ public class Day implements Comparable<Day>, Serializable {
         LocalDate startDate = startDateTime.toLocalDate();
         LocalTime startTime = startDateTime.toLocalTime();
 
-        if (date.isBefore(startDate))
-            throw new UnscheduledException();
-
         boolean isToday = date.isEqual(startDate);
 
         for (CreneauLibre creneauLibre : getCreneauxLibres()) {
+            if (!isToday || startTime.isBefore(creneauLibre.getHeureDebut()))
+                startTime = creneauLibre.getHeureDebut();
+
             if (!tache.checkDeadline(this, startTime))
                 break;
 
@@ -113,7 +113,7 @@ public class Day implements Comparable<Day>, Serializable {
                 continue;
 
             try {
-                TreeSet<Creneau> creneaux = creneauLibre.planifier(tache, isToday ? startTime : null);
+                TreeSet<Creneau> creneaux = creneauLibre.planifier(tache, startTime);
 
                 this.creneaux.remove(creneauLibre);
                 this.creneaux.addAll(creneaux);
