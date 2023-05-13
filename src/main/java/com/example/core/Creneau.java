@@ -18,8 +18,6 @@ public abstract class Creneau implements Comparable<Creneau>, Serializable {
     //region Constructors
 
     public Creneau(@NotNull LocalTime heureDebut, @NotNull LocalTime heureFin) {
-        //TODO: penser dans les cas speciales suivantes: 'heureDebut < now' ou 'heureFin < now'
-
         this.heureDebut = heureDebut;
         this.heureFin = heureFin;
 
