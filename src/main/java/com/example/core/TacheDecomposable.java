@@ -52,6 +52,23 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
         this.children = children;
     }
 
+    @Override
+    public LocalDateTime getPlanificationDateTime() {
+        if (!hasChildren())
+            return super.getPlanificationDateTime();
+
+        LocalDateTime min = null;
+        for (TacheSimple tache : getChildren()) {
+            if (tache.getPlanificationDateTime() == null)
+                continue;
+
+            if (min == null || tache.getPlanificationDateTime().isBefore(min))
+                min = tache.getPlanificationDateTime();
+        }
+
+        return min;
+    }
+
     //endregion
 
     //region Methods
@@ -62,6 +79,23 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
      */
     public boolean hasChildren() {
         return !children.isEmpty();
+    }
+
+    /**
+     * vérifier si une tache décomposable est planifiée ou non
+     * @return true si la tache n'est pas planifiée, false si non
+     */
+    @Override
+    public boolean isUnscheduled() {
+        if (!hasChildren())
+            return super.isUnscheduled();
+
+        for (TacheSimple tache : getChildren()) {
+            if (tache.isUnscheduled())
+                return true;
+        }
+
+        return false;
     }
 
     /**
@@ -81,7 +115,7 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
 
         boolean error = true;
         LocalDateTime max = null;
-        for (Tache tache : getChildren()) {
+        for (TacheSimple tache : getChildren()) {
             try {
                 LocalDateTime temp = tache.planifier(planning, startDateTime);
                 error = false;
@@ -93,6 +127,21 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
 
         if (error) throw new UnscheduledException();
         return max;
+    }
+
+    /**
+     * planifier une tache manuellement dans un planning
+     * @param planning le planning dans lequel la tache sera planifiée
+     * @param date la date de la journée où on va planifier la tache
+     * @param time le temps du début de créneau libre dans lequel on va planifier la tache
+     * @return LocalDateTime
+     * @throws UnscheduledException si la tache ne peut pas etre planifiée
+     */
+    @Override
+    public LocalDateTime planifierManuellement(Planning planning, LocalDate date, LocalTime time) throws UnscheduledException {
+        LocalDateTime planificationDateTime = super.planifierManuellement(planning, date, time);
+        this.getChildren().clear();
+        return planificationDateTime;
     }
 
     /**

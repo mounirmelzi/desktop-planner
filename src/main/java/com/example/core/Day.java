@@ -1,5 +1,6 @@
 package com.example.core;
 
+import com.example.core.exceptions.CreneauLibreDurationException;
 import com.example.core.exceptions.UnscheduledException;
 import org.jetbrains.annotations.NotNull;
 
@@ -93,7 +94,7 @@ public class Day implements Comparable<Day>, Serializable {
      * planifier une tache automatiquement dans une journée
      * @param tache la tache qui va etre planifier dans cette journée
      * @param startDateTime la journée et le temps du début de planification
-     * @return TreeSet<Creneau> (CreneauOccupe, CreneauLibre?)
+     * @return TreeSet<Creneau> (CreneauLibre?, CreneauOccupe, CreneauLibre?)
      * @throws UnscheduledException si la tache ne peut pas etre planifiée dans aucun creneau libre
      */
     TreeSet<Creneau> planifier(@NotNull Tache tache, @NotNull LocalDateTime startDateTime) throws UnscheduledException {
@@ -122,6 +123,36 @@ public class Day implements Comparable<Day>, Serializable {
         }
 
         throw new UnscheduledException();
+    }
+
+    /**
+     * planifier une tache manuellement dans un créneau libre d'une journée
+     * @param tache la tache qui va etre planifier dans cette journée
+     * @param time le temps du début de créneau libre dans lequel on va planifier la tache
+     * @return TreeSet<Creneau> (CreneauOccupe, CreneauLibre?)
+     * @throws UnscheduledException si la tache ne peut pas etre planifiée dans le creneau libre
+     */
+    TreeSet<Creneau> planifierManuellement(Tache tache, LocalTime time) throws UnscheduledException {
+        CreneauLibre creneauLibre;
+
+        try {
+            creneauLibre = new CreneauLibre(time, LocalTime.MAX);
+        } catch (CreneauLibreDurationException e) {
+            throw new UnscheduledException();
+        }
+
+        creneauLibre = this.getCreneauxLibres().floor(creneauLibre);
+
+        if (creneauLibre == null || !creneauLibre.getHeureDebut().equals(time))
+            throw new UnscheduledException();
+
+        if (!tache.checkDeadline(this, creneauLibre.getHeureDebut()))
+            throw new UnscheduledException();
+
+        TreeSet<Creneau> creneaux = creneauLibre.planifier(tache, time);
+        this.creneaux.remove(creneauLibre);
+        this.creneaux.addAll(creneaux);
+        return creneaux;
     }
 
     @Override

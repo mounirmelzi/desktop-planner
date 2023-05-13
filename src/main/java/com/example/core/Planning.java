@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.TreeSet;
@@ -90,7 +91,7 @@ public class Planning implements Serializable {
 
     /**
      * planifier une tache automatiquement dans un planning
-     * @param tache la tache qui va etre planifier dans cette journée
+     * @param tache la tache qui va etre planifier dans ce planning
      * @param startDateTime la journée et le temps du début de planification
      * @return LocalDateTime
      * @throws UnscheduledException si la tache ne peut pas etre planifiée dans aucune journée
@@ -110,6 +111,28 @@ public class Planning implements Serializable {
         }
 
         throw new UnscheduledException();
+    }
+
+    /**
+     * planifier une tache manuellement dans un planning
+     * @param tache la tache qui va etre planifier dans ce planning
+     * @param date la date de la journée où on va planifier la tache
+     * @param time le temps du début de créneau libre dans lequel on va planifier la tache
+     * @return LocalDateTime
+     * @throws UnscheduledException si la tache ne peut pas etre planifiée
+     */
+    public LocalDateTime planifierManuellement(Tache tache, LocalDate date, LocalTime time) throws UnscheduledException {
+        Day day = new Day(date);
+        day = this.getDays().floor(day);
+
+        if (day == null || !day.getDate().isEqual(date))
+            throw new UnscheduledException();
+
+        if (!tache.checkDeadline(day, null))
+            throw new UnscheduledException();
+
+        TreeSet<Creneau> creneaux = day.planifierManuellement(tache, time);
+        return Utils.dateTimePairToLocalDateTime(new Pair<>(day, creneaux));
     }
 
     //endregion

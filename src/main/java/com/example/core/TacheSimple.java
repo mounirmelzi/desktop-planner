@@ -45,7 +45,7 @@ public class TacheSimple extends Tache {
     }
 
     public void setPeriodicity(int periodicity) {
-        this.periodicity = periodicity;
+        this.periodicity = Math.max(periodicity, 0);
     }
 
     //endregion

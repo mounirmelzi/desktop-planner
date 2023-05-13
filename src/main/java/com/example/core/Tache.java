@@ -1,9 +1,11 @@
 package com.example.core;
 
+import com.example.core.exceptions.UnscheduledException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Comparator;
@@ -125,7 +127,21 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
      * @return true si la tache n'est pas planifiée, false si non
      */
     public boolean isUnscheduled() {
-        return planificationDateTime == null;
+        return (getPlanificationDateTime() == null);
+    }
+
+    /**
+     * planifier une tache manuellement dans un planning
+     * @param planning le planning dans lequel la tache sera planifiée
+     * @param date la date de la journée où on va planifier la tache
+     * @param time le temps du début de créneau libre dans lequel on va planifier la tache
+     * @return LocalDateTime
+     * @throws UnscheduledException si la tache ne peut pas etre planifiée
+     */
+    public LocalDateTime planifierManuellement(Planning planning, LocalDate date, LocalTime time) throws UnscheduledException {
+        LocalDateTime planificationDateTime = planning.planifierManuellement(this, date, time);
+        setPlanificationDateTime(planificationDateTime);
+        return planificationDateTime;
     }
 
     @Override

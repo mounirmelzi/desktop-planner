@@ -71,7 +71,7 @@ public class CreneauLibre extends Creneau implements IDecomposable<Pair<Tache, L
      * planifier une tache dans un creneau libre
      * @param tache tache la tache qui va etre planifier dans ce creneau libre
      * @param startTime le temps du début de planification
-     * @return TreeSet<Creneau> (CreneauOccupe, CreneauLibre?)
+     * @return TreeSet<Creneau> (CreneauLibre?, CreneauOccupe, CreneauLibre?)
      * @throws UnscheduledException si la durée de la tache est plus grande que la durée de creneau libre
      */
     TreeSet<Creneau> planifier(@NotNull Tache tache, LocalTime startTime) throws UnscheduledException {
