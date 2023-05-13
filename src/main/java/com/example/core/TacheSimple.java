@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class TacheSimple extends Tache {
     //region Attributes
@@ -60,9 +61,32 @@ public class TacheSimple extends Tache {
      */
     @Override
     public LocalDateTime planifier(@NotNull Planning planning, LocalDateTime startDateTime) throws UnscheduledException {
-        LocalDateTime infos = planning.planifier(this, startDateTime);
-        setPlanificationDateTime(infos);
-        return infos;
+        if (periodicity == 0) {
+            LocalDateTime infos = planning.planifier(this, startDateTime);
+            setPlanificationDateTime(infos);
+            return infos;
+        } else if (periodicity < 0)
+            throw new UnscheduledException();
+
+        LocalDateTime firstDateTime = planning.planifier(this, startDateTime);
+        LocalDateTime savedDeadline = getDeadline();
+
+        startDateTime = firstDateTime.plusDays(getPeriodicity()).toLocalDate().atStartOfDay();
+
+        while (!startDateTime.isAfter(savedDeadline) && !startDateTime.toLocalDate().isAfter(planning.getDateFin())) {
+            if (startDateTime.toLocalDate().isAfter(savedDeadline.toLocalDate()))
+                setDeadline(startDateTime.toLocalDate().atTime(LocalTime.MAX));
+            else setDeadline(savedDeadline);
+
+            try {
+                planning.planifier(this, startDateTime);
+            } catch (UnscheduledException ignored) {}
+            startDateTime = startDateTime.toLocalDate().plusDays(getPeriodicity()).atStartOfDay();
+        }
+
+        setDeadline(savedDeadline);
+        setPlanificationDateTime(firstDateTime);
+        return firstDateTime;
     }
 
     @Override

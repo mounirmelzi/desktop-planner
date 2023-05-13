@@ -56,14 +56,43 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
 
     //region Methods
 
+    /**
+     * vérifier si une tache décomposable a des sous taches
+     * @return true si elle décomposée (a des sous taches), false si non
+     */
     public boolean hasChildren() {
         return !children.isEmpty();
     }
 
+    /**
+     * planifier une tache décomposable automatiquement dans un planning
+     * @param planning le planning dans lequel la tache sera planifiée
+     * @param startDateTime la journée et le temps du début de planification
+     * @return LocalDateTime
+     * @throws UnscheduledException si la tache ne peut pas etre planifiée dans le planning
+     */
     @Override
     public LocalDateTime planifier(Planning planning, LocalDateTime startDateTime) throws UnscheduledException {
-        //TODO: implémenter la methode planifier pour les taches décomposables
-        return null;
+        if (!hasChildren()) {
+            LocalDateTime infos = planning.planifier(this, startDateTime);
+            setPlanificationDateTime(infos);
+            return infos;
+        }
+
+        boolean error = true;
+        LocalDateTime max = null;
+        for (Tache tache : getChildren()) {
+            try {
+                LocalDateTime temp = tache.planifier(planning, startDateTime);
+                error = false;
+
+                if (max == null || temp.isAfter(max))
+                    max = temp;
+            } catch (UnscheduledException ignored) {}
+        }
+
+        if (error) throw new UnscheduledException();
+        return max;
     }
 
     /**

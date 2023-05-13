@@ -72,6 +72,10 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
         return deadline;
     }
 
+    public void setDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
+    }
+
     public Category getCategory() {
         return category;
     }

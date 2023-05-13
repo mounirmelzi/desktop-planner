@@ -4,14 +4,14 @@ import com.example.core.exceptions.UnscheduledException;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 public class Project implements IPlanifiable, Serializable {
     //region Attributes
 
     private String nom;
     private String description;
-    private ArrayList<Tache> taches;
+    private LinkedHashSet<Tache> taches;
 
     //endregion
 
@@ -20,10 +20,10 @@ public class Project implements IPlanifiable, Serializable {
     public Project(String nom, String description) {
         this.nom = nom;
         this.description = description;
-        this.taches = new ArrayList<>();
+        this.taches = new LinkedHashSet<>();
     }
 
-    public Project(String nom, String description, ArrayList<Tache> taches) {
+    public Project(String nom, String description, LinkedHashSet<Tache> taches) {
         this(nom, description);
         this.taches = taches;
     }
@@ -32,14 +32,33 @@ public class Project implements IPlanifiable, Serializable {
 
     //region Setter and Getters
 
+    public LinkedHashSet<Tache> getTaches() {
+        return taches;
+    }
+
     //endregion
 
     //region Methods
 
+    /**
+     * planifier un projet automatiquement dans un planning
+     * @param planning le planning dans lequel le projet sera planifiée
+     * @param startDateTime la journée et le temps du début de planification
+     * @return LocalDateTime
+     * @throws UnscheduledException si le projet ne peut pas etre planifié dans le planning
+     */
     @Override
     public LocalDateTime planifier(Planning planning, LocalDateTime startDateTime) throws UnscheduledException {
-        //TODO: implémenter la methode planifier pour les projets
-        return null;
+        LocalDateTime firstDateTime = null;
+
+        for (Tache tache : getTaches()) {
+            try {
+                startDateTime = tache.planifier(planning, startDateTime);
+                if (firstDateTime == null) firstDateTime = startDateTime;
+            } catch (UnscheduledException ignored) {}
+        }
+
+        return firstDateTime;
     }
 
     @Override
