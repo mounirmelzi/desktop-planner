@@ -17,6 +17,7 @@ public class User implements Serializable {
     private String pseudo;
     private Calendrier calendrier;
     private Planning planning;
+    private Historique historique;
     private HashSet<Category> categories;
     private HashMap<Badge, Integer> badges;
     private Duration dureeCreneauLibreMin;

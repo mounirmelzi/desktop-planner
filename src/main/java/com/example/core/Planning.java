@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.TreeSet;
 
 public class Planning implements Serializable {
@@ -20,6 +21,7 @@ public class Planning implements Serializable {
     private LocalDate dateDebut;
     private LocalDate dateFin;
     private Calendrier calendrier;
+    private HashMap<Badge, Integer> badges;
 
     //endregion
 
