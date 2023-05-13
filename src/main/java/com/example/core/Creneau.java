@@ -75,6 +75,14 @@ public abstract class Creneau implements Comparable<Creneau>, Serializable {
         return !getHeureDebut().isBefore(creneau.getHeureFin());
     }
 
+    /**
+     * vérifier si le créneau est libre ou non
+     * @return true si le créneau est libre, false si non
+     */
+    public boolean isLibre() {
+        return this instanceof CreneauLibre;
+    }
+
     @Override
     public int compareTo(@NotNull Creneau o) {
         return heureDebut.compareTo(o.heureDebut);

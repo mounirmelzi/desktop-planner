@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Iterator;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -78,12 +79,30 @@ public class Day implements Comparable<Day>, Serializable {
         if (creneauLibre == null)
             return false;
 
-        for (Creneau c : creneaux) {
-            if (!(creneauLibre.isAvant(c) || creneauLibre.isApres(c))) {
+        Iterator<Creneau> it = creneaux.iterator();
+        while (it.hasNext()) {
+            Creneau c = it.next();
+
+            if (!(creneauLibre.isAvant(c) || creneauLibre.isApres(c)))
                 return false;
+
+            if (c.isLibre()) {
+                if (c.getHeureDebut() == creneauLibre.getHeureFin()) {
+                    c.setHeureDebut(creneauLibre.getHeureDebut());
+                    return true;
+                }
+
+                if (c.getHeureFin() == creneauLibre.getHeureDebut()) {
+                    if (it.hasNext() && !(creneauLibre.isAvant(it.next())))
+                        return false;
+
+                    c.setHeureFin(creneauLibre.getHeureFin());
+                    return true;
+                }
             }
 
-            // TODO: merger les créneaux dans le cas dateFin = dateDebut ou dateDebut = dateFin
+            if (c.isApres(creneauLibre))
+                break;
         }
 
         creneaux.add(creneauLibre);
