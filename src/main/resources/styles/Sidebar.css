@@ -18,17 +18,17 @@
     -fx-font-weight: bold;
 }
 
-.menu {
+.my-menu {
     -fx-spacing: 5;
 }
 
-.menu-item {
+.my-menu-item {
     -fx-background-color: transparent;
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-pref-width: 150px;
 }
 
-.menu-item:hover {
+.my-menu-item:hover {
     -fx-background-color: #555555;
 }

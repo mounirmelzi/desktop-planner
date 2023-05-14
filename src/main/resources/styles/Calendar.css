@@ -1,0 +1,65 @@
+.root {
+    -fx-hgap: 20;
+    -fx-padding: 20;
+}
+
+.top-menu-container {
+    -fx-padding: 40 0 0 0;
+}
+
+.btn {
+    -fx-alignment: CENTER;
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-font-size: 14pt;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 30px;
+    -fx-background-insets: 0px;
+}
+
+.btn:hover {
+    -fx-background-color: #1976D2;
+}
+
+.btn:pressed {
+    -fx-background-color: #0D47A1;
+}
+
+.hbox-container {
+    -fx-alignment: CENTER;
+}
+
+.vbox-container {
+     -fx-alignment: CENTER;
+     -fx-spacing: 5;
+}
+
+.calendar-grid-pane {
+    -fx-alignment: CENTER;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+}
+
+.day-label {
+    -fx-alignment: CENTER;
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #333333;
+    -fx-border-radius: 10px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.day-label:hover {
+    -fx-background-color: #2196F344;
+}
+
+.year {
+    -fx-text-fill: #007FFF;
+    -fx-font-size: 24px;
+}
+
+.month {
+    -fx-text-fill: #1976D2;
+    -fx-font-size: 18px;
+}

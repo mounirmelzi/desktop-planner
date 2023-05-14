@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.controllers.CalendarController">
-    <Label text="Calendar page"/>
-    <Label fx:id="myLabel"/>
-</VBox>
+<GridPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+          stylesheets="@../styles/Calendar.css"
+          fx:controller="com.example.controllers.CalendarController"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+          styleClass="root"
+>
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS"/>
+        <ColumnConstraints prefWidth="250"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints vgrow="ALWAYS"/>
+    </rowConstraints>
+
+    <BorderPane GridPane.columnIndex="0">
+        <top>
+            <BorderPane styleClass="top-menu-container">
+                <left>
+                    <HBox styleClass="hbox-container">
+                        <Button fx:id="prevMonthButton" text="&lt;   previous" styleClass="btn"
+                                onAction="#handleMonthButtonAction"/>
+                    </HBox>
+                </left>
+                <center>
+                    <HBox styleClass="hbox-container">
+                        <VBox styleClass="vbox-container">
+                            <Label fx:id="yearLabel" styleClass="year"/>
+                            <Label fx:id="monthLabel" styleClass="month"/>
+                        </VBox>
+                    </HBox>
+                </center>
+                <right>
+                    <HBox styleClass="hbox-container">
+                        <Button fx:id="nextMonthButton" text="next   &gt;" styleClass="btn"
+                                onAction="#handleMonthButtonAction"/>
+                    </HBox>
+                </right>
+            </BorderPane>
+        </top>
+
+        <center>
+            <GridPane fx:id="calendarGridPane" styleClass="calendar-grid-pane"/>
+        </center>
+    </BorderPane>
+
+    <AnchorPane fx:id="dayInfoAnchorPane" GridPane.columnIndex="1"/>
+</GridPane>

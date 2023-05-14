@@ -55,6 +55,14 @@ public class User implements Serializable {
         return pseudo;
     }
 
+    public Calendrier getCalendrier() {
+        return calendrier;
+    }
+
+    public void setCalendrier(Calendrier calendrier) {
+        this.calendrier = calendrier;
+    }
+
     //endregion
 
     //region Methods
