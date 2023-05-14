@@ -87,17 +87,25 @@ public class Day implements Comparable<Day>, Serializable {
                 return false;
 
             if (c.isLibre()) {
-                if (c.getHeureDebut() == creneauLibre.getHeureFin()) {
-                    c.setHeureDebut(creneauLibre.getHeureDebut());
-                    return true;
+                if (c.getHeureDebut().equals(creneauLibre.getHeureFin())) {
+                    try {
+                        CreneauLibre toAdd = new CreneauLibre(creneauLibre.getHeureDebut(), c.getHeureFin());
+                        creneaux.remove(c);
+                        creneaux.add(toAdd);
+                        return true;
+                    } catch (CreneauLibreDurationException ignored) {}
                 }
 
-                if (c.getHeureFin() == creneauLibre.getHeureDebut()) {
+                if (c.getHeureFin().equals(creneauLibre.getHeureDebut())) {
                     if (it.hasNext() && !(creneauLibre.isAvant(it.next())))
                         return false;
 
-                    c.setHeureFin(creneauLibre.getHeureFin());
-                    return true;
+                    try {
+                        CreneauLibre toAdd = new CreneauLibre(c.getHeureDebut(), creneauLibre.getHeureFin());
+                        creneaux.remove(c);
+                        creneaux.add(toAdd);
+                        return true;
+                    } catch (CreneauLibreDurationException ignored) {}
                 }
             }
 

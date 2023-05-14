@@ -5,14 +5,14 @@
 <?import javafx.scene.layout.*?>
 
 <GridPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-          stylesheets="@../styles/Calendar.css"
-          fx:controller="com.example.controllers.CalendarController"
+          stylesheets="@../../styles/calendar/Calendar.css"
+          fx:controller="com.example.controllers.Calendar.CalendarController"
           AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
           styleClass="root"
 >
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS"/>
-        <ColumnConstraints prefWidth="250"/>
+        <ColumnConstraints prefWidth="300"/>
     </columnConstraints>
     <rowConstraints>
         <RowConstraints vgrow="ALWAYS"/>

@@ -11,6 +11,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.TreeSet;
 
 public class Utils {
@@ -42,5 +45,13 @@ public class Utils {
         LocalDateTime localDateTime2 = Utils.dateTimePairToLocalDateTime(pair2);
 
         return localDateTime1.compareTo(localDateTime2);
+    }
+
+    public static LocalTime stringToLocalTime(String time) {
+        try {
+            return LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm:ss"));
+        } catch (DateTimeParseException e) {
+            return null;
+        }
     }
 }

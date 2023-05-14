@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            stylesheets="@../../styles/calendar/DayInfo.css"
+            fx:controller="com.example.controllers.Calendar.DayInfoController"
+            AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+>
+    <top>
+        <VBox alignment="CENTER">
+            <Label fx:id="dayDateLabel" styleClass="day-date"/>
+            <Label fx:id="dayNameLabel" styleClass="day-name"/>
+
+            <Separator>
+                <padding>
+                    <Insets top="10" bottom="10"/>
+                </padding>
+            </Separator>
+        </VBox>
+    </top>
+    <center>
+        <VBox>
+            <ScrollPane style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-hbar-policy: never; -fx-vbar-policy: never;">
+                <VBox fx:id="creneauxContainer" alignment="CENTER" spacing="10"/>
+            </ScrollPane>
+        </VBox>
+    </center>
+    <bottom>
+        <VBox alignment="CENTER" spacing="10">
+            <Separator>
+                <padding>
+                    <Insets top="10"/>
+                </padding>
+            </Separator>
+
+            <Label text="Ajouter Créneau Libre" styleClass="add-creneau-label"/>
+            <HBox alignment="CENTER" spacing="10">
+                <TextField fx:id="heureDebutTextField" promptText="Début [HH:mm:ss]" focusTraversable="false" styleClass="heure-field"/>
+                <TextField fx:id="heureFinTextField" promptText="Fin [HH:mm:ss]" focusTraversable="false" styleClass="heure-field"/>
+            </HBox>
+            <Button styleClass="submit-btn" onAction="#handleAddCreneauButtonAction">Ajouter</Button>
+            <Label fx:id="errorLabel" styleClass="error-message-label" alignment="CENTER" textAlignment="CENTER"/>
+        </VBox>
+    </bottom>
+</BorderPane>

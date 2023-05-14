@@ -1,0 +1,55 @@
+.day-date {
+    -fx-text-fill: #007FFF;
+    -fx-font-size: 24px;
+}
+
+.day-name {
+    -fx-text-fill: #1976D2;
+    -fx-font-size: 18px;
+}
+
+.add-creneau-label {
+    -fx-font-size: 18px;
+}
+
+.heure-field {
+    -fx-background-color: #F2F2F2;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #444444;
+    -fx-border-color: #4A90E2;
+    -fx-border-radius: 5px;
+    -fx-border-width: 2px;
+}
+
+.heure-field:focused {
+    -fx-border-color: #4A90E2;
+    -fx-border-radius: 5px;
+    -fx-border-width: 2px;
+}
+
+.heure-field:hover {
+    -fx-background-color: #E6E6E6;
+}
+
+.submit-btn {
+    -fx-background-color: #0088FF;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #fff;
+    -fx-font-size: 16px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+}
+
+.submit-btn:hover {
+    -fx-background-color: #0077CC;
+}
+
+.error-message-label {
+    -fx-text-fill: #E53935;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}

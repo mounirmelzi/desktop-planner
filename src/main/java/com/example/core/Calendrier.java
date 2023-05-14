@@ -47,5 +47,9 @@ public class Calendrier implements Serializable {
         return ((day != null) && (date.isEqual(day.getDate()))) ? day : null;
     }
 
+    public boolean addDay(Day day) {
+        return days.add(day);
+    }
+
     //endregion
 }
