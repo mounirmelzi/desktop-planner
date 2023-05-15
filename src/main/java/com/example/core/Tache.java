@@ -126,9 +126,7 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
      * vérifier si une tache est planifiée ou non
      * @return true si la tache n'est pas planifiée, false si non
      */
-    public boolean isUnscheduled() {
-        return (getPlanificationDateTime() == null);
-    }
+    public abstract boolean isUnscheduled();
 
     /**
      * planifier une tache manuellement dans un planning

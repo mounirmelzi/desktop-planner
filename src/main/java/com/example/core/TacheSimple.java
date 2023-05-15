@@ -53,6 +53,15 @@ public class TacheSimple extends Tache {
     //region Methods
 
     /**
+     * vérifier si une tache simple est planifiée ou non
+     * @return true si la tache n'est pas planifiée, false si non
+     */
+    @Override
+    public boolean isUnscheduled() {
+        return getPlanificationDateTime() == null;
+    }
+
+    /**
      * planifier une tache automatiquement dans un planning
      * @param planning le planning dans lequel la tache sera planifiée
      * @param startDateTime la journée et le temps du début de planification

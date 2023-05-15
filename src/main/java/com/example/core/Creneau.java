@@ -55,6 +55,9 @@ public abstract class Creneau implements Comparable<Creneau>, Serializable {
 
     //region Methods
 
+    /**
+     * clean le contenu d'un créneau
+     */
     public abstract void clean();
 
     /**

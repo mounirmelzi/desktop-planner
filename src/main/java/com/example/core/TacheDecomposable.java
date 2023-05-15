@@ -87,11 +87,11 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
      */
     @Override
     public boolean isUnscheduled() {
-        if (!hasChildren())
-            return super.isUnscheduled();
+        if (!this.hasChildren())
+            return getPlanificationDateTime() == null;
 
-        for (TacheSimple tache : getChildren()) {
-            if (tache.isUnscheduled())
+        for (TacheSimple tacheSimple : getChildren()) {
+            if (tacheSimple.isUnscheduled())
                 return true;
         }
 
@@ -126,6 +126,7 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
         }
 
         if (error) throw new UnscheduledException();
+        setPlanificationDateTime(null);
         return max;
     }
 

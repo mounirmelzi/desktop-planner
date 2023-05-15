@@ -44,8 +44,13 @@ public class CreneauLibre extends Creneau implements IDecomposable<Pair<Tache, L
 
     //region Methods
 
+    /**
+     * clean le contenu d'un créneau libre
+     */
     @Override
-    public void clean() {}
+    public void clean() {
+        // rien à clean car le créneau libre n'a pas un contenu
+    }
 
     /**
      * decomposer un creneau libre en un creneau occupée par une tache et un autre creneau libre si possible
