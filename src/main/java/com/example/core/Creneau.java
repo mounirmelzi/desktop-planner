@@ -55,6 +55,8 @@ public abstract class Creneau implements Comparable<Creneau>, Serializable {
 
     //region Methods
 
+    public abstract void clean();
+
     /**
      * compare la position de deux creneaux
      * @param creneau le creneau a comparer avec

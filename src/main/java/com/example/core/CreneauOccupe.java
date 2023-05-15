@@ -27,9 +27,18 @@ public class CreneauOccupe extends Creneau {
 
     //region Setter and Getters
 
+    public Tache getTache() {
+        return tache;
+    }
+
     //endregion
 
     //region Methods
+
+    @Override
+    public void clean() {
+        getTache().setPlanificationDateTime(null);
+    }
 
     @Override
     public String toString() {

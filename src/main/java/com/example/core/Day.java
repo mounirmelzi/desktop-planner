@@ -182,6 +182,14 @@ public class Day implements Comparable<Day>, Serializable {
         return creneaux;
     }
 
+    public boolean deleteCreneau(Creneau creneau) {
+        if (creneau == null)
+            return true;
+
+        creneau.clean();
+        return this.creneaux.remove(creneau);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
