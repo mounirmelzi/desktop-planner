@@ -1,9 +1,10 @@
 package com.example.core;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class Historique {
+public class Historique implements Serializable {
     //region Attributes
 
     private TreeMap<LocalDateTime, Planning> historique;

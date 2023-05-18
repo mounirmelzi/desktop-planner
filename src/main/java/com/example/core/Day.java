@@ -182,12 +182,40 @@ public class Day implements Comparable<Day>, Serializable {
         return creneaux;
     }
 
-    public boolean deleteCreneau(Creneau creneau) {
-        if (creneau == null)
-            return true;
+    public boolean deleteTache(@NotNull LocalDateTime planificationDateTime) {
+        if (!planificationDateTime.toLocalDate().isEqual(getDate()))
+            return false;
 
-        creneau.clean();
-        return this.creneaux.remove(creneau);
+        try {
+            Creneau toDelete = getCreneaux().floor(new CreneauLibre(
+                    planificationDateTime.toLocalTime(),
+                    planificationDateTime.toLocalTime().plus(CreneauLibre.getDureeMin())
+            ));
+
+            if (toDelete == null || !toDelete.isOccupe())
+                return false;
+
+            if (!planificationDateTime.equals(LocalDateTime.of(getDate(), toDelete.getHeureDebut())))
+                return false;
+
+            creneaux.remove(toDelete);
+
+            try {
+                ajouterCreneauLibre(new CreneauLibre(toDelete.getHeureDebut(), toDelete.getHeureFin()));
+            } catch (CreneauLibreDurationException ignored) {}
+            return true;
+        } catch (CreneauLibreDurationException e) {
+            return false;
+        }
+    }
+
+    public LocalTime searchForTachePlanificationTime(Tache tache) {
+        for (CreneauOccupe creneauOccupe : getCreneauxOccupes()) {
+            if (tache == creneauOccupe.getTache())
+                return creneauOccupe.getHeureDebut();
+        }
+
+        return null;
     }
 
     @Override

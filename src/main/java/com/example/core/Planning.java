@@ -79,6 +79,13 @@ public class Planning implements Serializable {
         );
     }
 
+    public Day getDayByDate(LocalDate date) {
+        if (date == null || date.isBefore(getDateDebut()) || date.isAfter(getDateFin()))
+            return null;
+
+        return calendrier.getDayByDate(date);
+    }
+
     public LocalDate getDateDebut() {
         return dateDebut;
     }
@@ -135,6 +142,15 @@ public class Planning implements Serializable {
 
         TreeSet<Creneau> creneaux = day.planifierManuellement(tache, time);
         return Utils.dateTimePairToLocalDateTime(new Pair<>(day, creneaux));
+    }
+
+    public boolean deleteTache(LocalDateTime planificationDateTime) {
+        for (Day day : getDays()) {
+            if (day.deleteTache(planificationDateTime))
+                return true;
+        }
+
+        return false;
     }
 
     //endregion

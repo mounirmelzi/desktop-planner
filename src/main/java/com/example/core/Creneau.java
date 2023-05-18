@@ -56,11 +56,6 @@ public abstract class Creneau implements Comparable<Creneau>, Serializable {
     //region Methods
 
     /**
-     * clean le contenu d'un créneau
-     */
-    public abstract void clean();
-
-    /**
      * compare la position de deux creneaux
      * @param creneau le creneau a comparer avec
      * @return true si this est avant creneau, false si non
@@ -84,6 +79,14 @@ public abstract class Creneau implements Comparable<Creneau>, Serializable {
      */
     public boolean isLibre() {
         return this instanceof CreneauLibre;
+    }
+
+    /**
+     * vérifier si le créneau est Occupe ou non
+     * @return true si le créneau est Occupe, false si non
+     */
+    public boolean isOccupe() {
+        return this instanceof CreneauOccupe;
     }
 
     @Override

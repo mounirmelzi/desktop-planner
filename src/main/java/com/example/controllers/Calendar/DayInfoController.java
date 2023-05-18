@@ -130,7 +130,7 @@ public class DayInfoController extends Controller implements Initializable {
         }
 
         private void handleDeleteButtonAction(ActionEvent event) {
-            day.deleteCreneau(this.creneauLibre);
+            //day.deleteCreneau(this.creneauLibre);
             updateCreneaux();
         }
     }
@@ -188,7 +188,7 @@ public class DayInfoController extends Controller implements Initializable {
         }
 
         private void handleDeleteButtonAction(ActionEvent event) {
-            day.deleteCreneau(this.creneauOccupe);
+            //day.deleteCreneau(this.creneauOccupe);
             updateCreneaux();
         }
 

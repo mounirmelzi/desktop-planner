@@ -49,16 +49,40 @@ public class Project implements IPlanifiable, Serializable {
      */
     @Override
     public LocalDateTime planifier(Planning planning, LocalDateTime startDateTime) throws UnscheduledException {
-        LocalDateTime firstDateTime = null;
+        if (!this.isUnscheduled())
+            return null;
 
         for (Tache tache : getTaches()) {
+            if (!tache.isUnscheduled())
+                continue;
+
             try {
                 startDateTime = tache.planifier(planning, startDateTime);
-                if (firstDateTime == null) firstDateTime = startDateTime;
-            } catch (UnscheduledException ignored) {}
+            } catch (UnscheduledException ignored) {
+                throw new UnscheduledException();
+            }
         }
 
-        return firstDateTime;
+        return null;
+    }
+
+    /**
+     * vérifier si un projet est planifiée ou non
+     * @return true si le projet n'est pas planifiée, false si non
+     */
+    @Override
+    public boolean isUnscheduled() {
+        for (Tache tache : getTaches()) {
+            if (tache.isUnscheduled())
+                return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public void deplanifier() {
+        // todo deplanifier un projet
     }
 
     @Override

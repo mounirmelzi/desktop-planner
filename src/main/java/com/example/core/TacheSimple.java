@@ -70,6 +70,9 @@ public class TacheSimple extends Tache {
      */
     @Override
     public LocalDateTime planifier(@NotNull Planning planning, LocalDateTime startDateTime) throws UnscheduledException {
+        if (!this.isUnscheduled())
+            return this.getPlanificationDateTime();
+
         if (periodicity == 0) {
             LocalDateTime infos = planning.planifier(this, startDateTime);
             setPlanificationDateTime(infos);
@@ -96,6 +99,11 @@ public class TacheSimple extends Tache {
         setDeadline(savedDeadline);
         setPlanificationDateTime(firstDateTime);
         return firstDateTime;
+    }
+
+    @Override
+    public void deplanifier() {
+        // todo deplanifier une tache simple
     }
 
     @Override

@@ -107,15 +107,21 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
      */
     @Override
     public LocalDateTime planifier(Planning planning, LocalDateTime startDateTime) throws UnscheduledException {
+        if (!this.isUnscheduled())
+            return this.getPlanificationDateTime();
+
         if (!hasChildren()) {
             LocalDateTime infos = planning.planifier(this, startDateTime);
             setPlanificationDateTime(infos);
             return infos;
         }
 
-        boolean error = true;
-        LocalDateTime max = null;
+        boolean error = true; // fixme if all sub taches are scheduled, this flag will raise error
+        LocalDateTime max = getPlanificationDateTime();
         for (TacheSimple tache : getChildren()) {
+            if (!tache.isUnscheduled())
+                continue;
+
             try {
                 LocalDateTime temp = tache.planifier(planning, startDateTime);
                 error = false;
@@ -126,7 +132,7 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
         }
 
         if (error) throw new UnscheduledException();
-        setPlanificationDateTime(null);
+        setPlanificationDateTime(max);
         return max;
     }
 
@@ -206,6 +212,11 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
 
         setDuree(saveDuration);
         throw new DecompositionImpossibleException();
+    }
+
+    @Override
+    public void deplanifier() {
+        // todo deplanifier une tache décomposable
     }
 
     @Override

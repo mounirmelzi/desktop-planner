@@ -35,14 +35,6 @@ public class CreneauOccupe extends Creneau {
 
     //region Methods
 
-    /**
-     * clean le contenu d'un créneau occupé
-     */
-    @Override
-    public void clean() {
-        getTache().setPlanificationDateTime(null);
-    }
-
     @Override
     public String toString() {
         return "CreneauOccupe{" +
