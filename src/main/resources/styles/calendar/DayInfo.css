@@ -52,4 +52,5 @@
     -fx-text-fill: #E53935;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
+    -fx-wrap-text: true;
 }

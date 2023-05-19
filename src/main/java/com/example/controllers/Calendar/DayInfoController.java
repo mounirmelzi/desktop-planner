@@ -13,8 +13,11 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -37,12 +40,12 @@ public class DayInfoController extends Controller implements Initializable {
     private Label errorLabel;
 
     private final CalendarController calendarController;
-    private final Calendrier calendrier;
+    private final User user;
     private final LocalDate date;
     private Day day;
 
-    public DayInfoController(Calendrier calendrier, Day day, LocalDate date, CalendarController calendarController) {
-        this.calendrier = calendrier;
+    public DayInfoController(User user, Day day, LocalDate date, CalendarController calendarController) {
+        this.user = user;
         this.day = day;
         this.date = date;
         this.calendarController = calendarController;
@@ -56,14 +59,14 @@ public class DayInfoController extends Controller implements Initializable {
     }
 
     @FXML
-    private void handleAddCreneauButtonAction(ActionEvent event) {
+    private void handleAddCreneauButtonAction() {
         LocalTime startTime = Utils.stringToLocalTime(heureDebutTextField.getText());
         LocalTime endTime = Utils.stringToLocalTime(heureFinTextField.getText());
 
         try {
             if (day == null) {
                 Day newDay = new Day(date);
-                if (!calendrier.addDay(newDay))
+                if (!user.getCalendrier().addDay(newDay))
                     throw new NullPointerException();
 
                 day = newDay;
@@ -77,6 +80,13 @@ public class DayInfoController extends Controller implements Initializable {
             errorLabel.setText("Impossible d'ajouter ce créneau libre");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleAddCreneauTextFieldKeyPressed(@NotNull KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            handleAddCreneauButtonAction();
         }
     }
 
@@ -100,7 +110,7 @@ public class DayInfoController extends Controller implements Initializable {
     public class CreneauLibreItem extends HBox {
         private CreneauLibre creneauLibre;
 
-        public CreneauLibreItem(CreneauLibre creneauLibre) {
+        public CreneauLibreItem(@NotNull CreneauLibre creneauLibre) {
             super();
             this.getChildren().clear();
             this.creneauLibre = creneauLibre;
@@ -130,7 +140,7 @@ public class DayInfoController extends Controller implements Initializable {
         }
 
         private void handleDeleteButtonAction(ActionEvent event) {
-            //day.deleteCreneau(this.creneauLibre);
+            day.getCreneaux().remove(this.creneauLibre);
             updateCreneaux();
         }
     }
@@ -138,7 +148,7 @@ public class DayInfoController extends Controller implements Initializable {
     public class CreneauOccupeItem extends HBox {
         private CreneauOccupe creneauOccupe;
 
-        public CreneauOccupeItem(CreneauOccupe creneauOccupe) {
+        public CreneauOccupeItem(@NotNull CreneauOccupe creneauOccupe) {
             super();
             this.getChildren().clear();
             this.creneauOccupe = creneauOccupe;
@@ -188,7 +198,14 @@ public class DayInfoController extends Controller implements Initializable {
         }
 
         private void handleDeleteButtonAction(ActionEvent event) {
-            //day.deleteCreneau(this.creneauOccupe);
+            Tache tache = this.creneauOccupe.getTache();
+
+            if (tache.isPeriodique()) {
+                errorLabel.setText("Impossible de supprimer un créneau contenant une tache périodique");
+                return;
+            }
+
+            tache.deplanifier(user.getPlanning());
             updateCreneaux();
         }
 

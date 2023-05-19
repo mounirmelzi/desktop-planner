@@ -86,7 +86,7 @@ public class SidebarController extends Controller implements Initializable {
 
     @FXML
     private void handleCalendar(ActionEvent event) {
-        showPage("/views/calendar/Calendar.fxml", new CalendarController(user.getCalendrier()));
+        showPage("/views/calendar/Calendar.fxml", new CalendarController(user));
     }
 
     @FXML

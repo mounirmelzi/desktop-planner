@@ -16,7 +16,7 @@
     <HBox styleClass="pseudo-container">
         <Label text="Pseudo" styleClass="pseudo-label"/>
         <TextField fx:id="pseudoTextField" promptText="Entrer votre pseudo" focusTraversable="false"
-                   styleClass="pseudo-textfield" onKeyPressed="#handlePseudoTextFieldKeyPresses"/>
+                   styleClass="pseudo-textfield" onKeyPressed="#handlePseudoTextFieldKeyPressed"/>
     </HBox>
 
     <VBox styleClass="btns-container">

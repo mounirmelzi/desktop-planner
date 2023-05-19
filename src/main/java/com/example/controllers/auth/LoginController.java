@@ -86,7 +86,7 @@ public class LoginController extends Controller {
     }
 
     @FXML
-    private void handlePseudoTextFieldKeyPresses(KeyEvent event) {
+    private void handlePseudoTextFieldKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             handleLoginButtonAction();
         }

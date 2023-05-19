@@ -1,8 +1,8 @@
 package com.example.controllers.Calendar;
 
 import com.example.controllers.Controller;
-import com.example.core.Calendrier;
 import com.example.core.Day;
+import com.example.core.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,11 +33,11 @@ public class CalendarController extends Controller implements Initializable {
     @FXML
     private AnchorPane dayInfoAnchorPane;
 
-    private final Calendrier calendrier;
+    private final User user;
     private YearMonth currentYearMonth;
 
-    public CalendarController(Calendrier calendrier) {
-        this.calendrier = calendrier;
+    public CalendarController(User user) {
+        this.user = user;
         this.currentYearMonth = YearMonth.now();
     }
 
@@ -45,7 +45,7 @@ public class CalendarController extends Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateCalendar();
         LocalDate now = LocalDate.now();
-        updateDayInfo(calendrier.getDayByDate(now), now);
+        updateDayInfo(user.getCalendrier().getDayByDate(now), now);
     }
 
     @FXML
@@ -80,7 +80,7 @@ public class CalendarController extends Controller implements Initializable {
 
     private void updateDayInfo(Day day, LocalDate date) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/calendar/DayInfo.fxml"));
-        loader.setControllerFactory(param -> new DayInfoController(calendrier, day, date, this));
+        loader.setControllerFactory(param -> new DayInfoController(user, day, date, this));
 
         try {
             Parent dayInfoPane = loader.load();
@@ -97,7 +97,7 @@ public class CalendarController extends Controller implements Initializable {
 
         public DayLabel(@NotNull LocalDate date) {
             super(String.valueOf(date.getDayOfMonth()));
-            this.day = calendrier.getDayByDate(date);
+            this.day = user.getCalendrier().getDayByDate(date);
 
             this.setOnMouseClicked(event -> handleDayLabelMouseClicked(event, day, date));
             this.setPrefSize(50, 50);

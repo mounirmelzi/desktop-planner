@@ -59,6 +59,10 @@ public class User implements Serializable {
         return calendrier;
     }
 
+    public Planning getPlanning() {
+        return planning;
+    }
+
     public void setCalendrier(Calendrier calendrier) {
         this.calendrier = calendrier;
     }
