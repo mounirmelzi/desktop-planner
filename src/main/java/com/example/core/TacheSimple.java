@@ -7,7 +7,6 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Objects;
 
 public class TacheSimple extends Tache {
     //region Attributes
@@ -112,13 +111,17 @@ public class TacheSimple extends Tache {
         return firstDateTime;
     }
 
+    /**
+     * déplanifier une tache simple
+     * @param planning le planning où la tache simple est planifiée
+     */
     @Override
     public void deplanifier(Planning planning) {
         if (isUnscheduled())
             return;
 
         if (periodicity == 0) {
-            Day day = Objects.requireNonNull(planning.getDayByDate(getPlanificationDateTime().toLocalDate()));
+            Day day = planning.getDayByDate(getPlanificationDateTime().toLocalDate());
             day.deleteTache(getPlanificationDateTime());
             setPlanificationDateTime(null);
             return;

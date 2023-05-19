@@ -52,6 +52,7 @@ public class Project implements IPlanifiable, Serializable {
         if (!this.isUnscheduled())
             return null;
 
+        this.deplanifier(planning);
         for (Tache tache : getTaches()) {
             if (!tache.isUnscheduled())
                 continue;
@@ -81,6 +82,10 @@ public class Project implements IPlanifiable, Serializable {
         return false;
     }
 
+    /**
+     * déplanifier tous les taches d'un projet
+     * @param planning le planning où les taches du projet sont planifiées
+     */
     @Override
     public void deplanifier(Planning planning) {
         for (Tache tache : getTaches())

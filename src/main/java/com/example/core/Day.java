@@ -71,6 +71,19 @@ public class Day implements Comparable<Day>, Serializable {
     }
 
     /**
+     * verifier s'il y a un creneau occupée dans une journée
+     * @return true s'il y a au moins un creneau occupée, false si non
+     */
+    public boolean hasCreneauxOccupees() {
+        for (Creneau creneau : getCreneaux()) {
+            if (creneau.isOccupe())
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
      * ajouter un creneau libre dans les creneaux de la journée
      * @param creneauLibre le creneau libre à ajouter
      * @return boolean: true si le creneau est ajouté avec succès, false si non
@@ -182,6 +195,11 @@ public class Day implements Comparable<Day>, Serializable {
         return creneaux;
     }
 
+    /**
+     * supprimer une tache d'une journée
+     * @param planificationDateTime la date + l'heure debut du créneau occupé dans lequel la tache est planifiée
+     * @return true si la tache est supprimée, false si non
+     */
     public boolean deleteTache(@NotNull LocalDateTime planificationDateTime) {
         if (!planificationDateTime.toLocalDate().isEqual(getDate()))
             return false;
@@ -209,6 +227,11 @@ public class Day implements Comparable<Day>, Serializable {
         }
     }
 
+    /**
+     * chercher l'heure début du créneau occupée qui contient une tache
+     * @param tache la tache qu'on veut chercher l'heure début de son créneau occupé
+     * @return LocalTime
+     */
     public LocalTime searchForTachePlanificationTime(Tache tache) {
         for (CreneauOccupe creneauOccupe : getCreneauxOccupes()) {
             if (tache == creneauOccupe.getTache())

@@ -81,6 +81,10 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
         return !children.isEmpty();
     }
 
+    /**
+     * verifier si une tache décomposable est periodique ou non
+     * @return true si la tache décomposable est periodique, false si non
+     */
     @Override
     public boolean isPeriodique() {
         return false;
@@ -220,6 +224,10 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
         throw new DecompositionImpossibleException();
     }
 
+    /**
+     * déplanifier une tache décomposable et tous ses sous-taches s'ils existent
+     * @param planning le planning où la tache décomposable est planifiée
+     */
     @Override
     public void deplanifier(Planning planning) {
         if (isUnscheduled())
