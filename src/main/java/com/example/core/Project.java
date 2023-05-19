@@ -58,7 +58,8 @@ public class Project implements IPlanifiable, Serializable {
 
             try {
                 startDateTime = tache.planifier(planning, startDateTime);
-            } catch (UnscheduledException ignored) {
+            } catch (UnscheduledException e) {
+                this.deplanifier(planning);
                 throw new UnscheduledException();
             }
         }
@@ -81,8 +82,9 @@ public class Project implements IPlanifiable, Serializable {
     }
 
     @Override
-    public void deplanifier() {
-        // todo deplanifier un projet
+    public void deplanifier(Planning planning) {
+        for (Tache tache : getTaches())
+            tache.deplanifier(planning);
     }
 
     @Override

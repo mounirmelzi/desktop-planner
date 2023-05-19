@@ -129,6 +129,12 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
     public abstract boolean isUnscheduled();
 
     /**
+     * verifier si une tache est periodique ou non
+     * @return true si la tache est periodique, false si non
+     */
+    public abstract boolean isPeriodique();
+
+    /**
      * planifier une tache manuellement dans un planning
      * @param planning le planning dans lequel la tache sera planifiée
      * @param date la date de la journée où on va planifier la tache

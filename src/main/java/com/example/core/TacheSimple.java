@@ -4,8 +4,10 @@ import com.example.core.exceptions.UnscheduledException;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class TacheSimple extends Tache {
     //region Attributes
@@ -62,6 +64,15 @@ public class TacheSimple extends Tache {
     }
 
     /**
+     * verifier si une tache simple est periodique ou non
+     * @return true si la tache simple est periodique, false si non
+     */
+    @Override
+    public boolean isPeriodique() {
+        return getPeriodicity() > 0;
+    }
+
+    /**
      * planifier une tache automatiquement dans un planning
      * @param planning le planning dans lequel la tache sera planifiée
      * @param startDateTime la journée et le temps du début de planification
@@ -102,8 +113,30 @@ public class TacheSimple extends Tache {
     }
 
     @Override
-    public void deplanifier() {
-        // todo deplanifier une tache simple
+    public void deplanifier(Planning planning) {
+        if (isUnscheduled())
+            return;
+
+        if (periodicity == 0) {
+            Day day = Objects.requireNonNull(planning.getDayByDate(getPlanificationDateTime().toLocalDate()));
+            day.deleteTache(getPlanificationDateTime());
+            setPlanificationDateTime(null);
+            return;
+        } else if (periodicity < 0)
+            return;
+
+        LocalDate planificationDate = this.getPlanificationDateTime().toLocalDate();
+        while (!getDeadline().isBefore(planificationDate.atStartOfDay()) && !planificationDate.isAfter(planning.getDateFin())) {
+            Day day = planning.getDayByDate(planificationDate);
+            if (day != null) {
+                LocalTime planificationTime = day.searchForTachePlanificationTime(this);
+                day.deleteTache(LocalDateTime.of(planificationDate, planificationTime));
+            }
+
+            planificationDate = planificationDate.plusDays(periodicity);
+        }
+
+        setPlanificationDateTime(null);
     }
 
     @Override

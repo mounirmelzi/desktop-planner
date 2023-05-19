@@ -81,6 +81,11 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
         return !children.isEmpty();
     }
 
+    @Override
+    public boolean isPeriodique() {
+        return false;
+    }
+
     /**
      * vérifier si une tache décomposable est planifiée ou non
      * @return true si la tache n'est pas planifiée, false si non
@@ -116,19 +121,17 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
             return infos;
         }
 
-        boolean error = true; // fixme if all sub taches are scheduled, this flag will raise error
+        boolean error = false;
         LocalDateTime max = getPlanificationDateTime();
         for (TacheSimple tache : getChildren()) {
-            if (!tache.isUnscheduled())
-                continue;
-
             try {
                 LocalDateTime temp = tache.planifier(planning, startDateTime);
-                error = false;
 
                 if (max == null || temp.isAfter(max))
                     max = temp;
-            } catch (UnscheduledException ignored) {}
+            } catch (UnscheduledException e) {
+                error = true;
+            }
         }
 
         if (error) throw new UnscheduledException();
@@ -159,6 +162,9 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
      */
     @Override
     public TreeSet<TacheSimple> decomposer(@NotNull Pair<Planning, LocalDateTime> decomposer) throws DecompositionImpossibleException {
+        if (hasChildren() || !isUnscheduled())
+            throw new DecompositionImpossibleException();
+
         Planning planning = decomposer.getFirst();
         LocalDateTime startDateTime = decomposer.getSecond();
 
@@ -215,8 +221,22 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
     }
 
     @Override
-    public void deplanifier() {
-        // todo deplanifier une tache décomposable
+    public void deplanifier(Planning planning) {
+        if (isUnscheduled())
+            return;
+
+        if (!hasChildren()) {
+            Day day = planning.getDayByDate(getPlanificationDateTime().toLocalDate());
+            day.deleteTache(getPlanificationDateTime());
+            setPlanificationDateTime(null);
+            return;
+        }
+
+        for (TacheSimple tacheSimple : getChildren()) {
+            tacheSimple.deplanifier(planning);
+        }
+
+        setPlanificationDateTime(null);
     }
 
     @Override

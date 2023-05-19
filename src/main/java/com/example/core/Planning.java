@@ -144,14 +144,5 @@ public class Planning implements Serializable {
         return Utils.dateTimePairToLocalDateTime(new Pair<>(day, creneaux));
     }
 
-    public boolean deleteTache(LocalDateTime planificationDateTime) {
-        for (Day day : getDays()) {
-            if (day.deleteTache(planificationDateTime))
-                return true;
-        }
-
-        return false;
-    }
-
     //endregion
 }
