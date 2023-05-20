@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+          stylesheets="@../../styles/Home.css"
+          fx:controller="com.example.controllers.home.HomeController"
+          AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+>
+    <padding>
+        <Insets top="20" bottom="20" left="20" right="20"/>
+    </padding>
+
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints prefHeight="150"/>
+        <RowConstraints vgrow="ALWAYS"/>
+        <RowConstraints prefHeight="10"/>
+        <RowConstraints vgrow="ALWAYS"/>
+        <RowConstraints prefHeight="70"/>
+    </rowConstraints>
+
+    <VBox GridPane.rowIndex="0" alignment="TOP_CENTER" spacing="20"
+          style="-fx-background-color: #f5f5f5; -fx-padding: 10px;">
+        <BorderPane>
+            <left>
+                <HBox spacing="20">
+                    <Label text="Welcome"
+                           style="-fx-font-size: 32px; -fx-effect: dropshadow(gaussian, rgba(33,150,243,0.7), 5, 0, 0, 0);"/>
+                    <Label fx:id="pseudoLabel"
+                           style="-fx-text-fill: #2196f3; -fx-font-size: 32px; -fx-effect: dropshadow(gaussian, rgba(33,150,243,0.7), 5, 0, 0, 0);"/>
+                </HBox>
+            </left>
+            <right>
+                <Label fx:id="todayDateLabel" style="-fx-font-size: 32px;" underline="true"/>
+            </right>
+        </BorderPane>
+        <HBox alignment="CENTER">
+            <Label fx:id="planningLabel" style="-fx-font-size: 24px;" wrapText="true"/>
+        </HBox>
+    </VBox>
+
+    <VBox GridPane.rowIndex="1">
+        <BorderPane style="-fx-background-color: #f5f5f5; -fx-padding: 10px;">
+            <left>
+                <Label text="Vos Taches" style="-fx-font-size: 28px;"/>
+            </left>
+            <right>
+                <HBox spacing="20">
+                    <Button text="Planifier Auto" onAction="#planifierAutoButtonAction" styleClass="custom-button"/>
+                    <Button text="Ajouter Tache" onAction="#addTacheButtonAction" styleClass="custom-button"/>
+                </HBox>
+            </right>
+        </BorderPane>
+        <HBox>
+            <ScrollPane fitToWidth="true"
+                        style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-hbar-policy: never; -fx-vbar-policy: never;">
+                <HBox spacing="20" fx:id="tachesContainer"/>
+            </ScrollPane>
+        </HBox>
+    </VBox>
+
+    <VBox GridPane.rowIndex="3">
+        <BorderPane style="-fx-background-color: #f5f5f5; -fx-padding: 10px;">
+            <left>
+                <Label text="Vos Projets" style="-fx-font-size: 28px;"/>
+            </left>
+            <right>
+                <Button text="Ajouter Projet" onAction="#addProjetButtonAction" styleClass="custom-button"/>
+            </right>
+        </BorderPane>
+        <HBox>
+            <ScrollPane fitToWidth="true"
+                        style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-hbar-policy: never; -fx-vbar-policy: never;">
+                <HBox spacing="20" fx:id="projectsContainer"/>
+            </ScrollPane>
+        </HBox>
+    </VBox>
+
+    <VBox GridPane.rowIndex="4" alignment="CENTER">
+        <HBox alignment="CENTER" spacing="20">
+            <Button styleClass="custom-button" onAction="#newPlanningButtonAction">Nouveau Planning</Button>
+            <Button styleClass="custom-button" onAction="#archiverPlanningButtonAction">Archiver Planning</Button>
+            <Button styleClass="custom-button" onAction="#extendPlanningButtonAction">Etendre planning</Button>
+            <Button styleClass="custom-button" onAction="#addCreneauLibreButtonAction">Ajouter Creneau Libre</Button>
+        </HBox>
+    </VBox>
+</GridPane>

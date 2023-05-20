@@ -1,8 +1,5 @@
 package com.example.core;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-
 public enum Priority {
     LOW("Low"), MEDIUM("Medium"), HIGH("High");
 
@@ -12,16 +9,19 @@ public enum Priority {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
+    public static Priority getByName(String name) {
+        if (name == null)
+            return null;
+
+        for (Priority priority : Priority.values()) {
+            if (priority.getName().equals(name))
+                return priority;
+        }
+
+        return null;
     }
 
-    @NotNull
-    @Contract(pure = true)
-    @Override
-    public String toString() {
-        return "Priority{" +
-                "name='" + name + '\'' +
-                '}';
+    public String getName() {
+        return name;
     }
 }

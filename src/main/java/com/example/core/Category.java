@@ -7,6 +7,7 @@ public class Category implements Serializable {
 
     private String name;
     private String color;
+    static final String defaultColor = "WHITE";
 
     //endregion
 
@@ -14,7 +15,7 @@ public class Category implements Serializable {
 
     public Category(String name) {
         this.name = name;
-        this.color = "WHITE";
+        this.color = defaultColor;
     }
 
     public Category(String name, String color) {
@@ -25,6 +26,14 @@ public class Category implements Serializable {
     //endregion
 
     //region Setter and Getters
+
+    public String getName() {
+        return name;
+    }
+
+    public String getColor() {
+        return color;
+    }
 
     //endregion
 

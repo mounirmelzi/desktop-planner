@@ -27,11 +27,6 @@ public class TacheSimple extends Tache {
         periodicity = 0;
     }
 
-    public TacheSimple(String nom, Duration duree, Priority priority, LocalDateTime deadline, State state) {
-        super(nom, duree, priority, deadline, state);
-        periodicity = 0;
-    }
-
     public TacheSimple(String nom, Duration duree, Priority priority, LocalDateTime deadline, Category category, State state) {
         super(nom, duree, priority, deadline, category, state);
         periodicity = 0;

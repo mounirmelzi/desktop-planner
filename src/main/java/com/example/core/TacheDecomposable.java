@@ -30,11 +30,6 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
         children = new TreeSet<>();
     }
 
-    public TacheDecomposable(String nom, Duration duree, Priority priority, LocalDateTime deadline, State state) {
-        super(nom, duree, priority, deadline, state);
-        children = new TreeSet<>();
-    }
-
     public TacheDecomposable(String nom, Duration duree, Priority priority, LocalDateTime deadline, Category category, State state) {
         super(nom, duree, priority, deadline, category, state);
         children = new TreeSet<>();

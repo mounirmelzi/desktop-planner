@@ -1,5 +1,6 @@
 package com.example.core;
 
+import com.example.core.exceptions.CreneauLibreDurationException;
 import com.example.core.exceptions.InvalidDateTimeException;
 import com.example.core.exceptions.UnscheduledException;
 import com.example.core.utils.Pair;
@@ -94,6 +95,10 @@ public class Planning implements Serializable {
         return dateFin;
     }
 
+    void setDateFin(LocalDate dateFin) {
+        this.dateFin = dateFin;
+    }
+
     //endregion
 
     //region Methods
@@ -142,6 +147,27 @@ public class Planning implements Serializable {
 
         TreeSet<Creneau> creneaux = day.planifierManuellement(tache, time);
         return Utils.dateTimePairToLocalDateTime(new Pair<>(day, creneaux));
+    }
+
+    /**
+     * ajouter un créneau libre dans toutes les journées d'un planning
+     * @param heureDebut heure début du créneau libre
+     * @param heureFin heure fin du créneau libre
+     */
+    public void ajouterCreneauLibre(LocalTime heureDebut, LocalTime heureFin) throws CreneauLibreDurationException {
+        for (LocalDate date = getDateDebut(); !date.isAfter(getDateFin()); date = date.plusDays(1)) {
+            Day day = this.getDayByDate(date);
+            if (day == null) {
+                day = new Day(date);
+                calendrier.addDay(day);
+            }
+
+            try {
+                day.ajouterCreneauLibre(new CreneauLibre(heureDebut, heureFin));
+            } catch (CreneauLibreDurationException e) {
+                throw new CreneauLibreDurationException();
+            }
+        }
     }
 
     //endregion

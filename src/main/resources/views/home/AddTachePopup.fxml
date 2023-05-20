@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.example.controllers.home.AddTachePopupController"
+          style="-fx-padding: 20" vgap="10" hgap="10"
+>
+    <HBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER">
+        <Label style="-fx-font-size: 24px; -fx-text-fill: #2196f3;">Create New Tache</Label>
+    </HBox>
+
+
+    <Label GridPane.rowIndex="2" GridPane.columnIndex="0" underline="true">Nom</Label>
+    <TextField fx:id="nomTacheTextField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+    <Separator GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+    <HBox GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER">
+        <CheckBox fx:id="isDecomposableCheckBox">Tache Décomposable</CheckBox>
+    </HBox>
+
+    <Separator GridPane.rowIndex="5" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+    <Label GridPane.rowIndex="6" GridPane.columnIndex="0" prefWidth="75" underline="true">Deadline</Label>
+    <VBox GridPane.rowIndex="6" GridPane.columnIndex="1" alignment="CENTER" spacing="5">
+        <DatePicker fx:id="deadlineDatePicker"/>
+        <BorderPane>
+            <left>
+                <VBox alignment="CENTER" spacing="5">
+                    <Label prefHeight="25">Hour</Label>
+                    <Label prefHeight="25">Minute</Label>
+                    <Label prefHeight="25">Second</Label>
+                </VBox>
+            </left>
+            <center>
+                <HBox prefWidth="10"/>
+            </center>
+            <right>
+                <VBox alignment="CENTER" spacing="5">
+                    <Spinner fx:id="deadlineHourSpinner" min="0" max="24" editable="true" prefWidth="75" prefHeight="25"/>
+                    <Spinner fx:id="deadlineMinuteSpinner" min="0" max="60" editable="true" prefWidth="75" prefHeight="25"/>
+                    <Spinner fx:id="deadlineSecondSpinner" min="0" max="60" editable="true" prefWidth="75" prefHeight="25"/>
+                </VBox>
+            </right>
+        </BorderPane>
+    </VBox>
+
+    <Separator GridPane.rowIndex="7" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+    <Label GridPane.rowIndex="8" GridPane.columnIndex="0" prefWidth="75" underline="true">Duration</Label>
+    <VBox GridPane.rowIndex="8" GridPane.columnIndex="1" alignment="CENTER" spacing="10">
+        <BorderPane>
+            <left>
+                <VBox alignment="CENTER" spacing="5">
+                    <Label prefHeight="25">Days</Label>
+                    <Label prefHeight="25">Hours</Label>
+                    <Label prefHeight="25">Minutes</Label>
+                    <Label prefHeight="25">Seconds</Label>
+                </VBox>
+            </left>
+            <center>
+                <HBox prefWidth="10"/>
+            </center>
+            <right>
+                <VBox alignment="CENTER" spacing="5">
+                    <Spinner fx:id="durationDaysSpinner" min="0" max="360" editable="true" prefWidth="75" prefHeight="25"/>
+                    <Spinner fx:id="durationHoursSpinner" min="0" max="24" editable="true" prefWidth="75" prefHeight="25"/>
+                    <Spinner fx:id="durationMinutesSpinner" min="0" max="60" editable="true" prefWidth="75" prefHeight="25"/>
+                    <Spinner fx:id="durationSecondsSpinner" min="0" max="60" editable="true" prefWidth="75" prefHeight="25"/>
+                </VBox>
+            </right>
+        </BorderPane>
+    </VBox>
+
+    <Separator GridPane.rowIndex="9" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+    <Label GridPane.rowIndex="10" GridPane.columnIndex="0" prefWidth="75" underline="true">Priority</Label>
+    <HBox GridPane.rowIndex="10" GridPane.columnIndex="1" alignment="CENTER">
+        <ComboBox fx:id="priorityComboBox"/>
+    </HBox>
+
+    <Separator GridPane.rowIndex="11" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+    <Label GridPane.rowIndex="12" GridPane.columnIndex="0" prefWidth="75" underline="true">Category</Label>
+    <HBox GridPane.rowIndex="12" GridPane.columnIndex="1" alignment="CENTER">
+        <ComboBox fx:id="categoryComboBox"/>
+    </HBox>
+
+
+    <HBox GridPane.rowIndex="14" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER">
+        <Button onAction="#handleAddTacheButtonAction" style="-fx-background-color: #2196f3; -fx-text-fill: white; -fx-font-size: 16px; -fx-pref-width: 120px; -fx-pref-height: 30px; -fx-effect: dropshadow(gaussian, rgba(33,150,243,0.7), 5, 0, 0, 0); -fx-cursor: hand;">
+            Add Tache
+        </Button>
+    </HBox>
+</GridPane>

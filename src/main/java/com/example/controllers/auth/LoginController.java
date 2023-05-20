@@ -53,7 +53,7 @@ public class LoginController extends Controller {
             primaryStage.setOnCloseRequest(windowEvent -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Logout");
-                alert.setContentText("Do you want to logout?");
+                alert.setHeaderText("Do you want to logout?");
                 Optional<ButtonType> buttonType = alert.showAndWait();
 
                 if (buttonType.isPresent() && buttonType.get() == ButtonType.OK) {

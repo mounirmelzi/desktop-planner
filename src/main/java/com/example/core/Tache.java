@@ -31,17 +31,14 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
         this.duree = duree;
         this.priority = priority;
         this.deadline = deadline;
+        this.category = null;
+        this.state = State.IN_PROGRESS;
         this.planificationDateTime = null;
     }
 
     public Tache(String nom, Duration duree, Priority priority, LocalDateTime deadline, Category category) {
         this(nom, duree, priority, deadline);
         this.category = category;
-    }
-
-    public Tache(String nom, Duration duree, Priority priority, LocalDateTime deadline, State state) {
-        this(nom, duree, priority, deadline);
-        this.state = state;
     }
 
     public Tache(String nom, Duration duree, Priority priority, LocalDateTime deadline, Category category, State state) {
@@ -82,8 +79,19 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
         return category;
     }
 
+    public String getColor() {
+        if (getCategory() == null)
+            return Category.defaultColor;
+
+        return getCategory().getColor();
+    }
+
     public State getState() {
         return state;
+    }
+
+    void setState(State state) {
+        this.state = state;
     }
 
     public LocalDateTime getPlanificationDateTime() {

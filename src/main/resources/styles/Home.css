@@ -1,0 +1,71 @@
+.custom-button {
+    -fx-background-color: #2196f3;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-min-width: 120px;
+    -fx-pref-height: 30px;
+    -fx-effect: dropshadow(gaussian, rgba(33,150,243,0.7), 5, 0, 0, 0);
+    -fx-cursor: hand;
+}
+
+.custom-button:hover {
+    -fx-background-color: #1565c0;
+}
+
+.custom-button:pressed {
+    -fx-background-color: #0d47a1;
+}
+
+.info-button {
+    -fx-background-color: #2196f3;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 30px;
+    -fx-effect: dropshadow(gaussian, #2196f3, 5, 0, 0, 0);
+    -fx-cursor: hand;
+}
+
+.info-button:hover {
+    -fx-background-color: #1565c0;
+}
+
+.info-button:pressed {
+    -fx-background-color: #0d47a1;
+}
+
+.plan-button {
+    -fx-background-color: #4caf50;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 30px;
+    -fx-effect: dropshadow(gaussian, #4caf50, 5, 0, 0, 0);
+    -fx-cursor: hand;
+}
+
+.plan-button:hover {
+    -fx-background-color: #66bb6a;
+}
+
+.plan-button:pressed {
+    -fx-background-color: #388e3c;
+}
+
+.delete-button {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 30px;
+    -fx-effect: dropshadow(gaussian, #f44336, 5, 0, 0, 0);
+    -fx-cursor: hand;
+}
+
+.delete-button:hover {
+    -fx-background-color: #e57373;
+}
+
+.delete-button:pressed {
+    -fx-background-color: #d32f2f;
+}

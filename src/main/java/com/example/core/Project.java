@@ -31,6 +31,14 @@ public class Project implements IPlanifiable, Serializable {
     //endregion
 
     //region Setter and Getters
+    
+    public String getNom() {
+        return nom;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 
     public LinkedHashSet<Tache> getTaches() {
         return taches;

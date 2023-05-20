@@ -1,4 +1,4 @@
-package com.example.controllers.Calendar;
+package com.example.controllers.calendar;
 
 import com.example.controllers.Controller;
 import com.example.core.*;
@@ -210,7 +210,7 @@ public class DayInfoController extends Controller implements Initializable {
         }
 
         private void handleShowMoreInfoButtonAction(ActionEvent event) {
-            System.out.println("show more info about creneau occupe " + day.getDate());
+            // todo show more info of creneau occupe
         }
     }
 }

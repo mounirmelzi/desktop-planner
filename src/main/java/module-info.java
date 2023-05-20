@@ -13,6 +13,8 @@ module com.example.planner {
     opens com.example.controllers.auth to javafx.fxml;
     exports com.example.core.exceptions;
     exports com.example.core.utils;
-    exports com.example.controllers.Calendar;
-    opens com.example.controllers.Calendar to javafx.fxml;
+    exports com.example.controllers.calendar;
+    opens com.example.controllers.calendar to javafx.fxml;
+    exports com.example.controllers.home;
+    opens com.example.controllers.home to javafx.fxml;
 }

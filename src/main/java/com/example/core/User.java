@@ -1,24 +1,28 @@
 package com.example.core;
 
+import com.example.core.exceptions.InvalidDateTimeException;
+import com.example.core.exceptions.UnscheduledException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.time.Duration;
-import java.util.Arrays;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.TreeSet;
 
 public class User implements Serializable {
     //region Attributes
 
-    private final TreeSet<Tache> taches = new TreeSet<>(); // les taches no programmées : unscheduled (l'ensemble des taches)
-    private final HashSet<Project> projects = new HashSet<>();
     private String pseudo;
     private Calendrier calendrier;
     private Planning planning;
+    private final TreeSet<Tache> taches;
+    private final HashSet<Project> projects;
     private Historique historique;
-    private HashSet<Category> categories;
+    private HashMap<String, Category> categories;
     private HashMap<Badge, Integer> badges;
     private Duration dureeCreneauLibreMin;
     private int nbrTachesMinParJour;
@@ -32,19 +36,20 @@ public class User implements Serializable {
 
         this.calendrier = new Calendrier();
         this.planning = null;
+        this.taches = new TreeSet<>();
+        this.projects = new HashSet<>();
         this.badges = new HashMap<>();
         this.nbrTachesMinParJour = 3;
 
         this.dureeCreneauLibreMin = Duration.ofMinutes(30);
         CreneauLibre.setDureeMin(this.dureeCreneauLibreMin);
 
-        this.categories = new HashSet<>(Arrays.asList(
-                new Category("Studies"),
-                new Category("Work"),
-                new Category("Hobby"),
-                new Category("Sport"),
-                new Category("Health")
-        ));
+        this.categories = new HashMap<>();
+        categories.put("Studies", new Category("Studies"));
+        categories.put("Work", new Category("Work"));
+        categories.put("Hobby", new Category("Hobby"));
+        categories.put("Sport", new Category("Sport"));
+        categories.put("Health", new Category("Health"));
     }
 
     //endregion
@@ -67,16 +72,92 @@ public class User implements Serializable {
         this.calendrier = calendrier;
     }
 
+    public TreeSet<Tache> getTaches() {
+        return taches;
+    }
+
+    public HashSet<Project> getProjects() {
+        return projects;
+    }
+
+    public Set<String> getCategories() {
+        return categories.keySet();
+    }
+
+    public Category getCategorie(String name) {
+        return categories.get(name);
+    }
+
     //endregion
 
     //region Methods
 
-    public void creerPlanning () {
-        // TODO: creer un planning: attacher a ce planning le calendrier de l'utilisateur
+    /**
+     * vérifier si un utilisateur a un planning ou non
+     * @return true si le planning existe, false si non
+     */
+    public boolean hasPlanning() {
+        return getPlanning() != null;
     }
 
-    public void planifierAuto() {
-        // TODO: planifier l'ensemble des taches this.taches automatiquement dans this.planning
+    /**
+     * créer un nouveau planning
+     * @param dateDebut la date début de planning
+     * @param dateFin la date fin du planning
+     * @throws InvalidDateTimeException si la date début du planning est avant today
+     */
+    public void createPlanning(LocalDate dateDebut, LocalDate dateFin) throws InvalidDateTimeException {
+        this.planning = new Planning(dateDebut, dateFin, this.calendrier);
+    }
+
+    /**
+     * etendre la date fin du planning
+     * @param newEndDate la nouvelle date fin de planning
+     * @throws InvalidDateTimeException si la nouvelle date fin est avant la date fin ancienne
+     */
+    public void extendPlanning(@NotNull LocalDate newEndDate) throws InvalidDateTimeException {
+        if (newEndDate.isBefore(getPlanning().getDateFin()))
+            throw new InvalidDateTimeException();
+
+        getPlanning().setDateFin(newEndDate);
+    }
+
+    /**
+     * ajouter une tache dans l'ensemble des taches de l'utilisateur
+     * @param tache la tache à ajouter
+     * @return true si la tache est ajoutée, false si elle existe déjà
+     */
+    public boolean addTache(@NotNull Tache tache) {
+        return this.taches.add(tache);
+    }
+
+    /**
+     * supprimer une tache de l'ensemble des taches de l'utilisateur
+     * @param tache la tache à supprimer
+     * @return true si la tache est suprimée, false si non
+     */
+    public boolean deleteTache(@NotNull Tache tache) {
+        tache.deplanifier(getPlanning());
+        return this.taches.remove(tache);
+    }
+
+    /**
+     * planifier automatiquement les taches de l'utilisateur
+     * @throws UnscheduledException si les taches ne peut pas etre toutes planifiées
+     */
+    public void planifierAuto() throws UnscheduledException {
+        boolean error = false;
+
+        for (Tache tache : getTaches()) {
+            try {
+                tache.planifier(planning, LocalDateTime.now());
+            } catch (UnscheduledException ignored) {
+                error = true;
+            }
+        }
+
+        if (error)
+            throw new UnscheduledException();
     }
 
     /**

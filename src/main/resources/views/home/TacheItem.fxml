@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+          stylesheets="@../../styles/Home.css"
+          fx:controller="com.example.controllers.home.TacheItemController"
+          fx:id="root" minWidth="250" minHeight="150"
+          style="-fx-border-color: #2196f3; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;"
+>
+    <padding>
+        <Insets top="5" bottom="5" left="10" right="10"/>
+    </padding>
+
+    <columnConstraints>
+        <ColumnConstraints prefWidth="150"/>
+        <ColumnConstraints prefWidth="100"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints prefHeight="45"/>
+        <RowConstraints prefHeight="45"/>
+        <RowConstraints prefHeight="45"/>
+    </rowConstraints>
+
+    <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2">
+        <Label fx:id="titleLabel" underline="true" wrapText="true"
+               style="-fx-text-fill: #0d47a1; -fx-font-size: 24px; -fx-effect: dropshadow(gaussian, rgba(33,150,243,0.7), 5, 0, 0, 0);"/>
+    </HBox>
+
+    <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="2">
+        <Label fx:id="categoryLabel" style="-fx-font-size: 18px;" wrapText="true"
+               textAlignment="CENTER"/>
+    </HBox>
+
+    <Button GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="info-button" onAction="#handleInfoButtonAction" text="More"/>
+    <Button GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="plan-button" onAction="#handlePlanificationButtonAction" fx:id="planificationButton"/>
+    <Button GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="delete-button" onAction="#handleDeleteButtonAction" text="Delete"/>
+</GridPane>

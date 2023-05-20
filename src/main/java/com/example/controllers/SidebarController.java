@@ -1,6 +1,7 @@
 package com.example.controllers;
 
-import com.example.controllers.Calendar.CalendarController;
+import com.example.controllers.calendar.CalendarController;
+import com.example.controllers.home.HomeController;
 import com.example.core.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URL;
@@ -56,7 +58,7 @@ public class SidebarController extends Controller implements Initializable {
 
         usernameLabel.setText(user.getPseudo());
 
-        showPage("/views/Home.fxml", new HomeController(user));
+        showPage("/views/home/Home.fxml", new HomeController(user));
     }
 
 
@@ -81,7 +83,7 @@ public class SidebarController extends Controller implements Initializable {
 
     @FXML
     private void handleHome(ActionEvent event) {
-        showPage("/views/Home.fxml", new HomeController(user));
+        showPage("/views/home/Home.fxml", new HomeController(user));
     }
 
     @FXML
@@ -90,7 +92,7 @@ public class SidebarController extends Controller implements Initializable {
     }
 
     @FXML
-    private void handleLogout(ActionEvent event) {
+    private void handleLogout(@NotNull ActionEvent event) {
         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         try {
