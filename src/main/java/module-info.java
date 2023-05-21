@@ -17,4 +17,8 @@ module com.example.planner {
     opens com.example.controllers.calendar to javafx.fxml;
     exports com.example.controllers.home;
     opens com.example.controllers.home to javafx.fxml;
+    exports com.example.controllers.tache;
+    opens com.example.controllers.tache to javafx.fxml;
+    exports com.example.controllers.project;
+    opens com.example.controllers.project to javafx.fxml;
 }

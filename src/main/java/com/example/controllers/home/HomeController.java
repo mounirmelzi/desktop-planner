@@ -1,6 +1,8 @@
 package com.example.controllers.home;
 
 import com.example.controllers.Controller;
+import com.example.controllers.project.AddProjectPopupController;
+import com.example.controllers.tache.AddTachePopupController;
 import com.example.core.Project;
 import com.example.core.Tache;
 import com.example.core.User;
@@ -68,7 +70,7 @@ public class HomeController extends Controller implements Initializable {
     @FXML
     private void addTacheButtonAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/home/AddTachePopup.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/tache/AddTachePopup.fxml"));
             loader.setControllerFactory(param -> new AddTachePopupController(user));
 
             Scene scene = new Scene(loader.load());
@@ -87,7 +89,7 @@ public class HomeController extends Controller implements Initializable {
     @FXML
     private void addProjetButtonAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/home/AddProjectPopup.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/project/AddProjectPopup.fxml"));
             loader.setControllerFactory(param -> new AddProjectPopupController(user));
 
             Scene scene = new Scene(loader.load());
