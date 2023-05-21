@@ -75,7 +75,7 @@
                                      prefHeight="25"/>
                             <Spinner fx:id="durationMinutesSpinner" min="0" max="60" editable="true" prefWidth="75"
                                      prefHeight="25"/>
-                            <Spinner fx:id="durationSecondsSpinner" min="1" max="60" editable="true" prefWidth="75"
+                            <Spinner fx:id="durationSecondsSpinner" min="0" max="60" editable="true" prefWidth="75"
                                      prefHeight="25"/>
                         </VBox>
                     </right>

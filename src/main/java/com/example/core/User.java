@@ -23,7 +23,6 @@ public class User implements Serializable {
     private final HashSet<Project> projects;
     private Historique historique;
     private HashMap<String, Category> categories;
-    private HashMap<Badge, Integer> badges;
     private Duration dureeCreneauLibreMin;
     private int nbrTachesMinParJour;
 
@@ -38,7 +37,7 @@ public class User implements Serializable {
         this.planning = null;
         this.taches = new TreeSet<>();
         this.projects = new HashSet<>();
-        this.badges = new HashMap<>();
+        this.historique = new Historique();
         this.nbrTachesMinParJour = 3;
 
         this.dureeCreneauLibreMin = Duration.ofMinutes(30);
@@ -164,7 +163,7 @@ public class User implements Serializable {
      * @param project le projet à supprimer
      * @return true si le projet est suprimée, false si non
      */
-    public boolean deleteProgect(@NotNull Project project) {
+    public boolean deleteProject(@NotNull Project project) {
         project.deplanifier(getPlanning());
         return this.projects.remove(project);
     }

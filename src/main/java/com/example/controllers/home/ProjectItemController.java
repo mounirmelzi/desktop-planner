@@ -80,7 +80,7 @@ public class ProjectItemController extends Controller implements Initializable {
 
     @FXML
     private void handleDeleteButtonAction(ActionEvent event) {
-        user.deleteProgect(project);
+        user.deleteProject(project);
         homeController.updateProjects();
     }
 }

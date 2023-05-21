@@ -93,6 +93,15 @@ public class AddTachePopupController extends Controller implements Initializable
                 return;
             }
 
+            if (duration.isZero() || duration.isNegative()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Tache Creation failed");
+                alert.setHeaderText("Tache can't be created");
+                alert.setContentText("La tache n'a pas une durée");
+                alert.showAndWait();
+                return;
+            }
+
             Project project = projectComboBox.getValue().equals(NO_PROJECT_SELECTED) ? null : user.getProject(projectComboBox.getValue());
 
             Alert projectScheduledAlert = new Alert(Alert.AlertType.WARNING);
