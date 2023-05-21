@@ -46,13 +46,13 @@ public class NewPlanningPopupController extends Controller implements Initializa
             alert.setTitle("Planning creation failed");
             alert.setHeaderText("You choosed invalid date for your planning");
             alert.setContentText("Vous ne pouvez pas creer un planning avant la date d'aujourd'hui");
-            alert.show();
+            alert.showAndWait();
         } catch (IllegalArgumentException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Planning creation failed");
             alert.setHeaderText("You choosed invalid date for your planning");
             alert.setContentText("Vous devez choisir une date début et une date fin pour votre planning");
-            alert.show();
+            alert.showAndWait();
         }
     }
 }

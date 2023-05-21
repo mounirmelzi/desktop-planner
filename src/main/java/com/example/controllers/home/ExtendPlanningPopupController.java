@@ -43,13 +43,13 @@ public class ExtendPlanningPopupController extends Controller implements Initial
             alert.setTitle("Extend planning failed");
             alert.setHeaderText("You choosed invalid date for your planning");
             alert.setContentText("La nouvelle date fin du planning est avant la date fin courante !");
-            alert.show();
+            alert.showAndWait();
         } catch (IllegalArgumentException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Extend planning failed");
             alert.setHeaderText("You choosed invalid date for your planning");
             alert.setContentText("Vous devez choisir la nouvelle date fin pour votre planning");
-            alert.show();
+            alert.showAndWait();
         }
     }
 }

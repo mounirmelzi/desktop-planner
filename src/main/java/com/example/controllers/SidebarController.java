@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 
 public class SidebarController extends Controller implements Initializable {
     private static final double WINDOW_WIDTH = 1080;
-    private static final double WINDOW_HEIGHT = 720;
+    private static final double WINDOW_HEIGHT = 680;
     @FXML
     private BorderPane root;
     @FXML

@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 
 public class AddTachePopupController extends Controller implements Initializable {
     @FXML
-    protected ComboBox<String> categoryComboBox;
+    protected ComboBox<String> categoryComboBox, priorityComboBox, projectComboBox;
     @FXML
     private TextField nomTacheTextField;
     @FXML
@@ -34,8 +35,10 @@ public class AddTachePopupController extends Controller implements Initializable
     @FXML
     private Spinner<Integer> durationDaysSpinner, durationHoursSpinner, durationMinutesSpinner, durationSecondsSpinner;
     @FXML
-    private ComboBox<String> priorityComboBox;
+    private Spinner<Integer> periodicitySpinner;
 
+    private static final String NO_PROJECT_SELECTED = "No Project";
+    private static final String NO_CATEGORY_SELECTED = "No Category";
     private final User user;
 
     public AddTachePopupController(User user) {
@@ -44,13 +47,21 @@ public class AddTachePopupController extends Controller implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<String> priorities = FXCollections.observableList(Arrays.stream(Priority.values()).map(Priority::getName).collect(Collectors.toList()));
+        ObservableList<String> priorities = FXCollections.observableArrayList(Arrays.stream(Priority.values()).map(Priority::getName).collect(Collectors.toList()));
         priorityComboBox.setItems(priorities);
-        priorityComboBox.setValue(priorities.get(0));
+        priorityComboBox.setValue(priorities.size() > 0 ? priorities.get(0) : null);
 
-        ObservableList<String> categories = FXCollections.observableList(new ArrayList<>(user.getCategories()));
+        ObservableList<String> categories = FXCollections.observableArrayList(new ArrayList<>(user.getCategories()));
+        categories.add(0, NO_CATEGORY_SELECTED);
         categoryComboBox.setItems(categories);
-        categoryComboBox.setValue(categories.get(0));
+        categoryComboBox.setValue(categories.size() > 0 ? categories.get(0) : null);
+
+        ObservableList<String> projects = FXCollections.observableArrayList(user.getProjects().stream().map(Project::getNom).toList());
+        projects.add(0, NO_PROJECT_SELECTED);
+        projectComboBox.setItems(projects);
+        projectComboBox.setValue(projects.size() > 0 ? projects.get(0) : null);
+
+        periodicitySpinner.disableProperty().bind(isDecomposableCheckBox.selectedProperty());
     }
 
     @FXML
@@ -58,7 +69,7 @@ public class AddTachePopupController extends Controller implements Initializable
         try {
             String nom = nomTacheTextField.getText();
             Priority priority = Priority.getByName(priorityComboBox.getValue());
-            Category category = user.getCategorie(categoryComboBox.getValue());
+            Category category = categoryComboBox.getValue().equals(NO_CATEGORY_SELECTED) ? null : user.getCategorie(categoryComboBox.getValue());
             Duration duration = Duration
                     .ofDays(durationDaysSpinner.getValue())
                     .plusHours(durationHoursSpinner.getValue())
@@ -73,21 +84,60 @@ public class AddTachePopupController extends Controller implements Initializable
                     )
             );
 
-            user.addTache(
-                    isDecomposableCheckBox.isSelected()
-                            ?
-                            new TacheDecomposable(nom, duration, priority, deadline, category)
-                            :
-                            new TacheSimple(nom, duration, priority, deadline, category)
-            );
+            if (deadline.isBefore(LocalDateTime.now())) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Tache Creation failed");
+                alert.setHeaderText("Tache can't be created");
+                alert.setContentText("Le deadline de la tache est dans le passé !!");
+                alert.showAndWait();
+                return;
+            }
 
-            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+            Project project = projectComboBox.getValue().equals(NO_PROJECT_SELECTED) ? null : user.getProject(projectComboBox.getValue());
+
+            Alert projectScheduledAlert = new Alert(Alert.AlertType.WARNING);
+            projectScheduledAlert.setTitle("Tache Creation failed");
+            projectScheduledAlert.setHeaderText("Tache can't be added to the project");
+            projectScheduledAlert.setContentText("Ce projet est déjà planifié, pour lui ajouter une tache veuillez le déplanifier d'abord");
+
+            if (isDecomposableCheckBox.isSelected()) {
+                if (project == null) {
+                    user.addTache(new TacheDecomposable(nom, duration, priority, deadline, category));
+                    ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+                    return;
+                }
+
+                if (project.hasTaches() && !project.isUnscheduled()) {
+                    projectScheduledAlert.showAndWait();
+                    return;
+                }
+
+                project.addTache(new TacheDecomposable(nom, duration, priority, deadline, category));
+                ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+            } else {
+                TacheSimple tacheSimple = new TacheSimple(nom, duration, priority, deadline, category);
+                tacheSimple.setPeriodicity(periodicitySpinner.getValue());
+
+                if (project == null) {
+                    user.addTache(tacheSimple);
+                    ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+                    return;
+                }
+
+                if (project.hasTaches() && !project.isUnscheduled()) {
+                    projectScheduledAlert.showAndWait();
+                    return;
+                }
+
+                project.addTache(tacheSimple);
+                ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+            }
         } catch (NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Tache creation failed");
             alert.setHeaderText("You have entered invalid information");
             alert.setContentText("Merci de remplir tous les champs");
-            alert.show();
+            alert.showAndWait();
         }
     }
 }

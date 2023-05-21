@@ -91,6 +91,23 @@ public class Project implements IPlanifiable, Serializable {
     }
 
     /**
+     * vérifier si un projet a des taches ou non
+     * @return true si le projet contient des taches, false si non
+     */
+    public boolean hasTaches() {
+        return !getTaches().isEmpty();
+    }
+
+    /**
+     * ajouter une tache dans l'ensemble des taches du projet
+     * @param tache la tache à ajouter
+     * @return true si la tache est ajoutée, false si elle existe déjà
+     */
+    public boolean addTache(Tache tache) {
+        return this.taches.add(tache);
+    }
+
+    /**
      * déplanifier tous les taches d'un projet
      * @param planning le planning où les taches du projet sont planifiées
      */

@@ -45,11 +45,11 @@ public class User implements Serializable {
         CreneauLibre.setDureeMin(this.dureeCreneauLibreMin);
 
         this.categories = new HashMap<>();
-        categories.put("Studies", new Category("Studies"));
-        categories.put("Work", new Category("Work"));
-        categories.put("Hobby", new Category("Hobby"));
-        categories.put("Sport", new Category("Sport"));
-        categories.put("Health", new Category("Health"));
+        categories.put("Studies", new Category("Studies", "#ff000044"));
+        categories.put("Work", new Category("Work", "#0000ff44"));
+        categories.put("Hobby", new Category("Hobby", "#00ff0044"));
+        categories.put("Sport", new Category("Sport", "#0ff00044"));
+        categories.put("Health", new Category("Health", "#000ff044"));
     }
 
     //endregion
@@ -78,6 +78,15 @@ public class User implements Serializable {
 
     public HashSet<Project> getProjects() {
         return projects;
+    }
+
+    public Project getProject(String name) {
+        for (Project project : getProjects()) {
+            if (name.equals(project.getNom()))
+                return project;
+        }
+
+        return null;
     }
 
     public Set<String> getCategories() {
@@ -139,6 +148,25 @@ public class User implements Serializable {
     public boolean deleteTache(@NotNull Tache tache) {
         tache.deplanifier(getPlanning());
         return this.taches.remove(tache);
+    }
+
+    /**
+     * ajouter un projet dans l'ensemble des projets de l'utilisateur
+     * @param project le project à ajouter
+     * @return true si le project est ajoutée, false si il existe déjà
+     */
+    public boolean addProject(@NotNull Project project) {
+        return this.projects.add(project);
+    }
+
+    /**
+     * supprimer un projet de l'ensemble des projets de l'utilisateur
+     * @param project le projet à supprimer
+     * @return true si le projet est suprimée, false si non
+     */
+    public boolean deleteProgect(@NotNull Project project) {
+        project.deplanifier(getPlanning());
+        return this.projects.remove(project);
     }
 
     /**

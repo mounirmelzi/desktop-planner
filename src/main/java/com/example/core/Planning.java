@@ -8,10 +8,7 @@ import com.example.core.utils.Utils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Period;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.TreeSet;
@@ -150,11 +147,10 @@ public class Planning implements Serializable {
     }
 
     /**
-     * ajouter un créneau libre dans toutes les journées d'un planning
-     * @param heureDebut heure début du créneau libre
-     * @param heureFin heure fin du créneau libre
+     * ajouter des créneaux libres dans toutes les journées d'un planning
+     * @param creneauxLibres les creneaux libres à ajouter dans le planning
      */
-    public void ajouterCreneauLibre(LocalTime heureDebut, LocalTime heureFin) throws CreneauLibreDurationException {
+    public void ajouterCreneauLibre(HashMap<DayOfWeek, Pair<LocalTime, LocalTime>> creneauxLibres) {
         for (LocalDate date = getDateDebut(); !date.isAfter(getDateFin()); date = date.plusDays(1)) {
             Day day = this.getDayByDate(date);
             if (day == null) {
@@ -163,10 +159,11 @@ public class Planning implements Serializable {
             }
 
             try {
-                day.ajouterCreneauLibre(new CreneauLibre(heureDebut, heureFin));
-            } catch (CreneauLibreDurationException e) {
-                throw new CreneauLibreDurationException();
-            }
+                day.ajouterCreneauLibre(new CreneauLibre(
+                        creneauxLibres.get(date.getDayOfWeek()).getFirst(),
+                        creneauxLibres.get(date.getDayOfWeek()).getSecond()
+                ));
+            } catch (CreneauLibreDurationException ignored) {}
         }
     }
 

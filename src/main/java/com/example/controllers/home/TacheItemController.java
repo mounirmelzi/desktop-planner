@@ -40,7 +40,7 @@ public class TacheItemController extends Controller implements Initializable {
     }
 
     private void update() {
-        root.setStyle(root.getStyle() + "-fx-bbackground-color: " + tache.getColor() + ";");
+        root.setStyle(root.getStyle() + "-fx-background-color: " + tache.getColor() + ";");
         titleLabel.setText(tache.getNom());
         categoryLabel.setText(tache.getCategory() != null ? tache.getCategory().getName() : "No category");
         planificationButton.setText(tache.isUnscheduled() ? "Planifier" : "Deplanifier");
@@ -71,7 +71,7 @@ public class TacheItemController extends Controller implements Initializable {
                 alert.setTitle("Planification failed");
                 alert.setHeaderText("Tache can't be scheduled properly");
                 alert.setContentText("La planification automatique de catte tache n'est pas possible, veuillez ajuster vos créneau et réessayer");
-                alert.show();
+                alert.showAndWait();
             }
         } else {
             tache.deplanifier(user.getPlanning());

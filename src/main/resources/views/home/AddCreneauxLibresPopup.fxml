@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.controllers.home.AddCreneauxLibresPopupController"
+      style="-fx-padding: 20;" spacing="20"
+>
+    <HBox alignment="CENTER">
+        <Label style="-fx-font-size: 24px; -fx-text-fill: #2196f3;">Ajouter Creneaux Libres</Label>
+    </HBox>
+
+    <HBox alignment="CENTER" spacing="40">
+        <GridPane vgap="10" hgap="30" alignment="TOP_CENTER">
+            <Label GridPane.rowIndex="0" GridPane.columnIndex="0" underline="true" style="-fx-font-size: 16">Dimanche</Label>
+            <HBox GridPane.rowIndex="0" GridPane.columnIndex="1" alignment="CENTER" spacing="10">
+                <TextField fx:id="dimancheStartTime" promptText="Début [HH:mm:ss]" focusTraversable="false" styleClass="heure-field"/>
+                <TextField fx:id="dimancheEndTime" promptText="Fin [HH:mm:ss]" focusTraversable="false" styleClass="heure-field"/>
+            </HBox>
+            <Button GridPane.rowIndex="0" GridPane.columnIndex="2" alignment="CENTER" textAlignment="CENTER"
+                    onAction="#applyToAllButtonAction"
+                    style="-fx-background-color: #2196f3; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(33,150,243,0.7), 5, 0, 0, 0); -fx-cursor: hand;"
+            >
+                ▼
+            </Button>
+
+            <Label GridPane.rowIndex="1" GridPane.columnIndex="0" underline="true" style="-fx-font-size: 16">Lundi</Label>
+            <HBox GridPane.rowIndex="1" GridPane.columnIndex="1" alignment="CENTER" spacing="10">
+                <TextField fx:id="lundiStartTime" promptText="Début [HH:mm:ss]" focusTraversable="false" styleClass="heure-field"/>
+                <TextField fx:id="lundiEndTime" promptText="Fin [HH:mm:ss]" focusTraversable="false" styleClass="heure-field"/>
+            </HBox>
+
+            <Label GridPane.rowIndex="2" GridPane.columnIndex="0" underline="true" style="-fx-font-size: 16">Mardi</Label>
+            <HBox GridPane.rowIndex="2" GridPane.columnIndex="1" alignment="CENTER" spacing="10">
+                <TextField fx:id="mardiStartTime" promptText="Début [HH:mm:ss]" focusTraversable="false" styleClass="heure-field"/>
+                <TextField fx:id="mardiEndTime" promptText="Fin [HH:mm:ss]" focusTraversable="false" styleClass="heure-field"/>
+            </HBox>
+
+            <Label GridPane.rowIndex="3" GridPane.columnIndex="0" underline="true" style="-fx-font-size: 16">Mercredi</Label>
+            <HBox GridPane.rowIndex="3" GridPane.columnIndex="1" alignment="CENTER" spacing="10">
+                <TextField fx:id="mercrediStartTime" promptText="Début [HH:mm:ss]" focusTraversable="false" styleClass="heure-field"/>
+                <TextField fx:id="mercrediEndTime" promptText="Fin [HH:mm:ss]" focusTraversable="false" styleClass="heure-field"/>
+            </HBox>
+
+            <Label GridPane.rowIndex="4" GridPane.columnIndex="0" underline="true" style="-fx-font-size: 16">Jeudi</Label>
+            <HBox GridPane.rowIndex="4" GridPane.columnIndex="1" alignment="CENTER" spacing="10">
+                <TextField fx:id="jeudiStartTime" promptText="Début [HH:mm:ss]" focusTraversable="false" styleClass="heure-field"/>
+                <TextField fx:id="jeudiEndTime" promptText="Fin [HH:mm:ss]" focusTraversable="false" styleClass="heure-field"/>
+            </HBox>
+
+            <Label GridPane.rowIndex="5" GridPane.columnIndex="0" underline="true" style="-fx-font-size: 16">Vendredi</Label>
+            <HBox GridPane.rowIndex="5" GridPane.columnIndex="1" alignment="CENTER" spacing="10">
+                <TextField fx:id="vendrediStartTime" promptText="Début [HH:mm:ss]" focusTraversable="false" styleClass="heure-field"/>
+                <TextField fx:id="vendrediEndTime" promptText="Fin [HH:mm:ss]" focusTraversable="false" styleClass="heure-field"/>
+            </HBox>
+
+            <Label GridPane.rowIndex="6" GridPane.columnIndex="0" underline="true" style="-fx-font-size: 16">Samedi</Label>
+            <HBox GridPane.rowIndex="6" GridPane.columnIndex="1" alignment="CENTER" spacing="10">
+                <TextField fx:id="samediStartTime" promptText="Début [HH:mm:ss]" focusTraversable="false" styleClass="heure-field"/>
+                <TextField fx:id="samediEndTime" promptText="Fin [HH:mm:ss]" focusTraversable="false" styleClass="heure-field"/>
+            </HBox>
+        </GridPane>
+    </HBox>
+
+    <HBox alignment="CENTER">
+        <Button onAction="#addCreneauxLibresButtonAction" style="-fx-background-color: #2196f3; -fx-text-fill: white; -fx-font-size: 16px; -fx-pref-width: 120px; -fx-pref-height: 30px; -fx-effect: dropshadow(gaussian, rgba(33,150,243,0.7), 5, 0, 0, 0); -fx-cursor: hand;">
+            Ajouter
+        </Button>
+    </HBox>
+</VBox>

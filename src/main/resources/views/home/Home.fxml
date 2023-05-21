@@ -10,21 +10,21 @@
           AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
 >
     <padding>
-        <Insets top="20" bottom="20" left="20" right="20"/>
+        <Insets top="5" bottom="10" left="20" right="20"/>
     </padding>
 
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints prefHeight="150"/>
+        <RowConstraints prefHeight="120"/>
         <RowConstraints vgrow="ALWAYS"/>
         <RowConstraints prefHeight="10"/>
         <RowConstraints vgrow="ALWAYS"/>
         <RowConstraints prefHeight="70"/>
     </rowConstraints>
 
-    <VBox GridPane.rowIndex="0" alignment="TOP_CENTER" spacing="20"
+    <VBox GridPane.rowIndex="0" alignment="TOP_CENTER" spacing="15"
           style="-fx-background-color: #f5f5f5; -fx-padding: 10px;">
         <BorderPane>
             <left>

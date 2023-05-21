@@ -59,7 +59,7 @@ public class HomeController extends Controller implements Initializable {
             alert.setTitle("Planification error");
             alert.setHeaderText("Taches can't be all scheduled properly");
             alert.setContentText("Il y'a une tache non planifée, veuillez ajuster vos créneau et réessayer");
-            alert.show();
+            alert.showAndWait();
         }
 
         updateTaches();
@@ -78,6 +78,7 @@ public class HomeController extends Controller implements Initializable {
             stage.showAndWait();
 
             updateTaches();
+            updateProjects();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,7 +86,20 @@ public class HomeController extends Controller implements Initializable {
 
     @FXML
     private void addProjetButtonAction(ActionEvent event) {
-        // todo ajouter un projet pour un utilisateur
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/home/AddProjectPopup.fxml"));
+            loader.setControllerFactory(param -> new AddProjectPopupController(user));
+
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Create New Project");
+            stage.setScene(scene);
+            stage.showAndWait();
+
+            updateProjects();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -151,7 +165,28 @@ public class HomeController extends Controller implements Initializable {
 
     @FXML
     private void addCreneauLibreButtonAction(ActionEvent event) {
-        // todo ajouter creneau libre pour un ensemble des journées
+        try {
+            if (!user.hasPlanning()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Create Creneaux Libres failed");
+                alert.setHeaderText("You don't have a planning");
+                alert.setContentText("Vous devez créer un planning d'abord !");
+                alert.showAndWait();
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/home/AddCreneauxLibresPopup.fxml"));
+            loader.setControllerFactory(param -> new AddCreneauxLibresPopupController(user.getPlanning()));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Add Creneaux Libres");
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateInfos() {
