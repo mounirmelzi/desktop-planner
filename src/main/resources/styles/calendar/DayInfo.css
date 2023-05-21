@@ -54,3 +54,11 @@
     -fx-font-weight: bold;
     -fx-wrap-text: true;
 }
+
+.realisation-state .bar {
+    -fx-background-color: #0088FF;
+}
+
+.realisation-state .track {
+    -fx-background-color: lightgray;
+}

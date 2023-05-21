@@ -84,6 +84,29 @@ public class Day implements Comparable<Day>, Serializable {
     }
 
     /**
+     * calculer le nombre des taches complétées dans une journée
+     * @return le nombre des taches complétées dans une journée
+     */
+    public int getCompletedTachesNumber() {
+        int counter = 0;
+
+        for (CreneauOccupe creneauOccupe : getCreneauxOccupes()) {
+            if (creneauOccupe.getTache().getState() == State.COMPLETED)
+                counter++;
+        }
+
+        return counter;
+    }
+
+    /**
+     * calculer le nombre des taches planifiées dans une journée
+     * @return le nombre des taches planifiées dans la journée
+     */
+    public int getTotalTachesNumber() {
+        return getCreneauxOccupes().size();
+    }
+
+    /**
      * ajouter un creneau libre dans les creneaux de la journée
      * @param creneauLibre le creneau libre à ajouter
      * @return boolean: true si le creneau est ajouté avec succès, false si non

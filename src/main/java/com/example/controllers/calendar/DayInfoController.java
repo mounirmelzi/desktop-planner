@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -38,6 +39,8 @@ public class DayInfoController extends Controller implements Initializable {
     private TextField heureFinTextField;
     @FXML
     private Label errorLabel;
+    @FXML
+    private ProgressBar realisationStateProgressBar;
 
     private final CalendarController calendarController;
     private final User user;
@@ -94,6 +97,7 @@ public class DayInfoController extends Controller implements Initializable {
         errorLabel.setText("");
         creneauxContainer.getChildren().clear();
         calendarController.updateCalendar();
+        realisationStateProgressBar.setProgress((day == null || day.getTotalTachesNumber() == 0) ? 0.0 : ((double) day.getCompletedTachesNumber() / day.getTotalTachesNumber()));
 
         if (day == null || !day.hasCreneaux())
             return;
