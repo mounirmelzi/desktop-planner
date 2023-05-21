@@ -30,7 +30,7 @@ public class AddCreneauxLibresPopupController extends Controller {
     @FXML
     private TextField samediStartTime, samediEndTime;
 
-    private Planning planning;
+    private final Planning planning;
 
     public AddCreneauxLibresPopupController(Planning planning) {
         this.planning = planning;

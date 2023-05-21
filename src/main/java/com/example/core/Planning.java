@@ -163,7 +163,7 @@ public class Planning implements Serializable {
                         creneauxLibres.get(date.getDayOfWeek()).getFirst(),
                         creneauxLibres.get(date.getDayOfWeek()).getSecond()
                 ));
-            } catch (CreneauLibreDurationException ignored) {}
+            } catch (CreneauLibreDurationException | IllegalArgumentException ignored) {}
         }
     }
 
