@@ -45,7 +45,10 @@
         </top>
 
         <center>
-            <GridPane fx:id="calendarGridPane" styleClass="calendar-grid-pane"/>
+            <VBox spacing="10" alignment="CENTER">
+                <HBox fx:id="daysNamesContainer" spacing="10" alignment="CENTER"/>
+                <GridPane fx:id="calendarGridPane" styleClass="calendar-grid-pane"/>
+            </VBox>
         </center>
     </BorderPane>
 

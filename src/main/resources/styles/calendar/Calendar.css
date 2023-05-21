@@ -54,6 +54,21 @@
     -fx-background-color: #2196F344;
 }
 
+.day-label-occupe {
+    -fx-alignment: CENTER;
+    -fx-background-color: #12345622;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #333333;
+    -fx-border-radius: 10px;
+    -fx-border-color: #123456;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.day-label-occupe:hover {
+    -fx-background-color: #12345644;
+}
+
 .year {
     -fx-text-fill: #007FFF;
     -fx-font-size: 24px;
