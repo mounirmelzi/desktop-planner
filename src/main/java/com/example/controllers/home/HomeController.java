@@ -76,6 +76,7 @@ public class HomeController extends Controller implements Initializable {
             Scene scene = new Scene(loader.load());
             Stage stage = new Stage();
             stage.setTitle("Create New Tache");
+            stage.setResizable(false);
             stage.setScene(scene);
             stage.showAndWait();
 
@@ -123,6 +124,7 @@ public class HomeController extends Controller implements Initializable {
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setTitle("Create New Planning");
+            stage.setResizable(false);
             stage.setScene(scene);
             stage.showAndWait();
 
@@ -156,6 +158,7 @@ public class HomeController extends Controller implements Initializable {
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setTitle("Extend Planning");
+            stage.setResizable(false);
             stage.setScene(scene);
             stage.showAndWait();
 
@@ -185,6 +188,7 @@ public class HomeController extends Controller implements Initializable {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Add Creneaux Libres");
+            stage.setResizable(false);
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();

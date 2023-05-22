@@ -220,6 +220,21 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
     }
 
     /**
+     * supprimer les sous taches d'une tache décomposable
+     * @param planning le planning dans le quel les sous taches sont planifiées
+     */
+    public void clear(Planning planning) {
+        if (!hasChildren())
+            return;
+
+        for (TacheSimple tacheSimple : getChildren())
+            tacheSimple.deplanifier(planning);
+
+        getChildren().clear();
+        setPlanificationDateTime(null);
+    }
+
+    /**
      * déplanifier une tache décomposable et tous ses sous-taches s'ils existent
      * @param planning le planning où la tache décomposable est planifiée
      */

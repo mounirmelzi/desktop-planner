@@ -1,17 +1,25 @@
 package com.example.controllers.home;
 
 import com.example.controllers.Controller;
+import com.example.controllers.tache.InfoTacheDecomposablePopupController;
+import com.example.controllers.tache.InfoTacheSimplePopupController;
 import com.example.core.Tache;
+import com.example.core.TacheDecomposable;
+import com.example.core.TacheSimple;
 import com.example.core.User;
 import com.example.core.exceptions.UnscheduledException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
@@ -48,7 +56,32 @@ public class TacheItemController extends Controller implements Initializable {
 
     @FXML
     private void handleInfoButtonAction(ActionEvent event) {
-        // todo show information of a task
+        try {
+            FXMLLoader loader;
+            if (tache instanceof TacheSimple) {
+                loader = new FXMLLoader(getClass().getResource("/views/tache/InfoTacheSimplePopup.fxml"));
+                loader.setControllerFactory(param -> new InfoTacheSimplePopupController((TacheSimple) tache, true, null, null));
+                Scene scene = new Scene(loader.load());
+                Stage stage = new Stage();
+                stage.setTitle("Tache Simple Info");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.showAndWait();
+            } else {
+                loader = new FXMLLoader(getClass().getResource("/views/tache/InfoTacheDecomposablePopup.fxml"));
+                loader.setControllerFactory(param -> new InfoTacheDecomposablePopupController((TacheDecomposable) tache, user, true, null));
+                Scene scene = new Scene(loader.load());
+                Stage stage = new Stage();
+                stage.setTitle("Tache Decomposable Info");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.showAndWait();
+            }
+
+            update();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
