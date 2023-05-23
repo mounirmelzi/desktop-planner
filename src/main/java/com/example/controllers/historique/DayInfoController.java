@@ -78,13 +78,16 @@ public class DayInfoController extends Controller{
         borderPaneTache.setRight(moreButton);
         return borderPaneTache ;
         }
-        catch (NullPointerException e) {afficherAucuneTache();
+        catch (NullPointerException e) {
+        afficherAucuneTache();
         e.printStackTrace();
         return  null;}
     }
 
     public void afficherTache() {
+
         try {
+            if (!(day.hasCreneauxOccupees())) {throw new NullPointerException();}
             day.getCreneauxOccupes() ;
             for (CreneauOccupe creneau : day.getCreneauxOccupes()) {
                 ensembleTaches.getChildren().add(afficherTache(creneau));
@@ -93,3 +96,8 @@ public class DayInfoController extends Controller{
         catch (NullPointerException e) {afficherAucuneTache();}
     }
 }
+
+
+
+
+

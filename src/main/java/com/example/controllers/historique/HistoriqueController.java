@@ -244,7 +244,7 @@ public class HistoriqueController extends Controller implements Initializable {
 
         public DayLabel(@NotNull LocalDate date, Day day) {
             super(String.valueOf(date.getDayOfMonth()));
-            this.day = user.getCalendrier().getDayByDate(date);
+            this.day = dayInfoController.getPlanning().getCalendrier().getDayByDate(date);
 
             this.setOnMouseClicked(event -> handleDayLabelMouseClicked(event, day, date));
             this.setPrefSize(50, 50);
@@ -255,11 +255,10 @@ public class HistoriqueController extends Controller implements Initializable {
         private void setStyles() {
             this.getStyleClass().add("day-label");
 
-            if (day != null && day.hasCreneauxOccupees()) {
+            if (day != null && day.getTotalTachesNumber()!=0) {
                 this.getStyleClass().clear();
                 this.getStyleClass().add("day-label-occupe");
-            } else if (day != null && day.hasCreneaux())
-                this.setStyle("-fx-border-color: #123456;");
+            }
         }
 
         private void handleDayLabelMouseClicked(@NotNull MouseEvent event, Day day, LocalDate date) {
