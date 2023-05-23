@@ -14,10 +14,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -118,7 +115,7 @@ public class DayInfoController extends Controller implements Initializable {
 
 
     public class CreneauLibreItem extends HBox {
-        private CreneauLibre creneauLibre;
+        private final CreneauLibre creneauLibre;
 
         public CreneauLibreItem(@NotNull CreneauLibre creneauLibre) {
             super();
@@ -165,14 +162,45 @@ public class DayInfoController extends Controller implements Initializable {
         }
 
         private void handlePlanifierButtonAction(ActionEvent event) {
-            // todo planifier manuellement une tache
+            if (!user.hasPlanning()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Planification failed");
+                alert.setHeaderText("You don't have a planning");
+                alert.setContentText("Vous devez créer un planning d'abord !");
+                alert.showAndWait();
+                return;
+            }
 
-            updateCreneaux();
+            if (date.isBefore(user.getPlanning().getDateDebut()) || date.isAfter(user.getPlanning().getDateFin())) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Planification failed");
+                alert.setHeaderText("No Planning Found");
+                alert.setContentText("Vous essayez de planifier une tâche en dehors de la période du planning courant");
+                alert.showAndWait();
+                return;
+            }
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/calendar/PlanifierManuellement.fxml"));
+                loader.setControllerFactory(param -> new PlanifierManuellementController(user, date, creneauLibre.getHeureDebut()));
+
+                Scene scene = new Scene(loader.load());
+                Stage stage = new Stage();
+                stage.setTitle("Planification Manuelle");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.showAndWait();
+
+                updateCreneaux();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public class CreneauOccupeItem extends HBox {
-        private CreneauOccupe creneauOccupe;
+        private final CreneauOccupe creneauOccupe;
+        private final Button blockButton;
 
         public CreneauOccupeItem(@NotNull CreneauOccupe creneauOccupe) {
             super();
@@ -194,7 +222,7 @@ public class DayInfoController extends Controller implements Initializable {
 
             Label taskTitleBox = new Label(creneauOccupe.getTache().getNom());
             taskTitleBox.setMaxWidth(150);
-            taskTitleBox.setStyle("-fx-font-size: 16px;");
+            taskTitleBox.setStyle("-fx-font-size: 16px; -fx-wrap-text: true;");
 
             VBox infoBox = new VBox(timeBox, taskTitleBox);
             infoBox.setSpacing(10);
@@ -210,7 +238,14 @@ public class DayInfoController extends Controller implements Initializable {
             infoButton.setCursor(Cursor.HAND);
             infoButton.setOnAction(this::handleShowMoreInfoButtonAction);
 
-            VBox buttonsBox = new VBox(infoButton, deleteButton);
+            blockButton = new Button(creneauOccupe.isBlocked() ? "Unblock" : "Block");
+            blockButton.setStyle("-fx-background-color: #32CD32;" + "-fx-text-fill: white;" + "-fx-font-size: 14px;" + "-fx-font-weight: bold;" + "-fx-padding: 5 10;" + "-fx-background-radius: 20;");
+            blockButton.setCursor(Cursor.HAND);
+            blockButton.setOnAction(this::handleBlockButtonAction);
+            blockButton.setMinWidth(75);
+            blockButton.setMaxWidth(75);
+
+            VBox buttonsBox = new VBox(infoButton, blockButton, deleteButton);
             buttonsBox.setSpacing(10);
             buttonsBox.setAlignment(Pos.CENTER);
 
@@ -233,6 +268,11 @@ public class DayInfoController extends Controller implements Initializable {
 
             tache.deplanifier(user.getPlanning());
             updateCreneaux();
+        }
+
+        private void handleBlockButtonAction(ActionEvent event) {
+            creneauOccupe.setBlocked(!creneauOccupe.isBlocked());
+            blockButton.setText(creneauOccupe.isBlocked() ? "Unblock" : "Block");
         }
 
         private void handleShowMoreInfoButtonAction(ActionEvent event) {

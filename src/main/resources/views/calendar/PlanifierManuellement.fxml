@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      stylesheets="@../../styles/calendar/PlanifierManuellement.css"
+      fx:controller="com.example.controllers.calendar.PlanifierManuellementController"
+      alignment="CENTER" style="-fx-padding: 20;" spacing="20"
+>
+    <HBox alignment="CENTER">
+        <Label style="-fx-font-size: 24px;">Planifier Une Tache Manuellement</Label>
+    </HBox>
+
+    <BorderPane>
+        <left>
+            <HBox alignment="CENTER">
+                <Label style="-fx-font-size: 18px; -fx-text-fill: #2196f3; -fx-font-weight: bold;">Select Tache</Label>
+            </HBox>
+        </left>
+        <right>
+            <HBox alignment="CENTER">
+                <Button onAction="#handlePlanifierButtonAction"
+                        style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-pref-width: 120px; -fx-pref-height: 30px; -fx-effect: dropshadow(gaussian, #66bb6a, 5, 0, 0, 0); -fx-cursor: hand;">
+                    Planifier
+                </Button>
+            </HBox>
+        </right>
+    </BorderPane>
+
+    <VBox alignment="CENTER" maxHeight="500">
+        <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-hbar-policy: never; -fx-vbar-policy: never;">
+            <VBox alignment="CENTER" spacing="20" fx:id="tachesRadioButtonsContainer"/>
+        </ScrollPane>
+    </VBox>
+</VBox>

@@ -31,6 +31,14 @@ public class CreneauOccupe extends Creneau {
         return tache;
     }
 
+    public boolean isBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
+
     //endregion
 
     //region Methods
