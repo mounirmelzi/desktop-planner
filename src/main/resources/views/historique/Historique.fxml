@@ -12,7 +12,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.controllers.historique.HistoriqueController"
-            stylesheets="@../../styles/historique/Historique.css" style="-fx-padding: 20"
+            stylesheets="@../../styles/historique/Historique.css" style="-fx-padding: 0 20"
             AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
 >
 
