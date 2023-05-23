@@ -2,6 +2,7 @@ package com.example.core;
 
 import com.example.core.exceptions.InvalidDateTimeException;
 import com.example.core.exceptions.UnscheduledException;
+import com.example.core.utils.Utils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -142,6 +143,26 @@ public class User implements Serializable {
             throw new InvalidDateTimeException();
 
         getPlanning().setDateFin(newEndDate);
+    }
+
+    public void archiverCurrentPlanning() {
+        if (this.planning == null)
+            return;
+
+        try {
+            Planning deepCopyOfCurrentPlanning = (Planning) Utils.deepCopy(this.planning);
+            historique.archive(deepCopyOfCurrentPlanning);
+
+            for (Tache tache : this.getTaches())
+                tache.deplanifier(this.planning);
+
+            for (Project project : this.getProjects())
+                project.deplanifier(this.planning);
+
+            this.planning = null;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

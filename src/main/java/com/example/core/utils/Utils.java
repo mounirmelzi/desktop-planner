@@ -5,10 +5,7 @@ import com.example.core.CreneauOccupe;
 import com.example.core.Day;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -17,7 +14,7 @@ import java.time.format.DateTimeParseException;
 import java.util.TreeSet;
 
 public class Utils {
-    public static Object deepCopy(Object object) throws Exception {
+    public static Object deepCopy(Object object) throws IOException, ClassNotFoundException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(object);

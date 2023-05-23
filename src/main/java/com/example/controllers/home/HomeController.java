@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -22,6 +23,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class HomeController extends Controller implements Initializable {
@@ -136,7 +138,27 @@ public class HomeController extends Controller implements Initializable {
 
     @FXML
     private void archiverPlanningButtonAction(ActionEvent event) {
-        // todo archiver le planning courant
+        if (!user.hasPlanning()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Archiving Current Planning Failed");
+            alert.setHeaderText("You don't have a planning");
+            alert.setContentText("Vous devez créer un planning d'abord !");
+            alert.showAndWait();
+            return;
+        }
+
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Archiving Current Planning");
+        confirmAlert.setHeaderText("Do you want to archive your current planning ?");
+        confirmAlert.setContentText("Le planning courant sera sauvegardé dans l'historique, et supprimé plus tard après la déplanification de tous vos taches et projets");
+        Optional<ButtonType> buttonType = confirmAlert.showAndWait();
+
+        if (buttonType.isPresent() && buttonType.get() == ButtonType.OK) {
+            user.archiverCurrentPlanning();
+            updateInfos();
+            updateTaches();
+            updateProjects();
+        }
     }
 
     @FXML
