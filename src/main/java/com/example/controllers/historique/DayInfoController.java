@@ -1,4 +1,4 @@
-package com.example.controllers.Historique;
+package com.example.controllers.historique;
 
 import com.example.controllers.Controller;
 import com.example.core.*;
@@ -68,16 +68,11 @@ public class DayInfoController extends Controller{
         moreButton.getStyleClass().add("moreButton") ;
         moreButton.setOnMouseClicked(event -> {
             VBox moreInfo = new VBox() ;
-            try {moreInfo.getChildren().add(new Label("Etat: "+tache.getState().getName())) ;}
-            catch (NullPointerException e) {e.printStackTrace();}
-            try{moreInfo.getChildren().add(new Label("Heure debut : "+creneau.getHeureDebut().toString()));}
-            catch (NullPointerException e) {e.printStackTrace();}
-            try{moreInfo.getChildren().add(new Label("Heure fin : "+creneau.getHeureFin().toString())) ;}
-            catch (NullPointerException e) {e.printStackTrace();}
-            try {moreInfo.getChildren().add(new Label("Durée: "+tache.getDuree().toString()));}
-            catch (NullPointerException e) {e.printStackTrace();}
-            try {moreInfo.getChildren().add(new Label("Catégorie: "+tache.getCategory().getName()));}
-            catch (NullPointerException e) {e.printStackTrace();}
+            moreInfo.getChildren().add(new Label("Etat: " + tache.getState().getName())) ;
+            moreInfo.getChildren().add(new Label("Heure debut : " + creneau.getHeureDebut().toString()));
+            moreInfo.getChildren().add(new Label("Heure fin : " + creneau.getHeureFin().toString())) ;
+            moreInfo.getChildren().add(new Label("Durée: " + tache.getDuree().toString()));
+            moreInfo.getChildren().add(new Label("Catégorie: " + (tache.getCategory() == null ? "No Category" : tache.getCategory().getName())));
             borderPaneTache.setBottom(moreInfo);
         });
         borderPaneTache.setRight(moreButton);
@@ -86,7 +81,6 @@ public class DayInfoController extends Controller{
         catch (NullPointerException e) {afficherAucuneTache();
         e.printStackTrace();
         return  null;}
-
     }
 
     public void afficherTache() {
@@ -98,5 +92,4 @@ public class DayInfoController extends Controller{
         }
         catch (NullPointerException e) {afficherAucuneTache();}
     }
-
 }

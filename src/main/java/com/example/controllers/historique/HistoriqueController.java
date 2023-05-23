@@ -1,4 +1,4 @@
-package com.example.controllers.Historique;
+package com.example.controllers.historique;
 
 import com.example.controllers.Controller;
 import com.example.core.*;
@@ -70,11 +70,13 @@ public class HistoriqueController extends Controller implements Initializable {
 
     public void afficherDernierPlanning(User user) {
         try {
-            Planning lastP = user.getHistorique().getLastPlanningArchive().getValue();
+            Map.Entry<LocalDateTime, Planning> entry = user.getHistorique().getLastPlanningArchive();
+            Planning lastP = entry == null ? null : entry.getValue();
             if (lastP == null) {
                 afficherAucunPlanning();
+            } else {
+                afficherPlanning(lastP, lastP.getDateDebut());
             }
-            afficherPlanning(lastP, lastP.getDateDebut());
             afficherBadges(lastP);
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -164,7 +166,6 @@ public class HistoriqueController extends Controller implements Initializable {
         dayInfoController.setDay(day);
         dayInfoController.afficherDate();
         dayInfoController.afficherTache();
-
     }
 
     public void handleNextMonth() {
@@ -177,10 +178,7 @@ public class HistoriqueController extends Controller implements Initializable {
             } else {
                 afficherPlanning(dayInfoController.getPlanning(), LocalDate.of(Integer.parseInt(yearLabel.getText()) + 1, 1, 1));
             }
-
         }
-
-
     }
 
     public void handlePrevMonth() {
@@ -194,8 +192,6 @@ public class HistoriqueController extends Controller implements Initializable {
                 afficherPlanning(dayInfoController.getPlanning(), LocalDate.of(Integer.parseInt(yearLabel.getText()) - 1, 12, 1));
             }
         }
-
-
     }
 
     public void afficherBadges(Planning planning) {
@@ -265,8 +261,5 @@ public class HistoriqueController extends Controller implements Initializable {
             if (event.getButton() == MouseButton.PRIMARY)
                 afficherDayInfo(day, date);
         }
-
     }
-
-
 }

@@ -11,7 +11,7 @@
 <?import sun.security.util.DisabledAlgorithmConstraints.Constraints?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.controllers.Historique.HistoriqueController"
+            fx:controller="com.example.controllers.historique.HistoriqueController"
             stylesheets="@../../styles/historique/Historique.css"
             AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
 >

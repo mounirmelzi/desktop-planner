@@ -1,9 +1,8 @@
 package com.example.controllers;
 
-import com.example.controllers.Historique.HistoriqueController;
+import com.example.controllers.historique.HistoriqueController;
 import com.example.controllers.calendar.CalendarController;
 import com.example.controllers.home.HomeController;
-import com.example.core.Historique;
 import com.example.core.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
