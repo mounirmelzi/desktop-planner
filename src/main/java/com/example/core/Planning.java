@@ -96,6 +96,10 @@ public class Planning implements Serializable {
         this.dateFin = dateFin;
     }
 
+    public Calendrier getCalendrier() {return calendrier ;}
+
+    public HashMap<Badge, Integer> getBadges() {return badges;}
+
     //endregion
 
     //region Methods

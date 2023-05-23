@@ -1,6 +1,7 @@
 package com.example.core;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -74,6 +75,21 @@ public class Historique implements Serializable {
         Map.Entry<LocalDateTime, Planning> firstEntry = historique.firstEntry();
         historique.remove(firstEntry.getKey());
         return firstEntry.getValue();
+    }
+
+    public LocalDateTime getDateArchivage (Planning p) {
+        LocalDateTime key = null ;
+        for (Map.Entry<LocalDateTime, Planning> entry : historique.entrySet()) {
+            if (entry.getValue().equals(p)) {
+                key = entry.getKey();
+                break;
+            }
+        }
+        return key;
+    }
+
+    public Map.Entry<LocalDateTime, Planning> getLastPlanningArchive () {
+        return historique.firstEntry();
     }
 
     //endregion

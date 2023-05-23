@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import sun.security.util.DisabledAlgorithmConstraints.Constraints?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.controllers.Historique.HistoriqueController"
+            stylesheets="@../../styles/historique/Historique.css"
+            AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+>
+
+    <top>
+        <HBox style="-fx-padding: 10 0 0 0; ">
+            <ScrollPane style="-fx-hbar-policy: never; -fx-vbar-policy: never; -fx-background-color: transparent;">
+                <HBox fx:id="historiquePlannings" spacing="10"/>
+            </ScrollPane>
+        </HBox>
+
+    </top>
+    <center>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS"/>
+                <ColumnConstraints prefWidth="300"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="ALWAYS"/>
+            </rowConstraints>
+
+            <BorderPane GridPane.columnIndex="0">
+                <top>
+                    <BorderPane styleClass="top-menu-container">
+                        <left>
+                            <HBox styleClass="hbox-container">
+                                <Button fx:id="prevMonthButton" text="&lt;   previous" styleClass="btn"
+                                        onAction="#handlePrevMonth"/>
+                            </HBox>
+                        </left>
+                        <center>
+                            <HBox styleClass="hbox-container">
+                                <VBox styleClass="vbox-container">
+                                    <Label fx:id="yearLabel" styleClass="year"/>
+                                    <Label fx:id="monthLabel" styleClass="month"/>
+                                </VBox>
+                            </HBox>
+                        </center>
+                        <right>
+                            <HBox styleClass="hbox-container">
+                                <Button fx:id="nextMonthButton" text="next   &gt;" styleClass="btn"
+                                        onAction="#handleNextMonth" />
+                            </HBox>
+                        </right>
+                    </BorderPane>
+                </top>
+                <center>
+                    <VBox spacing="10" alignment="CENTER">
+                        <HBox fx:id="daysNamesContainer" spacing="10" alignment="CENTER"/>
+                        <GridPane fx:id="calendarGridPane" styleClass="calendar-grid-pane"/>
+                    </VBox>
+                </center>
+            </BorderPane>
+            <AnchorPane fx:id="dayInfoAnchorPane" GridPane.columnIndex="1"/>
+        </GridPane>
+    </center>
+    <bottom>
+        <HBox fx:id="hboxBadges" prefHeight="130" style="-fx-padding: 0 0 0 60;">
+        <ScrollPane style="-fx-padding: 10 10 30 10; -fx-fit-to-height: true; -fx-hbar-policy: never; -fx-vbar-policy: never; -fx-background-color: transparent;">
+        <HBox style="-fx-fit-to-height: true;" spacing ="20">
+            <BorderPane prefWidth="180" styleClass="badge">
+                <center>
+                    <VBox alignment="CENTER">
+                        <Label text="GOOD"/>
+                        <Label fx:id="nbBadgesGood"/>
+                    </VBox>
+                </center>
+                <left>
+                    <AnchorPane styleClass="badge-container">
+                        <ImageView fx:id="badgeGood" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true"
+                                   AnchorPane.topAnchor="6"  />
+
+                    </AnchorPane>
+                </left>
+            </BorderPane>
+            <BorderPane prefWidth="180" styleClass="badge">
+                <center>
+                    <VBox alignment="CENTER">
+                        <Label text="VERY GOOD"/>
+                        <Label fx:id="nbBadgesVeryGood"/>
+                    </VBox>
+                </center>
+                <left>
+                    <AnchorPane styleClass="badge-container">
+                        <ImageView fx:id="badgeVeryGood" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true"
+                                   preserveRatio="true" AnchorPane.topAnchor="6" />
+                    </AnchorPane>
+                </left>
+            </BorderPane>
+                    <BorderPane prefWidth="180" styleClass="badge">
+                        <center>
+                            <VBox alignment="CENTER">
+                                <Label text="EXCELLENT"/>
+                                <Label fx:id="nbBadgesExcellent"/>
+                            </VBox>
+                        </center>
+                        <left>
+                            <AnchorPane styleClass="badge-container">
+                                <ImageView fx:id="badgeExcellent" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true"
+                                           preserveRatio="true" AnchorPane.topAnchor="6" />
+                            </AnchorPane>
+                        </left>
+                    </BorderPane>
+                </HBox>
+            </ScrollPane>
+        </HBox>
+    </bottom>
+</BorderPane>
+
+
