@@ -128,7 +128,8 @@ public class TacheSimple extends Tache {
             Day day = planning.getDayByDate(planificationDate);
             if (day != null) {
                 LocalTime planificationTime = day.searchForTachePlanificationTime(this);
-                day.deleteTache(LocalDateTime.of(planificationDate, planificationTime));
+                if (planificationTime != null)
+                    day.deleteTache(LocalDateTime.of(planificationDate, planificationTime));
             }
 
             planificationDate = planificationDate.plusDays(periodicity);
