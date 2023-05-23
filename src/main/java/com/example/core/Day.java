@@ -22,7 +22,6 @@ public class Day implements Comparable<Day>, Serializable {
 
     //region Constructors
 
-    public Day() {}
     public Day(@NotNull LocalDate date) {
         this.date = date;
         this.creneaux = new TreeSet<>();

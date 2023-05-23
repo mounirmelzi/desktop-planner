@@ -29,7 +29,7 @@ public class DayInfoController extends Controller{
     public DayInfoController(User user) {
         this.user = user ;
         ensembleTaches = new VBox() ;
-        day = new Day() ;
+        //day = new Day() ;
     }
 
     //SETTER, GETTERS
