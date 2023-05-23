@@ -22,7 +22,7 @@ public class User implements Serializable {
     private final TreeSet<Tache> taches;
     private final HashSet<Project> projects;
     private Historique historique;
-    private HashMap<String, Category> categories;
+    private final HashMap<String, Category> categories;
     private Duration dureeCreneauLibreMin;
     private int nbrTachesMinParJour;
 
@@ -38,10 +38,8 @@ public class User implements Serializable {
         this.taches = new TreeSet<>();
         this.projects = new HashSet<>();
         this.historique = new Historique();
-        this.nbrTachesMinParJour = 3;
-
-        this.dureeCreneauLibreMin = Duration.ofMinutes(30);
-        CreneauLibre.setDureeMin(this.dureeCreneauLibreMin);
+        this.setNbrTachesMinParJour(5);
+        this.setDureeCreneauLibreMin(Duration.ofMinutes(30));
 
         this.categories = new HashMap<>();
         categories.put("Studies", new Category("Studies", "#ff000044"));
@@ -96,6 +94,21 @@ public class User implements Serializable {
         return categories.get(name);
     }
 
+    public int getNbrTachesMinParJour() {
+        return nbrTachesMinParJour;
+    }
+
+    public void setNbrTachesMinParJour(int nbrTachesMinParJour) {
+        this.nbrTachesMinParJour = nbrTachesMinParJour;
+        if (planning != null)
+            planning.setNbrTachesMinParJour(nbrTachesMinParJour);
+    }
+
+    public void setDureeCreneauLibreMin(Duration dureeCreneauLibreMin) {
+        this.dureeCreneauLibreMin = dureeCreneauLibreMin;
+        CreneauLibre.setDureeMin(dureeCreneauLibreMin);
+    }
+
     //endregion
 
     //region Methods
@@ -116,6 +129,7 @@ public class User implements Serializable {
      */
     public void createPlanning(LocalDate dateDebut, LocalDate dateFin) throws InvalidDateTimeException {
         this.planning = new Planning(dateDebut, dateFin, this.calendrier);
+        this.planning.setNbrTachesMinParJour(this.getNbrTachesMinParJour());
     }
 
     /**

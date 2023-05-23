@@ -9,6 +9,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.TreeSet;
 
 public class TacheDecomposable extends Tache implements IDecomposable<Pair<Planning, LocalDateTime>, TacheSimple> {
@@ -62,6 +63,36 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
         }
 
         return min;
+    }
+
+    @Override
+    public State getState() {
+        if (!hasChildren())
+            return super.getState();
+
+        HashMap<State, Integer> stateCounter = new HashMap<>();
+        for (State state : State.values()) {
+            stateCounter.put(state, 0);
+        }
+
+        for (TacheSimple tache : getChildren()) {
+            State subState = tache.getState();
+            stateCounter.put(subState, stateCounter.get(subState) + 1);
+        }
+
+        if (stateCounter.get(State.CANCELLED) > 0)
+            return State.CANCELLED;
+
+        if (stateCounter.get(State.NOT_REALIZED) > 0)
+            return State.NOT_REALIZED;
+
+        if (stateCounter.get(State.DELAYED) > 0)
+            return State.DELAYED;
+
+        if (stateCounter.get(State.COMPLETED) == getChildren().size())
+            return State.COMPLETED;
+
+        return State.IN_PROGRESS;
     }
 
     //endregion

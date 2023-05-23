@@ -90,7 +90,18 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
         return state;
     }
 
-    void setState(State state) {
+    void setState(State state, Planning planning) {
+        if (planning == null) {
+            this.state = state;
+            return;
+        }
+
+        if (state == State.COMPLETED && this.state != State.COMPLETED) {
+            planning.updateTacheCompletedCounter(1);
+        } else if (state != State.COMPLETED && this.state == State.COMPLETED) {
+            planning.updateTacheCompletedCounter(-1);
+        }
+
         this.state = state;
     }
 

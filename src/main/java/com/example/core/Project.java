@@ -4,6 +4,7 @@ import com.example.core.exceptions.UnscheduledException;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 
 public class Project implements IPlanifiable, Serializable {
@@ -42,6 +43,36 @@ public class Project implements IPlanifiable, Serializable {
 
     public LinkedHashSet<Tache> getTaches() {
         return taches;
+    }
+
+    @Override
+    public State getState() {
+        if (!hasTaches())
+            return State.IN_PROGRESS;
+
+        HashMap<State, Integer> stateCounter = new HashMap<>();
+        for (State state : State.values()) {
+            stateCounter.put(state, 0);
+        }
+
+        for (Tache tache : getTaches()) {
+            State subState = tache.getState();
+            stateCounter.put(subState, stateCounter.get(subState) + 1);
+        }
+
+        if (stateCounter.get(State.CANCELLED) > 0)
+            return State.CANCELLED;
+
+        if (stateCounter.get(State.NOT_REALIZED) > 0)
+            return State.NOT_REALIZED;
+
+        if (stateCounter.get(State.DELAYED) > 0)
+            return State.DELAYED;
+
+        if (stateCounter.get(State.COMPLETED) == getTaches().size())
+            return State.COMPLETED;
+
+        return State.IN_PROGRESS;
     }
 
     //endregion

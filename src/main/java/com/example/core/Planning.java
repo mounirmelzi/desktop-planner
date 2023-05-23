@@ -21,6 +21,10 @@ public class Planning implements Serializable {
     private Calendrier calendrier;
     private HashMap<Badge, Integer> badges;
 
+    private int tachesCompletedCounter;
+    private int nbrTachesMinParJour;
+    private LocalDate currentDate;
+
     //endregion
 
     //region Constructors
@@ -33,6 +37,13 @@ public class Planning implements Serializable {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.calendrier = calendrier;
+
+        this.currentDate = LocalDate.now();
+        this.tachesCompletedCounter = 0;
+        this.badges = new HashMap<>();
+        for (Badge badge : Badge.values()) {
+            badges.put(badge, 0);
+        }
     }
 
     //endregion
@@ -94,6 +105,10 @@ public class Planning implements Serializable {
 
     void setDateFin(LocalDate dateFin) {
         this.dateFin = dateFin;
+    }
+
+    void setNbrTachesMinParJour(int nbrTachesMinParJour) {
+        this.nbrTachesMinParJour = nbrTachesMinParJour;
     }
 
     //endregion
@@ -164,6 +179,25 @@ public class Planning implements Serializable {
                         creneauxLibres.get(date.getDayOfWeek()).getSecond()
                 ));
             } catch (CreneauLibreDurationException | IllegalArgumentException ignored) {}
+        }
+    }
+
+    void updateTacheCompletedCounter(int nbrTachesCompleted) {
+        if (!currentDate.isEqual(LocalDate.now())) {
+            currentDate = LocalDate.now();
+            this.tachesCompletedCounter = 0;
+        }
+
+        this.tachesCompletedCounter += nbrTachesCompleted;
+        if (this.tachesCompletedCounter < 0)
+            this.tachesCompletedCounter = 0;
+
+        // update badges
+        if (tachesCompletedCounter > nbrTachesMinParJour) {
+            tachesCompletedCounter = 0;
+            badges.put(Badge.GOOD, badges.get(Badge.GOOD) + 1);
+            badges.put(Badge.VERY_GOOD, badges.get(Badge.GOOD) / 3);
+            badges.put(Badge.EXCELLENT, badges.get(Badge.VERY_GOOD) / 3);
         }
     }
 
