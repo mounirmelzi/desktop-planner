@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@../../styles/historique/DayInfo.css"
+      AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+      prefHeight="400.0" prefWidth="600.0">
+    <VBox alignment="CENTER" style="-fx-padding: 9px 0px 0px 0px">
+        <Label fx:id="dateDay" styleClass="day-date"/>
+        <Label fx:id="nomDay" styleClass="day-name"/>
+        <Separator>
+            <padding>
+                <Insets top="10" bottom="10"/>
+            </padding>
+        </Separator>
+    </VBox>
+    <ScrollPane
+            style="-fx-fit-to-width: true; -fx-fit-to-height: true; -fx-hbar-policy: never; -fx-vbar-policy: never; -fx-background-color: transparent;">
+        <VBox spacing="10" fx:id="ensembleTaches" alignment="CENTER"/>
+    </ScrollPane>
+
+
+</VBox>

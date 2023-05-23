@@ -1,7 +1,9 @@
 package com.example.controllers;
 
+import com.example.controllers.Historique.HistoriqueController;
 import com.example.controllers.calendar.CalendarController;
 import com.example.controllers.home.HomeController;
+import com.example.core.Historique;
 import com.example.core.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -89,6 +91,11 @@ public class SidebarController extends Controller implements Initializable {
     @FXML
     private void handleCalendar(ActionEvent event) {
         showPage("/views/calendar/Calendar.fxml", new CalendarController(user));
+    }
+
+    @FXML
+    private void handleHistorique(ActionEvent event) {
+        showPage("/views/historique/Historique.fxml", new HistoriqueController(user));
     }
 
     @FXML

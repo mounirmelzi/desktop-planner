@@ -107,6 +107,10 @@ public class Planning implements Serializable {
         this.dateFin = dateFin;
     }
 
+    public Calendrier getCalendrier() {return calendrier ;}
+
+    public HashMap<Badge, Integer> getBadges() {return badges;}
+
     void setNbrTachesMinParJour(int nbrTachesMinParJour) {
         this.nbrTachesMinParJour = nbrTachesMinParJour;
     }

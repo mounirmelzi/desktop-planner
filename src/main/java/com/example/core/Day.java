@@ -22,6 +22,7 @@ public class Day implements Comparable<Day>, Serializable {
 
     //region Constructors
 
+    public Day() {}
     public Day(@NotNull LocalDate date) {
         this.date = date;
         this.creneaux = new TreeSet<>();
@@ -280,6 +281,21 @@ public class Day implements Comparable<Day>, Serializable {
     @Override
     public int compareTo(@NotNull Day other) {
         return date.compareTo(other.date);
+    }
+
+    /**
+     * parcourir treeSet des creneaux et recherche le premier creneauOccupe
+     * @return le premier CreneauOccupe si trouvé sinon null
+     */
+    public CreneauOccupe getPremierCreneauOccupe() {
+        CreneauOccupe premierCreneauOccupe = null;
+        for (Creneau creneau : creneaux) {
+            if (creneau instanceof CreneauOccupe) {
+                premierCreneauOccupe = (CreneauOccupe) creneau;
+                break;
+            }
+        }
+        return premierCreneauOccupe ;
     }
 
     //endregion

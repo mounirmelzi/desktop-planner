@@ -62,6 +62,8 @@ public class User implements Serializable {
         return calendrier;
     }
 
+    public Historique getHistorique() { return historique; }
+
     public Planning getPlanning() {
         return planning;
     }

@@ -1,0 +1,52 @@
+.borderPaneTache {
+    -fx-background-color: #eeeeee;
+    -fx-font-size: 10pt;
+    -fx-font-family: Impact ;
+    -fx-alignment: bottom-left;
+    -fx-background-radius: 10px;
+    -fx-text-fill: black;
+    -fx-padding: 10px 10px;
+}
+
+.infoSuppContainer {
+    -fx-alignment: CENTER;
+    -fx-background-color: #eeeeee;
+    -fx-text-alignment: CENTER;
+    -fx-font-size: 10pt;
+    -fx-font-family: Impact ;
+    -fx-background-radius: 10px;
+    -fx-text-fill: black;
+    -fx-padding: 10px 20px;
+}
+
+.moreButton {
+    -fx-alignment: center-right;
+    -fx-background-color: #2196F3;
+    -fx-text-alignment: CENTER;
+    -fx-font-size: 10pt;
+    -fx-font-family: Impact ;
+    -fx-background-radius: 30px;
+    -fx-text-fill: #eeeeee;
+    -fx-padding: 10px 20px;
+}
+
+
+.moreButton:hover {
+    -fx-background-color: #1976D2;
+}
+
+.moreButton:pressed {
+    -fx-background-color: #0D47A1;
+}
+.day-date {
+    -fx-text-fill: #007FFF;
+    -fx-font-size: 24px;
+}
+
+.day-name {
+    -fx-text-fill: #1976D2;
+    -fx-font-size: 18px;
+}
+
+
+
