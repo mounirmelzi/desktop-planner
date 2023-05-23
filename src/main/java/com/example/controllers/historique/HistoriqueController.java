@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -65,7 +66,6 @@ public class HistoriqueController extends Controller implements Initializable {
         //user.getHistorique().archive(user.getPlanning());
         ajouterHistoriquePlanning(user);
         afficherDernierPlanning(user);
-
     }
 
     public void afficherDernierPlanning(User user) {
@@ -76,9 +76,11 @@ public class HistoriqueController extends Controller implements Initializable {
                 afficherAucunPlanning();
             } else {
                 afficherPlanning(lastP, lastP.getDateDebut());
+                historiquePlannings.getChildren().get(0).getStyleClass().add("btn-pressed");
             }
             afficherBadges(lastP);
         } catch (NullPointerException e) {
+            afficherAucunPlanning();
             e.printStackTrace();
         }
     }
@@ -106,6 +108,8 @@ public class HistoriqueController extends Controller implements Initializable {
             Button button = new Button("Planning" + "\n" + "[" + p.getDateDebut() + " || " + FDate.toLocalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "]");
             button.getStyleClass().add("btn");
             button.setOnAction(actionEvent -> {
+                historiquePlannings.getChildren().forEach(child -> child.getStyleClass().remove("btn-pressed"));
+                button.getStyleClass().add("btn-pressed") ;
                 afficherPlanning(p, p.getDateDebut());
                 afficherBadges(p);
                 afficherDayInfo(p.getDayByDate(p.getDateDebut()), p.getDateDebut());
@@ -171,8 +175,9 @@ public class HistoriqueController extends Controller implements Initializable {
     public void handleNextMonth() {
         Month monthInMonthLabel = Month.valueOf(monthLabel.getText());
         //Month dayInfoMonth = dayInfo.getDate().getMonth() ;
-        Month archivageMonth = (user.getHistorique().getDateArchivage(dayInfoController.getPlanning())).getMonth();
-        if (archivageMonth.compareTo(monthInMonthLabel) > 0) {
+        Month dateFin = dayInfoController.getPlanning().getDateFin().getMonth() ;
+        //Month archivageMonth = (user.getHistorique().getDateArchivage(dayInfoController.getPlanning())).getMonth();
+        if (dateFin.compareTo(monthInMonthLabel) > 0) {
             if (monthInMonthLabel.getValue() < 12) {
                 afficherPlanning(dayInfoController.getPlanning(), LocalDate.of(Integer.parseInt(yearLabel.getText()), monthInMonthLabel.plus(1).getValue(), 1));
             } else {

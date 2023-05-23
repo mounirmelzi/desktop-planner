@@ -22,6 +22,10 @@
     -fx-background-color: #0D47A1;
 }
 
+.btn-pressed {
+    -fx-background-color: #0D47A1;
+}
+
 .hbox-container {
     -fx-alignment: CENTER;
 }
