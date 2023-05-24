@@ -17,8 +17,10 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
@@ -90,22 +92,26 @@ public class InfoProjectPopupController extends Controller implements Initializa
             this.setHgap(20);
 
             ColumnConstraints first = new ColumnConstraints();
-            first.setPrefWidth(200);
+            first.setHgrow(Priority.ALWAYS);
             ColumnConstraints second = new ColumnConstraints();
-            second.setPrefWidth(150);
             this.getColumnConstraints().addAll(first, second);
 
             Label titleLabel = new Label();
             titleLabel.setText(tache.getNom());
             titleLabel.setStyle("-fx-text-fill: #0d47a1; -fx-font-size: 24px; -fx-effect: dropshadow(gaussian, rgba(33,150,243,0.7), 5, 0, 0, 0);");
+            titleLabel.setWrapText(true);
+            titleLabel.setAlignment(Pos.CENTER);
+            titleLabel.setTextAlignment(TextAlignment.CENTER);
             HBox titleBox = new HBox();
             titleBox.getChildren().add(titleLabel);
+            titleBox.setMaxWidth(200);
             titleBox.setAlignment(Pos.CENTER);
             this.add(titleBox, 0, 0);
 
+
             Button moreButton = new Button();
             moreButton.setText("More");
-            moreButton.setMinWidth(50);
+            moreButton.setMinWidth(75);
             moreButton.setOnAction(this::handleMoreButtonAction);
             moreButton.setStyle("-fx-background-color: #2B7BFF; -fx-text-fill: white; -fx-font-size: 16px; -fx-cursor: hand;");
             DropShadow moreEffect = new DropShadow();
@@ -120,7 +126,7 @@ public class InfoProjectPopupController extends Controller implements Initializa
             Button deleteButton = new Button();
             deleteButton.setDisable(!project.isUnscheduled());
             deleteButton.setText("Delete");
-            deleteButton.setMinWidth(50);
+            deleteButton.setMinWidth(75);
             deleteButton.setOnAction(this::handleDeleteButtonAction);
             deleteButton.setStyle("-fx-background-color: #FF0000; -fx-text-fill: white; -fx-font-size: 16px; -fx-cursor: hand;");
             DropShadow deleteEffect = new DropShadow();
@@ -134,7 +140,6 @@ public class InfoProjectPopupController extends Controller implements Initializa
 
             HBox buttonsContainer = new HBox();
             buttonsContainer.setSpacing(10);
-            buttonsContainer.setMinWidth(200);
             buttonsContainer.getChildren().addAll(moreBox, deleteBox);
 
             this.add(buttonsContainer, 1, 0);

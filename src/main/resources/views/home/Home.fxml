@@ -71,7 +71,9 @@
                 <Label text="Vos Projets" style="-fx-font-size: 28px;"/>
             </left>
             <right>
-                <Button text="Ajouter Projet" onAction="#addProjetButtonAction" styleClass="custom-button"/>
+                <HBox spacing="20">
+                    <Button text="Ajouter Projet" onAction="#addProjetButtonAction" styleClass="custom-button"/>
+                </HBox>
             </right>
         </BorderPane>
         <HBox>

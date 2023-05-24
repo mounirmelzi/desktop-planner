@@ -24,12 +24,12 @@
         <RowConstraints prefHeight="45"/>
     </rowConstraints>
 
-    <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2">
+    <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
         <Label fx:id="titleLabel" underline="true" wrapText="true"
                style="-fx-text-fill: #0d47a1; -fx-font-size: 24px; -fx-effect: dropshadow(gaussian, rgba(33,150,243,0.7), 5, 0, 0, 0);"/>
     </HBox>
 
-    <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="2">
+    <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.rowSpan="2">
         <Label fx:id="categoryLabel" style="-fx-font-size: 18px;" wrapText="true"
                textAlignment="CENTER"/>
     </HBox>

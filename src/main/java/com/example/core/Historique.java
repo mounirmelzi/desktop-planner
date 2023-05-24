@@ -34,7 +34,7 @@ public class Historique implements Serializable {
         return historique.size();
     }
 
-    public void archive(Planning planning) {
+    public void archive(Planning planning, HashSet<Project> projects) {
         historique.put(LocalDateTime.now(), planning);
     }
 

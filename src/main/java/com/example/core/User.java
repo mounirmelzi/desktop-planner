@@ -153,7 +153,8 @@ public class User implements Serializable {
 
         try {
             Planning deepCopyOfCurrentPlanning = (Planning) Utils.deepCopy(this.planning);
-            historique.archive(deepCopyOfCurrentPlanning);
+            HashSet<Project> deepCopyOfProjects = (HashSet<Project>) Utils.deepCopy(this.projects);
+            historique.archive(deepCopyOfCurrentPlanning, deepCopyOfProjects);
 
             for (Tache tache : this.getTaches())
                 tache.deplanifier(this.planning);
