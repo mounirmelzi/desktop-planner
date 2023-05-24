@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -39,6 +40,15 @@ public class EditProjectPopupController extends Controller implements Initializa
     private void handleEditProjectButtonAction(@NotNull ActionEvent event) {
         String nom = nomProjectTextField.getText();
         String description = descriptionProjectTextArea.getText();
+
+        if (nom == null || description == null || nom.length() == 0 || description.length() == 0) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Edit failed");
+            alert.setHeaderText("You have entered invalid information");
+            alert.setContentText("Merci de remplir tous les champs");
+            alert.showAndWait();
+            return;
+        }
 
         user.getProjects().remove(project);
         project.setNom(nom);
