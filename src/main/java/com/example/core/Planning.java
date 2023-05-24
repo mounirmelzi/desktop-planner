@@ -192,6 +192,30 @@ public class Planning implements Serializable {
         }
     }
 
+    public Day dayPlusRentable() {
+        if (getDays().size() == 0)
+            return null;
+
+        Day dayPlusRentable = getDays().first();
+        for (Day day : getDays()) {
+            if (day.getRendement() > dayPlusRentable.getRendement())
+                dayPlusRentable = day;
+        }
+
+        return dayPlusRentable;
+    }
+
+    public double rendementMoyen() {
+        if (getDays().size() == 0)
+            return 0.0;
+
+        double rendement = 0;
+        for (Day day : getDays())
+            rendement += day.getRendement();
+
+        return rendement / getDays().size();
+    }
+
     void updateTacheCompletedCounter(int nbrTachesCompleted) {
         if (!currentDate.isEqual(LocalDate.now())) {
             currentDate = LocalDate.now();

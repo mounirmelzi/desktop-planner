@@ -3,6 +3,7 @@ package com.example.controllers;
 import com.example.controllers.historique.HistoriqueController;
 import com.example.controllers.calendar.CalendarController;
 import com.example.controllers.home.HomeController;
+import com.example.controllers.profile.ProfileController;
 import com.example.core.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -79,6 +80,11 @@ public class SidebarController extends Controller implements Initializable {
         }
     }
 
+
+    @FXML
+    private void handleProfile() {
+        showPage("/views/profile/Profile.fxml", new ProfileController(user));
+    }
 
     @FXML
     private void handleHome() {
