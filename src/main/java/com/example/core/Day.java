@@ -250,6 +250,16 @@ public class Day implements Comparable<Day>, Serializable {
         }
     }
 
+    void libererCreneauxOccupes(Planning planning) {
+        for (CreneauOccupe creneauOccupe : getCreneauxOccupes()) {
+            if (creneauOccupe.isBlocked())
+                continue;
+
+            Tache tache = creneauOccupe.getTache();
+            tache.deplanifier(planning);
+        }
+    }
+
     /**
      * chercher l'heure début du créneau occupée qui contient une tache
      * @param tache la tache qu'on veut chercher l'heure début de son créneau occupé

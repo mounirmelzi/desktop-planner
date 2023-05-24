@@ -51,6 +51,7 @@
             </left>
             <right>
                 <HBox spacing="20">
+                    <Button text="Replanifier" onAction="#replanifierButtonAction" styleClass="custom-button"/>
                     <Button text="Planifier Auto" onAction="#planifierAutoButtonAction" styleClass="custom-button"/>
                     <Button text="Ajouter Tache" onAction="#addTacheButtonAction" styleClass="custom-button"/>
                 </HBox>

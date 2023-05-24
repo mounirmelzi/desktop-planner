@@ -165,6 +165,12 @@ public class Planning implements Serializable {
         return Utils.dateTimePairToLocalDateTime(new Pair<>(day, creneaux));
     }
 
+    void libererCreneauxOccupes() {
+        for (Day day : getDays()) {
+            day.libererCreneauxOccupes(this);
+        }
+    }
+
     /**
      * ajouter des créneaux libres dans toutes les journées d'un planning
      * @param creneauxLibres les creneaux libres à ajouter dans le planning

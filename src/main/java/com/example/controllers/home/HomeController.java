@@ -46,6 +46,30 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
+    private void replanifierButtonAction(ActionEvent event) {
+        if (!user.hasPlanning()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Planification failed");
+            alert.setHeaderText("You don't have a planning");
+            alert.setContentText("Vous devez créer un planning d'abord !");
+            alert.showAndWait();
+            return;
+        }
+
+        try {
+            user.replanifier();
+        } catch (UnscheduledException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Planification error");
+            alert.setHeaderText("Taches can't be all scheduled properly");
+            alert.setContentText("Il y'a une tache non planifée, veuillez ajuster vos créneau et réessayer");
+            alert.showAndWait();
+        }
+
+        updateTaches();
+    }
+
+    @FXML
     private void planifierAutoButtonAction(ActionEvent event) {
         if (!user.hasPlanning()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

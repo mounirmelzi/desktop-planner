@@ -224,6 +224,11 @@ public class User implements Serializable {
             throw new UnscheduledException();
     }
 
+    public void replanifier() throws UnscheduledException {
+        planning.libererCreneauxOccupes();
+        planifierAuto();
+    }
+
     /**
      * Read an User object from .bin file
      *
