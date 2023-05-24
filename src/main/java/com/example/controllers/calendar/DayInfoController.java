@@ -282,7 +282,7 @@ public class DayInfoController extends Controller implements Initializable {
                 FXMLLoader loader;
                 if (tache instanceof TacheSimple) {
                     loader = new FXMLLoader(getClass().getResource("/views/tache/InfoTacheSimplePopup.fxml"));
-                    loader.setControllerFactory(param -> new InfoTacheSimplePopupController((TacheSimple) tache, false, null, null));
+                    loader.setControllerFactory(param -> new InfoTacheSimplePopupController((TacheSimple) tache, user, null, null));
                     Scene scene = new Scene(loader.load());
                     Stage stage = new Stage();
                     stage.setTitle("Tache Simple Info");
@@ -291,7 +291,7 @@ public class DayInfoController extends Controller implements Initializable {
                     stage.showAndWait();
                 } else {
                     loader = new FXMLLoader(getClass().getResource("/views/tache/InfoTacheDecomposablePopup.fxml"));
-                    loader.setControllerFactory(param -> new InfoTacheDecomposablePopupController((TacheDecomposable) tache, user, false, null));
+                    loader.setControllerFactory(param -> new InfoTacheDecomposablePopupController((TacheDecomposable) tache, user, true, null));
                     Scene scene = new Scene(loader.load());
                     Stage stage = new Stage();
                     stage.setTitle("Tache Decomposable Info");
@@ -299,6 +299,8 @@ public class DayInfoController extends Controller implements Initializable {
                     stage.setScene(scene);
                     stage.showAndWait();
                 }
+
+                updateCreneaux();
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -1,8 +1,5 @@
 package com.example.core;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-
 public enum State {
     NOT_REALIZED("Not Realized"),
     COMPLETED("Completed"),
@@ -16,16 +13,19 @@ public enum State {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
+    public static State getStateByName(String name) {
+        if (name == null)
+            return null;
+
+        for (State state : State.values()) {
+            if (state.getName().equals(name))
+                return state;
+        }
+
+        return null;
     }
 
-    @NotNull
-    @Contract(pure = true)
-    @Override
-    public String toString() {
-        return "State{" +
-                "name='" + name + '\'' +
-                '}';
+    public String getName() {
+        return name;
     }
 }

@@ -53,7 +53,7 @@ public class EditProjectPopupController extends Controller implements Initializa
         user.getProjects().remove(project);
         project.setNom(nom);
         project.setDescription(description);
-        user.getProjects().add(project);
+        user.addProject(project);
 
         ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
     }

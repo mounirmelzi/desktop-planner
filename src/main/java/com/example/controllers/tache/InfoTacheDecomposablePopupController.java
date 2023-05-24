@@ -164,7 +164,7 @@ public class InfoTacheDecomposablePopupController extends Controller implements 
         private void handleMoreButtonAction(ActionEvent event) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/tache/InfoTacheSimplePopup.fxml"));
-                loader.setControllerFactory(param -> new InfoTacheSimplePopupController(this.tache, InfoTacheDecomposablePopupController.this.isEditable, InfoTacheDecomposablePopupController.this.tache, InfoTacheDecomposablePopupController.this.projectOfTache));
+                loader.setControllerFactory(param -> new InfoTacheSimplePopupController(this.tache, InfoTacheDecomposablePopupController.this.user, InfoTacheDecomposablePopupController.this.tache, InfoTacheDecomposablePopupController.this.projectOfTache));
                 Scene scene = new Scene(loader.load());
                 Stage stage = new Stage();
                 stage.setTitle("Sub Tache Info");

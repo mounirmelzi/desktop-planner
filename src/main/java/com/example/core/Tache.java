@@ -55,6 +55,10 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
         return nom;
     }
 
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
     public Duration getDuree() {
         return duree;
     }
@@ -65,6 +69,10 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
 
     public Priority getPriority() {
         return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     public LocalDateTime getDeadline() {
@@ -79,6 +87,10 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
         return category;
     }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public String getColor() {
         if (getCategory() == null)
             return Category.defaultColor;
@@ -90,7 +102,7 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
         return state;
     }
 
-    void setState(State state, Planning planning) {
+    public void setState(State state, Planning planning) {
         if (planning == null) {
             this.state = state;
             return;

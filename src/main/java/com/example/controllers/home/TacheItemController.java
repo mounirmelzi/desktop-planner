@@ -60,7 +60,7 @@ public class TacheItemController extends Controller implements Initializable {
             FXMLLoader loader;
             if (tache instanceof TacheSimple) {
                 loader = new FXMLLoader(getClass().getResource("/views/tache/InfoTacheSimplePopup.fxml"));
-                loader.setControllerFactory(param -> new InfoTacheSimplePopupController((TacheSimple) tache, true, null, null));
+                loader.setControllerFactory(param -> new InfoTacheSimplePopupController((TacheSimple) tache, user, null, null));
                 Scene scene = new Scene(loader.load());
                 Stage stage = new Stage();
                 stage.setTitle("Tache Simple Info");

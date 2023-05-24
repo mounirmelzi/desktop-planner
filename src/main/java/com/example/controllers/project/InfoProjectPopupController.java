@@ -67,7 +67,7 @@ public class InfoProjectPopupController extends Controller implements Initializa
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/project/EditProjectPopup.fxml"));
             loader.setControllerFactory(param -> new EditProjectPopupController(project, user));
-            stage.setTitle("Edit Project Info");
+            stage.setTitle("Edit Project Information");
 
             Scene scene = new Scene(loader.load());
             stage.setResizable(false);
@@ -147,7 +147,7 @@ public class InfoProjectPopupController extends Controller implements Initializa
 
                 if (tache instanceof TacheSimple) {
                     loader = new FXMLLoader(getClass().getResource("/views/tache/InfoTacheSimplePopup.fxml"));
-                    loader.setControllerFactory(param -> new InfoTacheSimplePopupController((TacheSimple) this.tache, project.isUnscheduled(), null, InfoProjectPopupController.this.project));
+                    loader.setControllerFactory(param -> new InfoTacheSimplePopupController((TacheSimple) this.tache, InfoProjectPopupController.this.user, null, InfoProjectPopupController.this.project));
                     stage.setTitle("Tache Simple Info");
                 } else {
                     loader = new FXMLLoader(getClass().getResource("/views/tache/InfoTacheDecomposablePopup.fxml"));

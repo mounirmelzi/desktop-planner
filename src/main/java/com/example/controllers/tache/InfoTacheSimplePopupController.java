@@ -4,12 +4,16 @@ import com.example.controllers.Controller;
 import com.example.core.Project;
 import com.example.core.TacheDecomposable;
 import com.example.core.TacheSimple;
-import javafx.event.ActionEvent;
+import com.example.core.User;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -21,15 +25,15 @@ public class InfoTacheSimplePopupController extends Controller implements Initia
     private Button editButton;
 
     private final TacheSimple tache;
+    private final User user;
     private final TacheDecomposable parentTache;
     private final Project projectOfTache;
-    private final Boolean isEditable;
 
-    public InfoTacheSimplePopupController(TacheSimple tache, boolean isEditable, TacheDecomposable parentTache, Project projectOfTache) {
+    public InfoTacheSimplePopupController(TacheSimple tache, User user, TacheDecomposable parentTache, Project projectOfTache) {
         this.tache = tache;
+        this.user = user;
         this.parentTache = parentTache;
         this.projectOfTache = projectOfTache;
-        this.isEditable = isEditable;
     }
 
     @Override
@@ -38,7 +42,6 @@ public class InfoTacheSimplePopupController extends Controller implements Initia
     }
 
     private void update() {
-        editButton.setDisable(!isEditable);
         nameLabel.setText(tache.getNom());
         durationLabel.setText(String.format("%s Days %s Hours %s Minutes %s Seconds",
                 tache.getDuree().toDaysPart(),
@@ -54,9 +57,21 @@ public class InfoTacheSimplePopupController extends Controller implements Initia
     }
 
     @FXML
-    private void handleEditButtonAction(ActionEvent event) {
-        // todo edit tache simple
+    private void handleEditButtonAction() {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/tache/EditTacheSimplePopup.fxml"));
+            loader.setControllerFactory(param -> new EditTacheSimplePopupController(tache, user, parentTache, projectOfTache));
+            stage.setTitle("Edit Tache Simple Information");
 
-        update();
+            Scene scene = new Scene(loader.load());
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.showAndWait();
+
+            update();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
