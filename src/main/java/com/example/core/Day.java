@@ -107,6 +107,14 @@ public class Day implements Comparable<Day>, Serializable {
     }
 
     /**
+     * calculer le rendement journalier
+     * @return double le rendement journalier
+     */
+    public double getRendement() {
+        return (getTotalTachesNumber() == 0) ? 0.0 : ((double) getCompletedTachesNumber() / getTotalTachesNumber());
+    }
+
+    /**
      * ajouter un creneau libre dans les creneaux de la journée
      * @param creneauLibre le creneau libre à ajouter
      * @return boolean: true si le creneau est ajouté avec succès, false si non

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--todo ajouter rendement dans le projet-->
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.controllers.project.InfoProjectPopupController"
+      stylesheets="@../../styles/project/InfoProjectPopup.css"
       style="-fx-padding: 20;" spacing="20"
 >
     <HBox alignment="CENTER">
@@ -60,6 +59,10 @@
                 <Label style="-fx-font-size: 16px; -fx-text-fill: #333333; -fx-padding: 5 10; -fx-font-weight: bold;">
                     Taches
                 </Label>
+            </HBox>
+
+            <HBox alignment="CENTER">
+                <ProgressBar fx:id="realisationStateProgressBar" styleClass="realisation-state" prefWidth="200" minHeight="10" maxHeight="10"/>
             </HBox>
 
             <VBox alignment="CENTER" maxHeight="250">

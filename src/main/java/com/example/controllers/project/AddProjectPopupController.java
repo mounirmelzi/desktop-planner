@@ -38,7 +38,15 @@ public class AddProjectPopupController extends Controller {
         }
 
         Project project = new Project(name, description);
-        user.addProject(project);
+        if (!user.addProject(project)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Project creation failed");
+            alert.setHeaderText("This project already existe");
+            alert.setContentText("Changer le nom de projet et réessayer");
+            alert.showAndWait();
+            return;
+        }
+
         ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
     }
 }

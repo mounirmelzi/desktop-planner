@@ -110,7 +110,15 @@ public class AddTachePopupController extends Controller implements Initializable
 
             if (isDecomposableCheckBox.isSelected()) {
                 if (project == null) {
-                    user.addTache(new TacheDecomposable(nom, duration, priority, deadline, category));
+                    if (!user.addTache(new TacheDecomposable(nom, duration, priority, deadline, category))) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Tache creation failed");
+                        alert.setHeaderText("This task already existe");
+                        alert.setContentText("Changer le nom, le deadline ou la priorité de la tache et réessayer");
+                        alert.showAndWait();
+                        return;
+                    }
+
                     ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
                     return;
                 }
@@ -120,14 +128,30 @@ public class AddTachePopupController extends Controller implements Initializable
                     return;
                 }
 
-                project.addTache(new TacheDecomposable(nom, duration, priority, deadline, category));
+                if (!project.addTache(new TacheDecomposable(nom, duration, priority, deadline, category))) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Tache creation failed");
+                    alert.setHeaderText("This task already existe");
+                    alert.setContentText("Changer les informations de la tache et réessayer");
+                    alert.showAndWait();
+                    return;
+                }
+
                 ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
             } else {
                 TacheSimple tacheSimple = new TacheSimple(nom, duration, priority, deadline, category);
                 tacheSimple.setPeriodicity(periodicitySpinner.getValue());
 
                 if (project == null) {
-                    user.addTache(tacheSimple);
+                    if (!user.addTache(tacheSimple)) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Tache creation failed");
+                        alert.setHeaderText("This task already existe");
+                        alert.setContentText("Changer le nom, le deadline ou la priorité de la tache et réessayer");
+                        alert.showAndWait();
+                        return;
+                    }
+
                     ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
                     return;
                 }
@@ -137,7 +161,15 @@ public class AddTachePopupController extends Controller implements Initializable
                     return;
                 }
 
-                project.addTache(tacheSimple);
+                if (!project.addTache(tacheSimple)) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Tache creation failed");
+                    alert.setHeaderText("This task already existe");
+                    alert.setContentText("Changer les informations de la tache et réessayer");
+                    alert.showAndWait();
+                    return;
+                }
+
                 ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
             }
         } catch (NullPointerException e) {

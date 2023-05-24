@@ -1,0 +1,7 @@
+.realisation-state .bar {
+    -fx-background-color: #0088FF;
+}
+
+.realisation-state .track {
+    -fx-background-color: lightgray;
+}

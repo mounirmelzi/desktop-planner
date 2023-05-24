@@ -100,7 +100,7 @@ public class DayInfoController extends Controller implements Initializable {
         errorLabel.setText("");
         creneauxContainer.getChildren().clear();
         calendarController.updateCalendar();
-        realisationStateProgressBar.setProgress((day == null || day.getTotalTachesNumber() == 0) ? 0.0 : ((double) day.getCompletedTachesNumber() / day.getTotalTachesNumber()));
+        realisationStateProgressBar.setProgress(day == null ? 0.0 : day.getRendement());
 
         if (day == null || !day.hasCreneaux())
             return;

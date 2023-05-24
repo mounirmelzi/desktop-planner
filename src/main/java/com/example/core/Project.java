@@ -171,6 +171,23 @@ public class Project implements IPlanifiable, Serializable {
             tache.deplanifier(planning);
     }
 
+    /**
+     * calculer le rendement d'un projet
+     * @return double le rendement d'un projet
+     */
+    public double getRendement() {
+        int completedTachesCounter = 0;
+        for (Tache tache : getTaches()) {
+            if (tache.getState() == State.COMPLETED)
+                completedTachesCounter++;
+        }
+
+        if (getTaches().size() == 0)
+            return 0.0;
+
+        return ((double)completedTachesCounter / getTaches().size());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

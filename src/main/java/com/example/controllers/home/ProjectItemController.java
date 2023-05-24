@@ -62,6 +62,7 @@ public class ProjectItemController extends Controller implements Initializable {
             stage.showAndWait();
 
             update();
+            homeController.updateProjects();
         } catch (IOException e) {
             e.printStackTrace();
         }

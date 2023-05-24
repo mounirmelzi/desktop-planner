@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.ColumnConstraints;
@@ -37,6 +38,8 @@ public class InfoProjectPopupController extends Controller implements Initializa
     private VBox tachesContainer;
     @FXML
     private Button editButton;
+    @FXML
+    private ProgressBar realisationStateProgressBar;
 
     private final Project project;
     private final User user;
@@ -55,6 +58,7 @@ public class InfoProjectPopupController extends Controller implements Initializa
         editButton.setDisable(!project.isUnscheduled() && project.hasTaches());
         nameLabel.setText(project.getNom());
         descriptionTextArea.setText(project.getDescription());
+        realisationStateProgressBar.setProgress(project.getRendement());
 
         tachesContainer.getChildren().clear();
         for (Tache tache : project.getTaches()) {

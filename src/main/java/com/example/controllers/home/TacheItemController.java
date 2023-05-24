@@ -78,6 +78,7 @@ public class TacheItemController extends Controller implements Initializable {
             }
 
             update();
+            homeController.updateTaches();
         } catch (IOException e) {
             e.printStackTrace();
         }
