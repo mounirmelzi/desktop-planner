@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.example.controllers.project.EditProjectPopupController"
+          style="-fx-padding: 20" vgap="10" hgap="10"
+>
+    <HBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER">
+        <Label style="-fx-font-size: 24px; -fx-text-fill: #2196f3;">Edit Project Information</Label>
+    </HBox>
+
+    <Label GridPane.rowIndex="2" GridPane.columnIndex="0" underline="true">Nom</Label>
+    <TextField fx:id="nomProjectTextField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+    <Label GridPane.rowIndex="4" GridPane.columnIndex="0" underline="true">Description</Label>
+    <TextArea fx:id="descriptionProjectTextArea" wrapText="true" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+    <HBox GridPane.rowIndex="6" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER">
+        <Button onAction="#handleEditProjectButtonAction"
+                style="-fx-background-color: #2196f3; -fx-text-fill: white; -fx-font-size: 16px; -fx-pref-width: 120px; -fx-pref-height: 30px; -fx-effect: dropshadow(gaussian, rgba(33,150,243,0.7), 5, 0, 0, 0); -fx-cursor: hand;">
+            Save
+        </Button>
+    </HBox>
+</GridPane>

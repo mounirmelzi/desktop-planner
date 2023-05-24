@@ -50,7 +50,7 @@ public class InfoProjectPopupController extends Controller implements Initializa
     }
 
     private void update() {
-        editButton.setDisable(!project.isUnscheduled());
+        editButton.setDisable(!project.isUnscheduled() && project.hasTaches());
         nameLabel.setText(project.getNom());
         descriptionTextArea.setText(project.getDescription());
 
@@ -63,9 +63,21 @@ public class InfoProjectPopupController extends Controller implements Initializa
 
     @FXML
     private void handleEditButtonAction(ActionEvent event) {
-        // todo edit project
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/project/EditProjectPopup.fxml"));
+            loader.setControllerFactory(param -> new EditProjectPopupController(project, user));
+            stage.setTitle("Edit Project Info");
 
-        update();
+            Scene scene = new Scene(loader.load());
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.showAndWait();
+
+            update();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private class TacheCard extends GridPane {

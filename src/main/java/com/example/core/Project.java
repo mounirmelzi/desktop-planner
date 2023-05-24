@@ -76,6 +76,14 @@ public class Project implements IPlanifiable, Serializable {
         return State.IN_PROGRESS;
     }
 
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     //endregion
 
     //region Methods
