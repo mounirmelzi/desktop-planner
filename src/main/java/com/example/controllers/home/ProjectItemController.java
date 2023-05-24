@@ -5,7 +5,6 @@ import com.example.controllers.project.InfoProjectPopupController;
 import com.example.core.Project;
 import com.example.core.User;
 import com.example.core.exceptions.UnscheduledException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -51,7 +50,7 @@ public class ProjectItemController extends Controller implements Initializable {
     }
 
     @FXML
-    private void handleInfoButtonAction(ActionEvent event) {
+    private void handleInfoButtonAction() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/project/InfoProjectPopup.fxml"));
             loader.setControllerFactory(param -> new InfoProjectPopupController(project, user));
@@ -69,7 +68,7 @@ public class ProjectItemController extends Controller implements Initializable {
     }
 
     @FXML
-    private void handlePlanificationButtonAction(ActionEvent event) {
+    private void handlePlanificationButtonAction() {
         if (project.isUnscheduled()) {
             if (!user.hasPlanning()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -97,7 +96,7 @@ public class ProjectItemController extends Controller implements Initializable {
     }
 
     @FXML
-    private void handleDeleteButtonAction(ActionEvent event) {
+    private void handleDeleteButtonAction() {
         user.deleteProject(project);
         homeController.updateProjects();
     }

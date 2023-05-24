@@ -2,9 +2,7 @@ package com.example.controllers.auth;
 
 import com.example.controllers.Controller;
 import com.example.controllers.SidebarController;
-import com.example.core.Planning;
 import com.example.core.User;
-import com.example.core.exceptions.InvalidDateTimeException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +19,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Optional;
 
 public class LoginController extends Controller {

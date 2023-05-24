@@ -5,13 +5,16 @@ import com.example.core.Project;
 import com.example.core.TacheDecomposable;
 import com.example.core.TacheSimple;
 import com.example.core.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,8 +24,6 @@ import java.util.ResourceBundle;
 public class InfoTacheSimplePopupController extends Controller implements Initializable {
     @FXML
     private Label nameLabel, durationLabel, priorityLabel, deadlineLabel, categoryLabel, stateLabel, periodicityLabel;
-    @FXML
-    private Button editButton;
 
     private final TacheSimple tache;
     private final User user;
@@ -57,7 +58,7 @@ public class InfoTacheSimplePopupController extends Controller implements Initia
     }
 
     @FXML
-    private void handleEditButtonAction() {
+    private void handleEditButtonAction(@NotNull ActionEvent event) {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/tache/EditTacheSimplePopup.fxml"));
@@ -70,6 +71,7 @@ public class InfoTacheSimplePopupController extends Controller implements Initia
             stage.showAndWait();
 
             update();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
         } catch (IOException e) {
             e.printStackTrace();
         }

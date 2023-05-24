@@ -7,7 +7,6 @@ import com.example.core.Project;
 import com.example.core.Tache;
 import com.example.core.User;
 import com.example.core.exceptions.UnscheduledException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -32,7 +31,7 @@ public class HomeController extends Controller implements Initializable {
     @FXML
     private HBox tachesContainer, projectsContainer;
 
-    private User user;
+    private final User user;
 
     public HomeController(User user) {
         this.user = user;
@@ -46,7 +45,7 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
-    private void replanifierButtonAction(ActionEvent event) {
+    private void replanifierButtonAction() {
         if (!user.hasPlanning()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Planification failed");
@@ -70,7 +69,7 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
-    private void planifierAutoButtonAction(ActionEvent event) {
+    private void planifierAutoButtonAction() {
         if (!user.hasPlanning()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Planification failed");
@@ -94,7 +93,7 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
-    private void addTacheButtonAction(ActionEvent event) {
+    private void addTacheButtonAction() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/tache/AddTachePopup.fxml"));
             loader.setControllerFactory(param -> new AddTachePopupController(user));
@@ -114,7 +113,7 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
-    private void addProjetButtonAction(ActionEvent event) {
+    private void addProjetButtonAction() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/project/AddProjectPopup.fxml"));
             loader.setControllerFactory(param -> new AddProjectPopupController(user));
@@ -132,7 +131,7 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
-    private void newPlanningButtonAction(ActionEvent event) {
+    private void newPlanningButtonAction() {
         try {
             if (user.hasPlanning()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -161,7 +160,7 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
-    private void archiverPlanningButtonAction(ActionEvent event) {
+    private void archiverPlanningButtonAction() {
         if (!user.hasPlanning()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Archiving Current Planning Failed");
@@ -186,7 +185,7 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
-    private void extendPlanningButtonAction(ActionEvent event) {
+    private void extendPlanningButtonAction() {
         try {
             if (!user.hasPlanning()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -215,7 +214,7 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
-    private void addCreneauLibreButtonAction(ActionEvent event) {
+    private void addCreneauLibreButtonAction() {
         try {
             if (!user.hasPlanning()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);

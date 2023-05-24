@@ -73,7 +73,7 @@ public class AddCreneauxLibresPopupController extends Controller {
         ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
     }
 
-    public void applyToAllButtonAction(ActionEvent event) {
+    public void applyToAllButtonAction() {
         lundiStartTime.setText(dimancheStartTime.getText());
         mardiStartTime.setText(dimancheStartTime.getText());
         mercrediStartTime.setText(dimancheStartTime.getText());

@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -71,7 +72,7 @@ public class InfoTacheDecomposablePopupController extends Controller implements 
     }
 
     @FXML
-    private void handleEditButtonAction(ActionEvent event) {
+    private void handleEditButtonAction(@NotNull ActionEvent event) {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/tache/EditTacheDecomposablePopup.fxml"));
@@ -84,13 +85,14 @@ public class InfoTacheDecomposablePopupController extends Controller implements 
             stage.showAndWait();
 
             update();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    private void handleDecomposerButtonAction(ActionEvent event) {
+    private void handleDecomposerButtonAction() {
         if (!user.hasPlanning()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Decomposition failed");
@@ -120,7 +122,7 @@ public class InfoTacheDecomposablePopupController extends Controller implements 
     }
 
     @FXML
-    private void handleClearButtonAction(ActionEvent event) {
+    private void handleClearButtonAction() {
         tache.clear(user.getPlanning());
         update();
     }
@@ -151,7 +153,7 @@ public class InfoTacheDecomposablePopupController extends Controller implements 
 
             Button moreButton = new Button();
             moreButton.setText("More");
-            moreButton.setMinWidth(50);
+            moreButton.setMinWidth(75);
             moreButton.setOnAction(this::handleMoreButtonAction);
             moreButton.setStyle("-fx-background-color: #2B7BFF; -fx-text-fill: white; -fx-font-size: 18px; -fx-cursor: hand;");
             DropShadow effect = new DropShadow();

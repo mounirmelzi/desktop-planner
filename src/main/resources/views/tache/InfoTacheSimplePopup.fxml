@@ -126,7 +126,7 @@
 
     <HBox alignment="CENTER">
         <Button style="-fx-background-color: #2B7BFF; -fx-text-fill: white; -fx-font-size: 18px; -fx-cursor: hand;"
-                onAction="#handleEditButtonAction" fx:id="editButton">
+                onAction="#handleEditButtonAction">
             <effect>
                 <DropShadow color="#1F579D" radius="5" spread="0.2"/>
             </effect>

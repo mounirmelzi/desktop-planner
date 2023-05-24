@@ -62,7 +62,7 @@ public class InfoProjectPopupController extends Controller implements Initializa
     }
 
     @FXML
-    private void handleEditButtonAction(ActionEvent event) {
+    private void handleEditButtonAction() {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/project/EditProjectPopup.fxml"));

@@ -40,7 +40,8 @@ public class SidebarController extends Controller implements Initializable {
     private ImageView logoImageView;
     @FXML
     private Label usernameLabel;
-    private User user;
+
+    private final User user;
 
     public SidebarController(User user) {
         this.user = user;
@@ -78,22 +79,19 @@ public class SidebarController extends Controller implements Initializable {
         }
     }
 
-    private void showPage(String fxmlFilePath) {
-        showPage(fxmlFilePath, null);
-    }
 
     @FXML
-    private void handleHome(ActionEvent event) {
+    private void handleHome() {
         showPage("/views/home/Home.fxml", new HomeController(user));
     }
 
     @FXML
-    private void handleCalendar(ActionEvent event) {
+    private void handleCalendar() {
         showPage("/views/calendar/Calendar.fxml", new CalendarController(user));
     }
 
     @FXML
-    private void handleHistorique(ActionEvent event) {
+    private void handleHistorique() {
         showPage("/views/historique/Historique.fxml", new HistoriqueController(user));
     }
 

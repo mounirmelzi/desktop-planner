@@ -8,7 +8,6 @@ import com.example.core.TacheDecomposable;
 import com.example.core.TacheSimple;
 import com.example.core.User;
 import com.example.core.exceptions.UnscheduledException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -55,7 +54,7 @@ public class TacheItemController extends Controller implements Initializable {
     }
 
     @FXML
-    private void handleInfoButtonAction(ActionEvent event) {
+    private void handleInfoButtonAction() {
         try {
             FXMLLoader loader;
             if (tache instanceof TacheSimple) {
@@ -85,7 +84,7 @@ public class TacheItemController extends Controller implements Initializable {
     }
 
     @FXML
-    private void handlePlanificationButtonAction(ActionEvent event) {
+    private void handlePlanificationButtonAction() {
         if (tache.isUnscheduled()) {
             if (!user.hasPlanning()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -113,7 +112,7 @@ public class TacheItemController extends Controller implements Initializable {
     }
 
     @FXML
-    private void handleDeleteButtonAction(ActionEvent event) {
+    private void handleDeleteButtonAction() {
         user.deleteTache(tache);
         homeController.updateTaches();
     }
