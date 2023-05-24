@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class EditTacheSimplePopupController extends Controller implements Initializable {
+public class EditTacheDecomposablePopupController extends Controller implements Initializable {
     @FXML
     private TextField nomTacheTextField;
     @FXML
@@ -31,19 +31,15 @@ public class EditTacheSimplePopupController extends Controller implements Initia
     private Spinner<Integer> durationDaysSpinner, durationHoursSpinner, durationMinutesSpinner, durationSecondsSpinner;
     @FXML
     private ComboBox<String> stateComboBox, priorityComboBox, categoryComboBox;
-    @FXML
-    private Spinner<Integer> periodicitySpinner;
 
     private static final String NO_CATEGORY_SELECTED = "No Category";
-    private final TacheSimple tacheSimple;
+    private final TacheDecomposable tacheDecomposable;
     private final User user;
-    private final TacheDecomposable parentTache;
     private final Project projectOfTache;
 
-    public EditTacheSimplePopupController(TacheSimple tache, User user, TacheDecomposable parentTache, Project projectOfTache) {
-        this.tacheSimple = tache;
+    public EditTacheDecomposablePopupController(TacheDecomposable tache, User user, Project projectOfTache) {
+        this.tacheDecomposable = tache;
         this.user = user;
-        this.parentTache = parentTache;
         this.projectOfTache = projectOfTache;
     }
 
@@ -54,45 +50,41 @@ public class EditTacheSimplePopupController extends Controller implements Initia
     }
 
     private void init() {
-        nomTacheTextField.setText(tacheSimple.getNom());
-        deadlineDatePicker.setValue(tacheSimple.getDeadline().toLocalDate());
-        deadlineHourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, tacheSimple.getDeadline().toLocalTime().getHour()));
-        deadlineMinuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, tacheSimple.getDeadline().toLocalTime().getMinute()));
-        deadlineSecondSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, tacheSimple.getDeadline().toLocalTime().getSecond()));
+        nomTacheTextField.setText(tacheDecomposable.getNom());
+        deadlineDatePicker.setValue(tacheDecomposable.getDeadline().toLocalDate());
+        deadlineHourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, tacheDecomposable.getDeadline().toLocalTime().getHour()));
+        deadlineMinuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, tacheDecomposable.getDeadline().toLocalTime().getMinute()));
+        deadlineSecondSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, tacheDecomposable.getDeadline().toLocalTime().getSecond()));
 
-        durationDaysSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 360, (int)tacheSimple.getDuree().toDaysPart()));
-        durationHoursSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, tacheSimple.getDuree().toHoursPart()));
-        durationMinutesSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, tacheSimple.getDuree().toMinutesPart()));
-        durationSecondsSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, tacheSimple.getDuree().toSecondsPart()));
-
-        periodicitySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 360, tacheSimple.getPeriodicity()));
+        durationDaysSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 360, (int)tacheDecomposable.getDuree().toDaysPart()));
+        durationHoursSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, tacheDecomposable.getDuree().toHoursPart()));
+        durationMinutesSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, tacheDecomposable.getDuree().toMinutesPart()));
+        durationSecondsSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, tacheDecomposable.getDuree().toSecondsPart()));
 
         stateComboBox.setItems(FXCollections.observableArrayList(Arrays.stream(State.values()).map(State::getName).collect(Collectors.toList())));
-        stateComboBox.setValue(tacheSimple.getState().getName());
+        stateComboBox.setValue(tacheDecomposable.getState().getName());
 
         priorityComboBox.setItems(FXCollections.observableArrayList(Arrays.stream(Priority.values()).map(Priority::getName).collect(Collectors.toList())));
-        priorityComboBox.setValue(tacheSimple.getPriority().getName());
+        priorityComboBox.setValue(tacheDecomposable.getPriority().getName());
 
         ObservableList<String> categories = FXCollections.observableArrayList(new ArrayList<>(user.getCategories()));
         categories.add(0, NO_CATEGORY_SELECTED);
         categoryComboBox.setItems(categories);
-        categoryComboBox.setValue(tacheSimple.getCategory() == null ? categories.get(0) : tacheSimple.getCategory().getName());
+        categoryComboBox.setValue(tacheDecomposable.getCategory() == null ? categories.get(0) : tacheDecomposable.getCategory().getName());
     }
 
     private void blockFields() {
-        if (parentTache != null || !tacheSimple.isUnscheduled()) {
+        if (!tacheDecomposable.isUnscheduled()) {
             blockDeadline();
             blockDuration();
-            periodicitySpinner.setDisable(true);
             priorityComboBox.setDisable(true);
             categoryComboBox.setDisable(true);
         }
 
         if (projectOfTache != null) {
-            if (!projectOfTache.isUnscheduled() || !tacheSimple.isUnscheduled()) {
+            if (!projectOfTache.isUnscheduled() || !tacheDecomposable.isUnscheduled()) {
                 blockDeadline();
                 blockDuration();
-                periodicitySpinner.setDisable(true);
                 priorityComboBox.setDisable(true);
                 categoryComboBox.setDisable(true);
             }
@@ -120,7 +112,6 @@ public class EditTacheSimplePopupController extends Controller implements Initia
             Priority priority = Priority.getByName(priorityComboBox.getValue());
             State state = State.getStateByName(stateComboBox.getValue());
             Category category = categoryComboBox.getValue().equals(NO_CATEGORY_SELECTED) ? null : user.getCategorie(categoryComboBox.getValue());
-            int periodicity = periodicitySpinner.getValue();
             Duration duration = Duration
                     .ofDays(durationDaysSpinner.getValue())
                     .plusHours(durationHoursSpinner.getValue())
@@ -135,7 +126,7 @@ public class EditTacheSimplePopupController extends Controller implements Initia
                     )
             );
 
-            if (!deadline.equals(tacheSimple.getDeadline()) && deadline.isBefore(LocalDateTime.now())) {
+            if (!deadline.equals(tacheDecomposable.getDeadline()) && deadline.isBefore(LocalDateTime.now())) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Edit failed");
                 alert.setHeaderText("Tache can't be modified");
@@ -153,34 +144,24 @@ public class EditTacheSimplePopupController extends Controller implements Initia
                 return;
             }
 
-            if (parentTache != null) {
-                parentTache.getChildren().remove(tacheSimple);
-                tacheSimple.setNom(nom);
-                tacheSimple.setPriority(priority);
-                tacheSimple.setState(state, user.getPlanning());
-                tacheSimple.setCategory(category);
-                tacheSimple.setDuree(duration);
-                tacheSimple.setDeadline(deadline);
-                parentTache.getChildren().add(tacheSimple);
-            } else if (projectOfTache != null) {
-                user.getTaches().remove(tacheSimple);
-                tacheSimple.setNom(nom);
-                tacheSimple.setPriority(priority);
-                tacheSimple.setState(state, user.getPlanning());
-                tacheSimple.setCategory(category);
-                tacheSimple.setDuree(duration);
-                tacheSimple.setDeadline(deadline);
-                user.addTache(tacheSimple);
+            if (projectOfTache == null) {
+                user.getTaches().remove(tacheDecomposable);
+                tacheDecomposable.setNom(nom);
+                tacheDecomposable.setPriority(priority);
+                tacheDecomposable.setState(state, user.getPlanning());
+                tacheDecomposable.setCategory(category);
+                tacheDecomposable.setDuree(duration);
+                tacheDecomposable.setDeadline(deadline);
+                user.addTache(tacheDecomposable);
             } else {
-                user.getTaches().remove(tacheSimple);
-                tacheSimple.setNom(nom);
-                tacheSimple.setPriority(priority);
-                tacheSimple.setState(state, user.getPlanning());
-                tacheSimple.setCategory(category);
-                tacheSimple.setPeriodicity(periodicity);
-                tacheSimple.setDuree(duration);
-                tacheSimple.setDeadline(deadline);
-                user.addTache(tacheSimple);
+                projectOfTache.getTaches().remove(tacheDecomposable);
+                tacheDecomposable.setNom(nom);
+                tacheDecomposable.setPriority(priority);
+                tacheDecomposable.setState(state, user.getPlanning());
+                tacheDecomposable.setCategory(category);
+                tacheDecomposable.setDuree(duration);
+                tacheDecomposable.setDeadline(deadline);
+                projectOfTache.addTache(tacheDecomposable);
             }
 
             ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();

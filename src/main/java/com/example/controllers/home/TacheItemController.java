@@ -69,7 +69,7 @@ public class TacheItemController extends Controller implements Initializable {
                 stage.showAndWait();
             } else {
                 loader = new FXMLLoader(getClass().getResource("/views/tache/InfoTacheDecomposablePopup.fxml"));
-                loader.setControllerFactory(param -> new InfoTacheDecomposablePopupController((TacheDecomposable) tache, user, true, null));
+                loader.setControllerFactory(param -> new InfoTacheDecomposablePopupController((TacheDecomposable) tache, user, null));
                 Scene scene = new Scene(loader.load());
                 Stage stage = new Stage();
                 stage.setTitle("Tache Decomposable Info");

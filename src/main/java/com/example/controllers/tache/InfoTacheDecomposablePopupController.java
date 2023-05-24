@@ -33,19 +33,15 @@ public class InfoTacheDecomposablePopupController extends Controller implements 
     private Label nameLabel, durationLabel, priorityLabel, deadlineLabel, categoryLabel, stateLabel;
     @FXML
     private VBox childrenContainer;
-    @FXML
-    private Button editButton, decomposerButton, clearButton;
 
     private final TacheDecomposable tache;
     private final User user;
     private final Project projectOfTache;
-    private final boolean isEditable;
 
-    public InfoTacheDecomposablePopupController(TacheDecomposable tache, User user, boolean isEditable, Project projectOfTache) {
+    public InfoTacheDecomposablePopupController(TacheDecomposable tache, User user, Project projectOfTache) {
         this.tache = tache;
         this.user = user;
         this.projectOfTache = projectOfTache;
-        this.isEditable = isEditable;
     }
 
     @Override
@@ -54,10 +50,6 @@ public class InfoTacheDecomposablePopupController extends Controller implements 
     }
 
     private void update() {
-        editButton.setDisable(!isEditable);
-        decomposerButton.setDisable(!isEditable);
-        clearButton.setDisable(!isEditable);
-
         nameLabel.setText(tache.getNom());
         durationLabel.setText(String.format("%s Days %s Hours %s Minutes %s Seconds",
                 tache.getDuree().toDaysPart(),
@@ -80,9 +72,21 @@ public class InfoTacheDecomposablePopupController extends Controller implements 
 
     @FXML
     private void handleEditButtonAction(ActionEvent event) {
-        // todo edit tache decomposable
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/tache/EditTacheDecomposablePopup.fxml"));
+            loader.setControllerFactory(param -> new EditTacheDecomposablePopupController(tache, user, projectOfTache));
+            stage.setTitle("Edit Tache Décomposable Information");
 
-        update();
+            Scene scene = new Scene(loader.load());
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.showAndWait();
+
+            update();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

@@ -151,7 +151,7 @@ public class InfoProjectPopupController extends Controller implements Initializa
                     stage.setTitle("Tache Simple Info");
                 } else {
                     loader = new FXMLLoader(getClass().getResource("/views/tache/InfoTacheDecomposablePopup.fxml"));
-                    loader.setControllerFactory(param -> new InfoTacheDecomposablePopupController((TacheDecomposable) this.tache, InfoProjectPopupController.this.user, project.isUnscheduled(), InfoProjectPopupController.this.project));
+                    loader.setControllerFactory(param -> new InfoTacheDecomposablePopupController((TacheDecomposable) this.tache, InfoProjectPopupController.this.user, InfoProjectPopupController.this.project));
                     stage.setTitle("Tache Décomposable Info");
                 }
 

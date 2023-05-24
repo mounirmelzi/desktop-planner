@@ -95,6 +95,34 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
         return State.IN_PROGRESS;
     }
 
+    @Override
+    public void setState(State state, Planning planning) {
+        super.setState(state, planning);
+        for (TacheSimple tache : getChildren())
+            tache.setState(state, planning);
+    }
+
+    @Override
+    public void setPriority(Priority priority) {
+        super.setPriority(priority);
+        for (TacheSimple tache : getChildren())
+            tache.setPriority(priority);
+    }
+
+    @Override
+    public void setCategory(Category category) {
+        super.setCategory(category);
+        for (TacheSimple tache : getChildren())
+            tache.setCategory(category);
+    }
+
+    @Override
+    public void setDeadline(LocalDateTime deadline) {
+        super.setDeadline(deadline);
+        for (TacheSimple tache : getChildren())
+            tache.setDeadline(deadline);
+    }
+
     //endregion
 
     //region Methods
