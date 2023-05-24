@@ -83,5 +83,14 @@ public class Calendrier implements Serializable {
 
     }
 
+    public int getNbTachesCompletees() {
+        int cpt = 0;
+        for (Day day: getDays()) {
+            cpt += day.getCompletedTachesNumber() ;
+
+        }
+        return cpt ;
+    }
+
     //endregion
 }

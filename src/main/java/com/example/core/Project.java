@@ -138,6 +138,13 @@ public class Project implements IPlanifiable, Serializable {
         return !getTaches().isEmpty();
     }
 
+    public boolean hasTache(Tache tache) {
+        for (Tache t: getTaches()) {
+            if (t.compareTo(tache)==0) {return true;}
+        }
+        return false;
+    }
+
     /**
      * ajouter une tache dans l'ensemble des taches du projet
      * @param tache la tache à ajouter

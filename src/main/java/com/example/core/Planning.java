@@ -115,6 +115,10 @@ public class Planning implements Serializable {
         this.nbrTachesMinParJour = nbrTachesMinParJour;
     }
 
+    public int getNbTachesCompletees() {
+        return getCalendrier().getNbTachesCompletees() ;
+    }
+
     //endregion
 
     //region Methods
@@ -234,6 +238,8 @@ public class Planning implements Serializable {
             badges.put(Badge.EXCELLENT, badges.get(Badge.VERY_GOOD) / 3);
         }
     }
+
+
 
     //endregion
 }

@@ -34,6 +34,7 @@ import java.util.ResourceBundle;
 
 public class HistoriqueController extends Controller implements Initializable {
 
+
     private User user;
 
     @FXML
@@ -50,7 +51,10 @@ public class HistoriqueController extends Controller implements Initializable {
     private ImageView badgeGood, badgeVeryGood, badgeExcellent;
     @FXML
     private HBox daysNamesContainer;
+    @FXML
+    private Label nbTachesCompletees,nbProjetCompletes ;
     private DayInfoController dayInfoController;
+
 
 
     public HistoriqueController(User user) {
@@ -78,6 +82,7 @@ public class HistoriqueController extends Controller implements Initializable {
                 afficherPlanning(lastP, lastP.getDateDebut());
                 historiquePlannings.getChildren().get(0).getStyleClass().add("btn-pressed");
             }
+            afficherNbCompletes(lastP, user.getHistorique().getDateArchivage(lastP));
             afficherBadges(lastP);
         } catch (NullPointerException e) {
             afficherAucunPlanning();
@@ -85,15 +90,16 @@ public class HistoriqueController extends Controller implements Initializable {
         }
     }
 
+
     @FXML
     public void ajouterHistoriquePlanning(User user) {
         historiquePlannings.getChildren().clear();
         try {
             Historique h = user.getHistorique();
-            if ((h == null) || (h.getHistorique() == null)) {
+            if ((h == null) || (h.getHistoriquePlannings() == null)) {
                 afficherAucunPlanning();
             } else {
-                for (Map.Entry<LocalDateTime, Planning> entry : h.getHistorique().entrySet()) {
+                for (Map.Entry<LocalDateTime, Planning> entry : h.getHistoriquePlannings().entrySet()) {
                     addButtonPlanning(entry.getValue(), entry.getKey());
                 }
             }
@@ -112,6 +118,7 @@ public class HistoriqueController extends Controller implements Initializable {
                 button.getStyleClass().add("btn-pressed") ;
                 afficherPlanning(p, p.getDateDebut());
                 afficherBadges(p);
+                afficherNbCompletes(p, FDate);
                 afficherDayInfo(p.getDayByDate(p.getDateDebut()), p.getDateDebut());
             });
             historiquePlannings.getChildren().add(button);
@@ -199,6 +206,11 @@ public class HistoriqueController extends Controller implements Initializable {
         }
     }
 
+
+    public void afficherNbCompletes (Planning p ,LocalDateTime dateArchivage){
+        nbTachesCompletees.setText(String.valueOf(p.getNbTachesCompletees()));
+        nbProjetCompletes.setText(String.valueOf(dayInfoController.getUser().getHistorique().getNbProjetsCompletes(dateArchivage)));
+    }
     public void afficherBadges(Planning planning) {
 
         hboxBadges.setVisible(true);

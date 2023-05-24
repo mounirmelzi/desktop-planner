@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DayInfoController extends Controller{
     @FXML
@@ -36,6 +37,7 @@ public class DayInfoController extends Controller{
     public void setDay (Day day) {this.day = day ;}
     public void setDate(LocalDate date) {this.date = date ;}
     public void setPlanning(Planning planning ) { this.planning = planning ;}
+    public User getUser() {return user;}
     public LocalDate getDate() {return date ;}
     public Day getDay(){return day;}
     public Planning getPlanning(){return planning;}
@@ -56,14 +58,21 @@ public class DayInfoController extends Controller{
 
     public BorderPane afficherTache(CreneauOccupe creneau) {
         try {
+        AtomicBoolean clique = new AtomicBoolean(false) ;
         Tache tache = creneau.getTache();
+
         BorderPane borderPaneTache = new BorderPane();
         borderPaneTache.getStyleClass().add("borderPaneTache") ;
-        VBox vbox = new VBox();
-        Text text = new Text("Tache: "+tache.getNom());
-        vbox.getChildren().add(text) ;
-        vbox.setAlignment(Pos.CENTER_LEFT);
-        borderPaneTache.setLeft(vbox);
+
+        HBox hbox = new HBox();
+        hbox.setStyle("-fx-max-Width: 200px; -fx-min-Height: 50px");
+        Label text = new Label("Tache: " + tache.getNom());
+        text.setWrapText(true) ;
+
+        hbox.getChildren().add(text) ;
+        hbox.setAlignment(Pos.CENTER_LEFT);
+        borderPaneTache.setLeft(hbox);
+
         Button moreButton = new Button("more");
         moreButton.getStyleClass().add("moreButton") ;
         moreButton.setOnMouseClicked(event -> {
@@ -74,6 +83,8 @@ public class DayInfoController extends Controller{
             moreInfo.getChildren().add(new Label("Durée: " + tache.getDuree().toString()));
             moreInfo.getChildren().add(new Label("Catégorie: " + (tache.getCategory() == null ? "No Category" : tache.getCategory().getName())));
             borderPaneTache.setBottom(moreInfo);
+            if (clique.get()==false) {moreInfo.setVisible(true); clique.set(true);}
+            else {moreInfo.setVisible(false); borderPaneTache.setBottom(null); clique.set(false); }
         });
         borderPaneTache.setRight(moreButton);
         return borderPaneTache ;
@@ -84,11 +95,11 @@ public class DayInfoController extends Controller{
         return  null;}
     }
 
+
     public void afficherTache() {
 
         try {
             if (!(day.hasCreneauxOccupees())) {throw new NullPointerException();}
-            day.getCreneauxOccupes() ;
             for (CreneauOccupe creneau : day.getCreneauxOccupes()) {
                 ensembleTaches.getChildren().add(afficherTache(creneau));
             }

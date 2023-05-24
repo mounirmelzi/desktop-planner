@@ -70,6 +70,8 @@
         </GridPane>
     </center>
     <bottom>
+        <BorderPane>
+            <left>
         <HBox fx:id="hboxBadges" prefHeight="130" style="-fx-padding: 0 0 0 60;">
         <ScrollPane style="-fx-padding: 10 10 30 10; -fx-fit-to-height: true; -fx-hbar-policy: never; -fx-vbar-policy: never; -fx-background-color: transparent;">
         <HBox style="-fx-fit-to-height: true;" spacing ="20">
@@ -119,6 +121,20 @@
                 </HBox>
             </ScrollPane>
         </HBox>
+            </left>
+            <right>
+                <VBox spacing="15" style="-fx-padding: 10 28 0 0; ">
+                    <HBox>
+                <Label text="Taches completées: " styleClass="btnAucunPlanning"/>
+                <Label styleClass="btnAucunPlanning" fx:id="nbTachesCompletees"/>
+                    </HBox>
+                    <HBox>
+                <Label text="Projets completés: " styleClass="btnAucunPlanning" />
+                <Label styleClass="btnAucunPlanning" fx:id="nbProjetCompletes"/>
+                    </HBox>
+                </VBox>
+            </right>
+        </BorderPane>
     </bottom>
 </BorderPane>
 
