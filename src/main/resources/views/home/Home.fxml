@@ -58,8 +58,7 @@
             </right>
         </BorderPane>
         <HBox>
-            <ScrollPane fitToWidth="true"
-                        style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-hbar-policy: never; -fx-vbar-policy: never;">
+            <ScrollPane style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-hbar-policy: never; -fx-vbar-policy: never;">
                 <HBox spacing="20" fx:id="tachesContainer"/>
             </ScrollPane>
         </HBox>
@@ -77,8 +76,7 @@
             </right>
         </BorderPane>
         <HBox>
-            <ScrollPane fitToWidth="true"
-                        style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-hbar-policy: never; -fx-vbar-policy: never;">
+            <ScrollPane style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-hbar-policy: never; -fx-vbar-policy: never;">
                 <HBox spacing="20" fx:id="projectsContainer"/>
             </ScrollPane>
         </HBox>
