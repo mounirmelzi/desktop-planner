@@ -1,6 +1,7 @@
 package com.example.core;
 
 import com.example.core.exceptions.UnscheduledException;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -136,6 +137,20 @@ public class Project implements IPlanifiable, Serializable {
      */
     public boolean addTache(Tache tache) {
         return this.taches.add(tache);
+    }
+
+    /**
+     * supprimer une tache de l'ensemble des taches du projet
+     * @param tache la tache à supprimer
+     * @return true si la tache est supprimer, false si non
+     */
+    public boolean deleteTache(@NotNull Tache tache) {
+        if (tache.isUnscheduled()) {
+            this.taches.remove(tache);
+            return true;
+        }
+
+        return false;
     }
 
     /**

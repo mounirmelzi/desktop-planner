@@ -87,11 +87,20 @@ public class InfoTacheDecomposablePopupController extends Controller implements 
 
     @FXML
     private void handleDecomposerButtonAction(ActionEvent event) {
+        if (!user.hasPlanning()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Decomposition failed");
+            alert.setHeaderText("You don't have a planning");
+            alert.setContentText("Vous devez créer un planning d'abord !");
+            alert.showAndWait();
+            return;
+        }
+
         try {
             tache.setChildren(tache.decomposer(new Pair<>(user.getPlanning(), null)));
             update();
         } catch (DecompositionImpossibleException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Décomposition failed");
             alert.setHeaderText("You can't  decompose this tache");
             if (tache.hasChildren()) {
@@ -161,7 +170,9 @@ public class InfoTacheDecomposablePopupController extends Controller implements 
                 stage.setTitle("Sub Tache Info");
                 stage.setResizable(false);
                 stage.setScene(scene);
-                stage.show();
+                stage.showAndWait();
+
+                update();
             } catch (IOException e) {
                 e.printStackTrace();
             }
