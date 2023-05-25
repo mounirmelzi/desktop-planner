@@ -138,10 +138,5 @@ public class TacheSimple extends Tache {
         setPlanificationDateTime(null);
     }
 
-    @Override
-    public String toString() {
-        return "TacheSimple{periodicity=" + periodicity + ", super=" + super.toString() + "}";
-    }
-
     //endregion
 }

@@ -5,7 +5,7 @@ import java.time.LocalTime;
 public class CreneauOccupe extends Creneau {
     //region Attributes
 
-    private Tache tache;
+    private final Tache tache;
     private boolean blocked;
 
     //endregion
@@ -16,11 +16,6 @@ public class CreneauOccupe extends Creneau {
         super(heureDebut, heureFin);
         this.tache = tache;
         this.blocked = false;
-    }
-
-    public CreneauOccupe(LocalTime heureDebut, LocalTime heureFin, Tache tache, boolean blocked) {
-        this(heureDebut, heureFin, tache);
-        this.blocked = blocked;
     }
 
     //endregion
@@ -42,16 +37,6 @@ public class CreneauOccupe extends Creneau {
     //endregion
 
     //region Methods
-
-    @Override
-    public String toString() {
-        return "CreneauOccupe{" +
-                "tache=" + tache +
-                ", blocked=" + blocked +
-                ", heureDebut=" + getHeureDebut() +
-                ", heureFin=" + getHeureFin() +
-                '}';
-    }
 
     //endregion
 }

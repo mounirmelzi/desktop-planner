@@ -173,7 +173,7 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
      * @return LocalDateTime
      * @throws UnscheduledException si la tache ne peut pas etre planifiée
      */
-    public LocalDateTime planifierManuellement(Planning planning, LocalDate date, LocalTime time) throws UnscheduledException {
+    public LocalDateTime planifierManuellement(@NotNull Planning planning, LocalDate date, LocalTime time) throws UnscheduledException {
         LocalDateTime planificationDateTime = planning.planifierManuellement(this, date, time);
         setPlanificationDateTime(planificationDateTime);
         return planificationDateTime;
@@ -188,19 +188,6 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
                 .thenComparing(deadlineComparator)
                 .thenComparing((tache1, tache2) -> tache1.nom.compareTo(tache2.nom))
                 .compare(this, other);
-    }
-
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", Tache.class.getSimpleName() + "{", "}")
-                .add("nom='" + nom + "'")
-                .add("duree=" + duree)
-                .add("priority=" + priority)
-                .add("deadline=" + deadline)
-                .add("category=" + category)
-                .add("state=" + state)
-                .add("planificationDateTime=" + planificationDateTime)
-                .toString();
     }
 
     //endregion

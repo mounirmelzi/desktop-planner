@@ -31,14 +31,6 @@ public abstract class Creneau implements Comparable<Creneau>, Serializable {
 
     //region Setter and Getters
 
-    public void setHeureDebut (LocalTime heureDebut){
-        this.heureDebut = heureDebut ;
-    }
-
-    public void setHeureFin (LocalTime heureFin){
-        this.heureFin = heureFin ;
-    }
-
     public LocalTime getHeureDebut (){
         return this.heureDebut ;
     }
@@ -105,14 +97,6 @@ public abstract class Creneau implements Comparable<Creneau>, Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(heureDebut, heureFin);
-    }
-
-    @Override
-    public String toString() {
-        return "Creneau{" +
-                "heureDebut=" + heureDebut +
-                ", heureFin=" + heureFin +
-                '}';
     }
 
     //endregion

@@ -94,13 +94,5 @@ public class CreneauLibre extends Creneau implements IDecomposable<Pair<Tache, L
         return creneaux;
     }
 
-    @Override
-    public String toString() {
-        return "CreneauLibre{" +
-                "heureDebut=" + getHeureDebut() +
-                ", heureFin=" + getHeureFin() +
-                '}';
-    }
-
     //endregion
 }

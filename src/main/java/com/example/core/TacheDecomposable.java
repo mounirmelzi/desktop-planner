@@ -316,10 +316,5 @@ public class TacheDecomposable extends Tache implements IDecomposable<Pair<Plann
         setPlanificationDateTime(null);
     }
 
-    @Override
-    public String toString() {
-        return "TacheDecomposable{children=" + children + ", super=" + super.toString() + "}";
-    }
-
     //endregion
 }

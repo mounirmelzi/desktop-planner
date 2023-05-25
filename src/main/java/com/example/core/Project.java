@@ -208,14 +208,5 @@ public class Project implements IPlanifiable, Serializable {
         return nom.hashCode();
     }
 
-    @Override
-    public String toString() {
-        return "Project{" +
-                "nom='" + nom + '\'' +
-                ", description='" + description + '\'' +
-                ", taches=" + taches +
-                '}';
-    }
-
     //endregion
 }

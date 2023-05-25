@@ -15,13 +15,4 @@ public enum Badge {
     public String getName() {
         return name;
     }
-
-    @NotNull
-    @Contract(pure = true)
-    @Override
-    public String toString() {
-        return "Badge{" +
-                "name='" + name + '\'' +
-                '}';
-    }
 }
