@@ -160,6 +160,9 @@ public class ProfileController extends Controller implements Initializable {
             stage.setResizable(false);
             stage.setScene(scene);
 
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png")));
+            stage.getIcons().add(icon);
+
             Parent root = ((Node)event.getSource()).getScene().getRoot();
             root.setEffect(new GaussianBlur(15));
             stage.showAndWait();

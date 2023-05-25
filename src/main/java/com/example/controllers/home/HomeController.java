@@ -18,6 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -26,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -108,6 +110,9 @@ public class HomeController extends Controller implements Initializable {
             stage.setResizable(false);
             stage.setScene(scene);
 
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png")));
+            stage.getIcons().add(icon);
+
             Parent root = ((Node)event.getSource()).getScene().getRoot();
             root.setEffect(new GaussianBlur(15));
             stage.showAndWait();
@@ -130,6 +135,9 @@ public class HomeController extends Controller implements Initializable {
             Stage stage = new Stage();
             stage.setTitle("Create New Project");
             stage.setScene(scene);
+
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png")));
+            stage.getIcons().add(icon);
 
             Parent root = ((Node)event.getSource()).getScene().getRoot();
             root.setEffect(new GaussianBlur(15));
@@ -162,6 +170,9 @@ public class HomeController extends Controller implements Initializable {
             stage.setTitle("Create New Planning");
             stage.setResizable(false);
             stage.setScene(scene);
+
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png")));
+            stage.getIcons().add(icon);
 
             Parent root = ((Node)event.getSource()).getScene().getRoot();
             root.setEffect(new GaussianBlur(15));
@@ -220,6 +231,9 @@ public class HomeController extends Controller implements Initializable {
             stage.setResizable(false);
             stage.setScene(scene);
 
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png")));
+            stage.getIcons().add(icon);
+
             Parent root = ((Node)event.getSource()).getScene().getRoot();
             root.setEffect(new GaussianBlur(15));
             stage.showAndWait();
@@ -251,6 +265,9 @@ public class HomeController extends Controller implements Initializable {
             stage.setScene(scene);
             stage.setTitle("Add Creneaux Libres");
             stage.setResizable(false);
+
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png")));
+            stage.getIcons().add(icon);
 
             Parent root = ((Node)event.getSource()).getScene().getRoot();
             root.setEffect(new GaussianBlur(15));

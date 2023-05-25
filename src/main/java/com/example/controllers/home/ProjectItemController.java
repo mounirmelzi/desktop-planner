@@ -16,12 +16,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ProjectItemController extends Controller implements Initializable {
@@ -64,6 +66,9 @@ public class ProjectItemController extends Controller implements Initializable {
             stage.setTitle("Project Info");
             stage.setResizable(false);
             stage.setScene(scene);
+
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png")));
+            stage.getIcons().add(icon);
 
             Parent root = ((Node)event.getSource()).getScene().getRoot();
             root.setEffect(new GaussianBlur(15));

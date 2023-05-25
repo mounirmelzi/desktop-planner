@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -30,6 +31,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class DayInfoController extends Controller implements Initializable {
@@ -193,6 +195,9 @@ public class DayInfoController extends Controller implements Initializable {
                 stage.setResizable(false);
                 stage.setScene(scene);
 
+                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png")));
+                stage.getIcons().add(icon);
+
                 Parent root = ((Node)event.getSource()).getScene().getRoot();
                 root.setEffect(new GaussianBlur(15));
                 stage.showAndWait();
@@ -296,6 +301,9 @@ public class DayInfoController extends Controller implements Initializable {
                     stage.setResizable(false);
                     stage.setScene(scene);
 
+                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png")));
+                    stage.getIcons().add(icon);
+
                     Parent root = ((Node)event.getSource()).getScene().getRoot();
                     root.setEffect(new GaussianBlur(15));
                     stage.showAndWait();
@@ -308,6 +316,9 @@ public class DayInfoController extends Controller implements Initializable {
                     stage.setTitle("Tache Decomposable Info");
                     stage.setResizable(false);
                     stage.setScene(scene);
+
+                    Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png")));
+                    stage.getIcons().add(icon);
 
                     Parent root = ((Node)event.getSource()).getScene().getRoot();
                     root.setEffect(new GaussianBlur(15));

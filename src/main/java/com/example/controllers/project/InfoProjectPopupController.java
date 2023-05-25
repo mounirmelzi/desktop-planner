@@ -9,12 +9,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -27,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class InfoProjectPopupController extends Controller implements Initializable {
@@ -68,7 +73,7 @@ public class InfoProjectPopupController extends Controller implements Initializa
     }
 
     @FXML
-    private void handleEditButtonAction() {
+    private void handleEditButtonAction(@NotNull ActionEvent event) {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/project/EditProjectPopup.fxml"));
@@ -78,7 +83,14 @@ public class InfoProjectPopupController extends Controller implements Initializa
             Scene scene = new Scene(loader.load());
             stage.setResizable(false);
             stage.setScene(scene);
+
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png")));
+            stage.getIcons().add(icon);
+
+            Parent root = ((Node)event.getSource()).getScene().getRoot();
+            root.setEffect(new GaussianBlur(15));
             stage.showAndWait();
+            root.setEffect(null);
 
             update();
         } catch (IOException e) {
@@ -167,7 +179,14 @@ public class InfoProjectPopupController extends Controller implements Initializa
                 Scene scene = new Scene(loader.load());
                 stage.setResizable(false);
                 stage.setScene(scene);
+
+                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png")));
+                stage.getIcons().add(icon);
+
+                Parent root = ((Node)event.getSource()).getScene().getRoot();
+                root.setEffect(new GaussianBlur(15));
                 stage.showAndWait();
+                root.setEffect(null);
 
                 update();
             } catch (IOException e) {

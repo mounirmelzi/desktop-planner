@@ -14,11 +14,14 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -27,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class InfoTacheDecomposablePopupController extends Controller implements Initializable {
@@ -82,7 +86,14 @@ public class InfoTacheDecomposablePopupController extends Controller implements 
             Scene scene = new Scene(loader.load());
             stage.setResizable(false);
             stage.setScene(scene);
+
+            Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png")));
+            stage.getIcons().add(icon);
+
+            Parent root = ((Node)event.getSource()).getScene().getRoot();
+            root.setEffect(new GaussianBlur(15));
             stage.showAndWait();
+            root.setEffect(null);
 
             update();
             ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
@@ -176,7 +187,14 @@ public class InfoTacheDecomposablePopupController extends Controller implements 
                 stage.setTitle("Sub Tache Info");
                 stage.setResizable(false);
                 stage.setScene(scene);
+
+                Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png")));
+                stage.getIcons().add(icon);
+
+                Parent root = ((Node)event.getSource()).getScene().getRoot();
+                root.setEffect(new GaussianBlur(15));
                 stage.showAndWait();
+                root.setEffect(null);
 
                 update();
             } catch (IOException e) {
