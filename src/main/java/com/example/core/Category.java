@@ -13,14 +13,9 @@ public class Category implements Serializable {
 
     //region Constructors
 
-    public Category(String name) {
-        this.name = name;
-        this.color = defaultColor;
-    }
-
     public Category(String name, String color) {
-        this(name);
-        this.color = color;
+        this.name = name;
+        this.setColor(color);
     }
 
     //endregion
@@ -33,6 +28,10 @@ public class Category implements Serializable {
 
     public String getColor() {
         return color;
+    }
+
+    public void setColor(String color) {
+        this.color = (color == null) ? defaultColor : color;
     }
 
     //endregion

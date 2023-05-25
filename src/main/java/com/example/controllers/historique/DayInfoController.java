@@ -8,7 +8,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

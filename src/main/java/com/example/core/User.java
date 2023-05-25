@@ -40,11 +40,6 @@ public class User implements Serializable {
         this.setDureeCreneauLibreMin(Duration.ofMinutes(30));
 
         this.categories = new TreeMap<>();
-        this.addCategory("Studies", "#ff000044");
-        this.addCategory("Work", "#0000ff44");
-        this.addCategory("Hobby", "#00ff0044");
-        this.addCategory("Sport", "#0ff00044");
-        this.addCategory("Health", "#000ff044");
     }
 
     //endregion
@@ -115,12 +110,14 @@ public class User implements Serializable {
     }
 
     public void addCategory(String name, String color) {
-        if (color == null) {
-            categories.put(name, new Category(name));
+        Category category = categories.get(name);
+
+        if (category == null) {
+            categories.put(name, new Category(name, color));
             return;
         }
 
-        categories.put(name, new Category(name, color));
+        category.setColor(color);
     }
 
     public int getNbrTachesMinParJour() {

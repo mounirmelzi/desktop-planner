@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Comparator;
-import java.util.StringJoiner;
 
 public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializable {
     //region Attributes
