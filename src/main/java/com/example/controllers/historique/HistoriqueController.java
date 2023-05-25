@@ -54,23 +54,33 @@ public class HistoriqueController extends Controller implements Initializable {
     private Label nbTachesCompletees,nbProjetCompletes ;
     private final DayInfoController dayInfoController;
 
-
-
+    /**
+     * Constructeur
+     * @param user l'utilisateur associé
+     */
     public HistoriqueController(User user) {
         this.user = user;
         dayInfoController = new DayInfoController(user);
     }
 
+    /**
+     * Initialiser l'affichage de la page Historique, pour afficher la liste des plannings arrchivés
+     * @param url
+     * @param resourceBundle
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         hboxBadges.setVisible(false);
         prevMonthButton.setVisible(false);
         nextMonthButton.setVisible(false);
-        //user.getHistorique().archive(user.getPlanning());
         ajouterHistoriquePlanning(user);
         afficherDernierPlanning(user);
     }
 
+    /**
+     * Affichage du dernier planning archivé
+     * @param user l'utilisateur associé au controlleur
+     */
     public void afficherDernierPlanning(User user) {
         try {
             Map.Entry<LocalDateTime, Planning> entry = user.getHistorique().getLastPlanningArchive();
@@ -89,7 +99,10 @@ public class HistoriqueController extends Controller implements Initializable {
         }
     }
 
-
+    /**
+     * L'ajout de la liste des bouttons des plannings archivés à la page Historique
+     * @param user l'utilisateur associé au controlleur
+     */
     @FXML
     public void ajouterHistoriquePlanning(User user) {
         historiquePlannings.getChildren().clear();
@@ -108,6 +121,11 @@ public class HistoriqueController extends Controller implements Initializable {
 
     }
 
+    /**
+     * Ajouter le boutton representant un planning archivé
+     * @param p le planning à afficher ses infos
+     * @param FDate la date de l'archivage du planning
+     */
     private void addButtonPlanning(Planning p, LocalDateTime FDate) {
         try {
             Button button = new Button("Planning" + "\n" + "[" + p.getDateDebut() + " || " + FDate.toLocalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "]");
@@ -126,6 +144,11 @@ public class HistoriqueController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * Affichage des informaion associé a un planning archivé, son calendrier, badges, nbTaches et projets completes
+     * @param p le planning à afficher ses infos
+     * @param date la date du planning à afficher
+     */
     private void afficherPlanning(Planning p, LocalDate date) {
 
         if (p != null) {
@@ -161,7 +184,11 @@ public class HistoriqueController extends Controller implements Initializable {
         }
     }
 
-
+    /**
+     * Afficher les information a propos d'une journée d'un des planning archivé
+     * @param day represente la journée à afficher ses infos (ses taches si il y'en a)
+     * @param date la date de la journée que l'on affiche ses infos
+     */
     public void afficherDayInfo(Day day, LocalDate date) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/historique/DayInfo.fxml"));
         loader.setController(dayInfoController);
@@ -178,6 +205,9 @@ public class HistoriqueController extends Controller implements Initializable {
         dayInfoController.afficherTache();
     }
 
+    /**
+     * handler du boutton nextMonth qui avance dans l'affichage vers le mois suivant
+     */
     public void handleNextMonth() {
         Month monthInMonthLabel = Month.valueOf(monthLabel.getText());
         //Month dayInfoMonth = dayInfo.getDate().getMonth() ;
@@ -192,6 +222,9 @@ public class HistoriqueController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * handler du boutton prevtMonth qui recule dans l'affichage vers le mois precedant
+     */
     public void handlePrevMonth() {
         Month monthInMonthLabel = Month.valueOf(monthLabel.getText());
         //Month dayInfoMonth = dayInfo.getDate().getMonth() ;
@@ -205,10 +238,20 @@ public class HistoriqueController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * affichage du nombre des taches et projets completés pour un planning archivé
+     * @param p le planning à afficher le nb de ses taches et projets completés
+     * @param dateArchivage la date de l'archivage du planning
+     */
     public void afficherNbCompletes (Planning p ,LocalDateTime dateArchivage){
         nbTachesCompletees.setText((p == null) ? "0" : String.valueOf(p.getNbTachesCompletees()));
         nbProjetCompletes.setText(String.valueOf(dayInfoController.getUser().getHistorique().getNbProjetsCompletes(dateArchivage)));
     }
+
+    /**
+     * afficher le nombre des badges gagnés associés à un planning
+     * @param planning le planning a afficher ses bades gagnés
+     */
     public void afficherBadges(Planning planning) {
 
         hboxBadges.setVisible(true);
@@ -237,12 +280,18 @@ public class HistoriqueController extends Controller implements Initializable {
         }
     }
 
+    /**
+     * ajout du boutton "aucun planning" au conteneur de la liste des plannings affichés
+     */
     private void afficherAucunPlanning() {
         Button button = new Button("Vous n'avez aucun planning archivé !");
         button.getStyleClass().add("btnAucunPlanning");
         historiquePlannings.getChildren().add(button);
     }
 
+    /**
+     * Classe interne pour representer une journée du calendrier du planning associé dans dayInfoController
+     */
     private class DayLabel extends Label {
         private final Day day;
 

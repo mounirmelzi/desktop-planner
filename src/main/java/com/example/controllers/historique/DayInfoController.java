@@ -26,6 +26,7 @@ public class DayInfoController extends Controller{
     private Planning planning ;
 
 
+    //CONSTRUCTEUR
     public DayInfoController(User user) {
         this.user = user ;
         ensembleTaches = new VBox() ;
@@ -42,11 +43,17 @@ public class DayInfoController extends Controller{
     public Planning getPlanning(){return planning;}
     //FIN SETTERS, GETTERS
 
+    /**
+     * afficher la date associé a ce controller dans son conteneur précis
+     */
     public void afficherDate() {
         dateDay.setText(getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         nomDay.setText(getDate().getDayOfWeek().name());
     }
 
+    /**
+     * afficher "aucune tache" dans le conteneur des infos des taches de l'objt Day associé a ce controller
+     */
     public void afficherAucuneTache() {
         Button button = new Button() ;
         button.setText("Aucune Tache en ce jour!");
@@ -54,7 +61,11 @@ public class DayInfoController extends Controller{
         ensembleTaches.getChildren().add(button) ;
     }
 
-
+    /**
+     * Afficher les informations d'une tache d'un creneauOccupe (si elle y est)
+     * @param creneau le creneau à voir les informations de sa tache si elle y est
+     * @return borderPane contenant les infos de la tache si elle existe, sinn null
+     */
     public BorderPane afficherTache(CreneauOccupe creneau) {
         try {
         AtomicBoolean clique = new AtomicBoolean(false) ;
@@ -77,10 +88,13 @@ public class DayInfoController extends Controller{
         moreButton.setOnMouseClicked(event -> {
             VBox moreInfo = new VBox() ;
             moreInfo.getChildren().add(new Label("Etat: " + tache.getState().getName())) ;
-            moreInfo.getChildren().add(new Label("Heure debut : " + creneau.getHeureDebut().toString()));
-            moreInfo.getChildren().add(new Label("Heure fin : " + creneau.getHeureFin().toString())) ;
+            moreInfo.getChildren().add(new Label("Heure debut: " + creneau.getHeureDebut().toString()));
+            moreInfo.getChildren().add(new Label("Heure fin: " + creneau.getHeureFin().toString())) ;
             moreInfo.getChildren().add(new Label("Durée: " + tache.getDuree().toString()));
             moreInfo.getChildren().add(new Label("Catégorie: " + (tache.getCategory() == null ? "No Category" : tache.getCategory().getName())));
+            if(user.getHistorique().rechercheTacheDansProjets(user.getHistorique().getDateArchivage(planning),tache )!=null) {
+            moreInfo.getChildren().add(new Label("Projet: " + user.getHistorique().rechercheTacheDansProjets(user.getHistorique().getDateArchivage(planning),tache ).getNom())) ;
+            }
             borderPaneTache.setBottom(moreInfo);
             if (clique.get()==false) {moreInfo.setVisible(true); clique.set(true);}
             else {moreInfo.setVisible(false); borderPaneTache.setBottom(null); clique.set(false); }
@@ -94,7 +108,9 @@ public class DayInfoController extends Controller{
         return  null;}
     }
 
-
+    /**
+     * affiche des informations de chaque crenauOccupe dans l'objt Day de ce controller
+     */
     public void afficherTache() {
 
         try {
