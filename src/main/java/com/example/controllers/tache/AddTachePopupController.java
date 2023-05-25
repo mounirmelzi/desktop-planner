@@ -83,6 +83,9 @@ public class AddTachePopupController extends Controller implements Initializable
                     )
             );
 
+            if (nom == null || nom.length() == 0)
+                throw new NullPointerException();
+
             if (deadline.isBefore(LocalDateTime.now())) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Tache Creation failed");
@@ -176,7 +179,7 @@ public class AddTachePopupController extends Controller implements Initializable
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Tache creation failed");
             alert.setHeaderText("You have entered invalid information");
-            alert.setContentText("Merci de remplir tous les champs");
+            alert.setContentText("Veuillez remplir tous les champs");
             alert.showAndWait();
         }
     }
