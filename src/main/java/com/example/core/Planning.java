@@ -231,7 +231,5 @@ public class Planning implements Serializable {
         }
     }
 
-
-
     //endregion
 }

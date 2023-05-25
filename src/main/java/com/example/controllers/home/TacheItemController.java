@@ -8,13 +8,17 @@ import com.example.core.TacheDecomposable;
 import com.example.core.TacheSimple;
 import com.example.core.User;
 import com.example.core.exceptions.UnscheduledException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -54,7 +58,7 @@ public class TacheItemController extends Controller implements Initializable {
     }
 
     @FXML
-    private void handleInfoButtonAction() {
+    private void handleInfoButtonAction(ActionEvent event) {
         try {
             FXMLLoader loader;
             if (tache instanceof TacheSimple) {
@@ -65,7 +69,11 @@ public class TacheItemController extends Controller implements Initializable {
                 stage.setTitle("Tache Simple Info");
                 stage.setResizable(false);
                 stage.setScene(scene);
+
+                Parent root = ((Node)event.getSource()).getScene().getRoot();
+                root.setEffect(new GaussianBlur(15));
                 stage.showAndWait();
+                root.setEffect(null);
             } else {
                 loader = new FXMLLoader(getClass().getResource("/views/tache/InfoTacheDecomposablePopup.fxml"));
                 loader.setControllerFactory(param -> new InfoTacheDecomposablePopupController((TacheDecomposable) tache, user, null));
@@ -74,7 +82,11 @@ public class TacheItemController extends Controller implements Initializable {
                 stage.setTitle("Tache Decomposable Info");
                 stage.setResizable(false);
                 stage.setScene(scene);
+
+                Parent root = ((Node)event.getSource()).getScene().getRoot();
+                root.setEffect(new GaussianBlur(15));
                 stage.showAndWait();
+                root.setEffect(null);
             }
 
             update();

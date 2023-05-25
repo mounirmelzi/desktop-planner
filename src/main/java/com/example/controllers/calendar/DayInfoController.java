@@ -13,8 +13,11 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -189,7 +192,11 @@ public class DayInfoController extends Controller implements Initializable {
                 stage.setTitle("Planification Manuelle");
                 stage.setResizable(false);
                 stage.setScene(scene);
+
+                Parent root = ((Node)event.getSource()).getScene().getRoot();
+                root.setEffect(new GaussianBlur(15));
                 stage.showAndWait();
+                root.setEffect(null);
 
                 updateCreneaux();
             } catch (IOException e) {
@@ -288,7 +295,11 @@ public class DayInfoController extends Controller implements Initializable {
                     stage.setTitle("Tache Simple Info");
                     stage.setResizable(false);
                     stage.setScene(scene);
+
+                    Parent root = ((Node)event.getSource()).getScene().getRoot();
+                    root.setEffect(new GaussianBlur(15));
                     stage.showAndWait();
+                    root.setEffect(null);
                 } else {
                     loader = new FXMLLoader(getClass().getResource("/views/tache/InfoTacheDecomposablePopup.fxml"));
                     loader.setControllerFactory(param -> new InfoTacheDecomposablePopupController((TacheDecomposable) tache, user, null));
@@ -297,7 +308,11 @@ public class DayInfoController extends Controller implements Initializable {
                     stage.setTitle("Tache Decomposable Info");
                     stage.setResizable(false);
                     stage.setScene(scene);
+
+                    Parent root = ((Node)event.getSource()).getScene().getRoot();
+                    root.setEffect(new GaussianBlur(15));
                     stage.showAndWait();
+                    root.setEffect(null);
                 }
 
                 updateCreneaux();

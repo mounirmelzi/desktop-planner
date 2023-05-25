@@ -17,8 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.Effect;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -112,10 +110,9 @@ public class HomeController extends Controller implements Initializable {
 
             Parent root = ((Node)event.getSource()).getScene().getRoot();
             root.setEffect(new GaussianBlur(15));
-
             stage.showAndWait();
-
             root.setEffect(null);
+
             updateTaches();
             updateProjects();
         } catch (IOException e) {
@@ -136,10 +133,9 @@ public class HomeController extends Controller implements Initializable {
 
             Parent root = ((Node)event.getSource()).getScene().getRoot();
             root.setEffect(new GaussianBlur(15));
-
             stage.showAndWait();
-
             root.setEffect(null);
+
             updateProjects();
         } catch (IOException e) {
             e.printStackTrace();
@@ -147,7 +143,7 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
-    private void newPlanningButtonAction() {
+    private void newPlanningButtonAction(ActionEvent event) {
         try {
             if (user.hasPlanning()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -160,14 +156,17 @@ public class HomeController extends Controller implements Initializable {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/home/NewPlanningPopup.fxml"));
             loader.setControllerFactory(param -> new NewPlanningPopupController(user));
-            Parent root = loader.load();
 
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(loader.load());
             Stage stage = new Stage();
             stage.setTitle("Create New Planning");
             stage.setResizable(false);
             stage.setScene(scene);
+
+            Parent root = ((Node)event.getSource()).getScene().getRoot();
+            root.setEffect(new GaussianBlur(15));
             stage.showAndWait();
+            root.setEffect(null);
 
             updateInfos();
         } catch (IOException e) {
@@ -201,7 +200,7 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
-    private void extendPlanningButtonAction() {
+    private void extendPlanningButtonAction(ActionEvent event) {
         try {
             if (!user.hasPlanning()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -214,14 +213,17 @@ public class HomeController extends Controller implements Initializable {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/home/ExtendPlanningPopup.fxml"));
             loader.setControllerFactory(param -> new ExtendPlanningPopupController(user));
-            Parent root = loader.load();
 
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(loader.load());
             Stage stage = new Stage();
             stage.setTitle("Extend Planning");
             stage.setResizable(false);
             stage.setScene(scene);
+
+            Parent root = ((Node)event.getSource()).getScene().getRoot();
+            root.setEffect(new GaussianBlur(15));
             stage.showAndWait();
+            root.setEffect(null);
 
             updateInfos();
         } catch (IOException e) {
@@ -230,7 +232,7 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
-    private void addCreneauLibreButtonAction() {
+    private void addCreneauLibreButtonAction(ActionEvent event) {
         try {
             if (!user.hasPlanning()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -243,14 +245,17 @@ public class HomeController extends Controller implements Initializable {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/home/AddCreneauxLibresPopup.fxml"));
             loader.setControllerFactory(param -> new AddCreneauxLibresPopupController(user.getPlanning()));
-            Parent root = loader.load();
 
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(loader.load());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Add Creneaux Libres");
             stage.setResizable(false);
+
+            Parent root = ((Node)event.getSource()).getScene().getRoot();
+            root.setEffect(new GaussianBlur(15));
             stage.showAndWait();
+            root.setEffect(null);
         } catch (IOException e) {
             e.printStackTrace();
         }

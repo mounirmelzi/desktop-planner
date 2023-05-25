@@ -10,8 +10,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -156,7 +159,11 @@ public class ProfileController extends Controller implements Initializable {
             stage.setTitle("Add Category");
             stage.setResizable(false);
             stage.setScene(scene);
+
+            Parent root = ((Node)event.getSource()).getScene().getRoot();
+            root.setEffect(new GaussianBlur(15));
             stage.showAndWait();
+            root.setEffect(null);
 
             updateCategories();
         } catch (IOException e) {
