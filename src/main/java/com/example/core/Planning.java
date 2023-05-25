@@ -94,11 +94,16 @@ public class Planning implements Serializable {
 
     void setNbrTachesMinParJour(int nbrTachesMinParJour) {
         this.nbrTachesMinParJour = nbrTachesMinParJour;
-        this.tachesCompletedCounter = 0;
     }
 
     public int getNbTachesCompletees() {
-        return getCalendrier().getNbTachesCompletees() ;
+        int cpt = 0;
+
+        for (Day day: getDays()) {
+            cpt += day.getCompletedTachesNumber() ;
+        }
+
+        return cpt ;
     }
 
     //endregion
@@ -203,6 +208,34 @@ public class Planning implements Serializable {
         return (totalTachesNumber == 0) ? 1.0 : ((double) totalCompletedTachesNumber / totalTachesNumber);
     }
 
+    public Category getMostCompletedCategory() {
+        HashMap<Category, Integer> categoriesCounter = new HashMap<>();
+
+        for (Day day : getDays()) {
+            HashMap<Category, Integer> dayCategoriesCounter = day.countCompletedCategory();
+
+            for (Category category : dayCategoriesCounter.keySet()) {
+                if (categoriesCounter.containsKey(category)) {
+                    categoriesCounter.put(category, categoriesCounter.get(category) + dayCategoriesCounter.get(category));
+                } else {
+                    categoriesCounter.put(category, dayCategoriesCounter.get(category));
+                }
+            }
+        }
+
+        Category maxCategory = null;
+        int cpt = 0;
+
+        for (Category category : categoriesCounter.keySet()) {
+            if (maxCategory == null || categoriesCounter.get(category) > cpt) {
+                cpt = categoriesCounter.get(category);
+                maxCategory = category;
+            }
+        }
+
+        return maxCategory;
+    }
+
     void updateTacheCompletedCounter(int nbrTachesCompleted) {
         if (!currentDate.isEqual(LocalDate.now())) {
             currentDate = LocalDate.now();
@@ -214,7 +247,7 @@ public class Planning implements Serializable {
             this.tachesCompletedCounter = 0;
 
         // update badges
-        if (tachesCompletedCounter > nbrTachesMinParJour) {
+        if (tachesCompletedCounter >= nbrTachesMinParJour) {
             tachesCompletedCounter = 0;
             badges.put(Badge.GOOD, badges.get(Badge.GOOD) + 1);
             badges.put(Badge.VERY_GOOD, badges.get(Badge.GOOD) / 3);

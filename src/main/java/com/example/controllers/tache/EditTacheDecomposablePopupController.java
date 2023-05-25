@@ -78,7 +78,6 @@ public class EditTacheDecomposablePopupController extends Controller implements 
             blockDeadline();
             blockDuration();
             priorityComboBox.setDisable(true);
-            categoryComboBox.setDisable(true);
         }
 
         if (projectOfTache != null) {
@@ -86,7 +85,6 @@ public class EditTacheDecomposablePopupController extends Controller implements 
                 blockDeadline();
                 blockDuration();
                 priorityComboBox.setDisable(true);
-                categoryComboBox.setDisable(true);
             }
         }
     }

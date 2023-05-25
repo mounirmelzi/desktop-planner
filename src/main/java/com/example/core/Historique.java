@@ -7,8 +7,8 @@ import java.util.*;
 public class Historique implements Serializable {
     //region Attributes
 
-    private TreeMap<LocalDateTime, Planning> historiquePlannings ;
-    private TreeMap<LocalDateTime, HashSet<Project>> historiqueProjets ;
+    private final TreeMap<LocalDateTime, Planning> historiquePlannings ;
+    private final TreeMap<LocalDateTime, HashSet<Project>> historiqueProjets ;
 
     //endregion
 
@@ -108,6 +108,9 @@ public class Historique implements Serializable {
     }
 
     public int getNbProjetsCompletes(LocalDateTime date) {
+        if (getProjetsByDate(date) == null)
+            return 0;
+
         int cpt = 0;
         for (Project projet: getProjetsByDate(date) ) {
             if (projet.getState()==State.COMPLETED) { cpt++;}

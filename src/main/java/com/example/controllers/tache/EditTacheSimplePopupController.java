@@ -85,7 +85,6 @@ public class EditTacheSimplePopupController extends Controller implements Initia
             blockDuration();
             periodicitySpinner.setDisable(true);
             priorityComboBox.setDisable(true);
-            categoryComboBox.setDisable(true);
         }
 
         if (projectOfTache != null) {
@@ -94,7 +93,6 @@ public class EditTacheSimplePopupController extends Controller implements Initia
                 blockDuration();
                 periodicitySpinner.setDisable(true);
                 priorityComboBox.setDisable(true);
-                categoryComboBox.setDisable(true);
             }
         }
     }

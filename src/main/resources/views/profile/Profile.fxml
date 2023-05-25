@@ -98,6 +98,7 @@
                     <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #F8F8F8; -fx-background-radius: 10; -fx-padding: 10; -fx-border-radius: 5; -fx-border-width: 1; -fx-border-color: #2196F3;">
                         <Label fx:id="rendemmentLabel" style="-fx-font-size: 24px; -fx-text-fill: #333333; -fx-font-weight: bold;"/>
                         <Label fx:id="jourRentableLabel" style="-fx-font-size: 18px; -fx-text-fill: #666666;"/>
+                        <Label fx:id="categoryLabel" style="-fx-font-size: 16px; -fx-text-fill: #666666;"/>
                     </VBox>
                 </HBox>
             </bottom>

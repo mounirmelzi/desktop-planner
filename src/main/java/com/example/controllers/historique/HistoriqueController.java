@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -35,7 +34,7 @@ import java.util.ResourceBundle;
 public class HistoriqueController extends Controller implements Initializable {
 
 
-    private User user;
+    private final User user;
 
     @FXML
     private HBox historiquePlannings, hboxBadges;
@@ -53,7 +52,7 @@ public class HistoriqueController extends Controller implements Initializable {
     private HBox daysNamesContainer;
     @FXML
     private Label nbTachesCompletees,nbProjetCompletes ;
-    private DayInfoController dayInfoController;
+    private final DayInfoController dayInfoController;
 
 
 
@@ -206,9 +205,8 @@ public class HistoriqueController extends Controller implements Initializable {
         }
     }
 
-
     public void afficherNbCompletes (Planning p ,LocalDateTime dateArchivage){
-        nbTachesCompletees.setText(String.valueOf(p.getNbTachesCompletees()));
+        nbTachesCompletees.setText((p == null) ? "0" : String.valueOf(p.getNbTachesCompletees()));
         nbProjetCompletes.setText(String.valueOf(dayInfoController.getUser().getHistorique().getNbProjetsCompletes(dateArchivage)));
     }
     public void afficherBadges(Planning planning) {
@@ -247,12 +245,6 @@ public class HistoriqueController extends Controller implements Initializable {
 
     private class DayLabel extends Label {
         private final Day day;
-
-        //SETTERS, GETTERS
-        public Day getDay() {
-            return day;
-        }
-        //FIN
 
         public DayLabel(@NotNull LocalDate date, Day day) {
             super(String.valueOf(date.getDayOfMonth()));

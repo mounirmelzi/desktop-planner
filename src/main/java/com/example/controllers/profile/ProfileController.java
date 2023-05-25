@@ -39,7 +39,7 @@ public class ProfileController extends Controller implements Initializable {
     @FXML
     private Spinner<Integer> hoursSpinner, minutesSpinner, secondsSpinner;
     @FXML
-    private Label rendemmentLabel, jourRentableLabel, goodBadgeLabel, veryGoodBadgeLabel, excellentBadgeLabel;
+    private Label rendemmentLabel, jourRentableLabel, goodBadgeLabel, veryGoodBadgeLabel, excellentBadgeLabel, categoryLabel;
     @FXML
     private VBox categoriesContainer;
 
@@ -77,8 +77,18 @@ public class ProfileController extends Controller implements Initializable {
             dayPlusRentable = "Aucun";
         }
 
-        rendemmentLabel.setText("Moyenne rendemment: " + rendementMoyen + "%");
+        Category category = user.hasPlanning() ? user.getPlanning().getMostCompletedCategory() : null;
+
+        rendemmentLabel.setText("Moyenne rendemment des taches planifiées: " + rendementMoyen + "%");
         jourRentableLabel.setText("Jour plus rentable: " + dayPlusRentable);
+        categoryLabel.setText("Category plus complétée: " + (category == null ? "Aucune categories trouvée" : category.getName()));
+
+        if (!user.hasPlanning()) {
+            rendemmentLabel.setText("");
+            jourRentableLabel.setText("No planning found");
+            jourRentableLabel.setStyle("-fx-text-fill: red; -fx-font-weight: bold; -fx-font-size: 18; -fx-padding: 0 40;");
+            categoryLabel.setText("");
+        }
 
         updateCategories();
 
@@ -136,7 +146,7 @@ public class ProfileController extends Controller implements Initializable {
     private void handleEditJournee() {
         try {
             int nbTaches = Integer.parseInt(nombreTachesTextField.getText());
-            if (nbTaches < 0)
+            if (nbTaches <= 0)
                 throw new NumberFormatException();
 
             user.setNbrTachesMinParJour(nbTaches);

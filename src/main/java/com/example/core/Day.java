@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -112,6 +113,25 @@ public class Day implements Comparable<Day>, Serializable {
      */
     public double getRendement() {
         return (getTotalTachesNumber() == 0) ? 1.0 : ((double) getCompletedTachesNumber() / getTotalTachesNumber());
+    }
+
+    public HashMap<Category, Integer> countCompletedCategory() {
+        HashMap<Category, Integer> categoriesCounter = new HashMap<>();
+
+        for (CreneauOccupe creneauOccupe : getCreneauxOccupes()) {
+            Tache tache = creneauOccupe.getTache();
+            Category category = tache.getCategory();
+            if (category == null || !tache.getState().equals(State.COMPLETED))
+                continue;
+
+            if (categoriesCounter.containsKey(category)) {
+                categoriesCounter.put(category, categoriesCounter.get(category) + 1);
+            } else {
+                categoriesCounter.put(category, 1);
+            }
+        }
+
+        return categoriesCounter;
     }
 
     /**

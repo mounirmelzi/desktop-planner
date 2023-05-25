@@ -67,30 +67,5 @@ public class Calendrier implements Serializable {
         return days.add(day);
     }
 
-    /**
-     * parcourir treeset de Day pour trouver le premier creneauxOccupe et retourne l'objet Day ou il se trouve
-     * @return objet de type Day qui contient le premier CreneauOccupe du calendrier s'il existe sinon null
-     */
-    public Day getPremierDayOccupe () {
-        Day premierDay = null;
-        for (Day day : days) {
-            if (day.getPremierCreneauOccupe() != null) {
-                premierDay = day;
-                break;
-            }
-        }
-        return premierDay ;
-
-    }
-
-    public int getNbTachesCompletees() {
-        int cpt = 0;
-        for (Day day: getDays()) {
-            cpt += day.getCompletedTachesNumber() ;
-
-        }
-        return cpt ;
-    }
-
     //endregion
 }
