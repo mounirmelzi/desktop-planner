@@ -189,7 +189,7 @@ public class Planning implements Serializable {
 
         Day dayPlusRentable = getDays().first();
         for (Day day : getDays()) {
-            if (day.getCompletedTachesNumber() > dayPlusRentable.getCompletedTachesNumber())
+            if (day.getRendement() > dayPlusRentable.getRendement())
                 dayPlusRentable = day;
         }
 
@@ -205,7 +205,7 @@ public class Planning implements Serializable {
             totalTachesNumber += day.getTotalTachesNumber();
         }
 
-        return (totalTachesNumber == 0) ? 1.0 : ((double) totalCompletedTachesNumber / totalTachesNumber);
+        return (totalTachesNumber == 0) ? 0.0 : ((double) totalCompletedTachesNumber / totalTachesNumber);
     }
 
     public Category getMostCompletedCategory() {
