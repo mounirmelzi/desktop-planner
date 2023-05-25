@@ -112,7 +112,7 @@ public class Day implements Comparable<Day>, Serializable {
      * @return double le rendement journalier
      */
     public double getRendement() {
-        return (getTotalTachesNumber() == 0) ? 1.0 : ((double) getCompletedTachesNumber() / getTotalTachesNumber());
+        return (getTotalTachesNumber() == 0) ? 0.0 : ((double) getCompletedTachesNumber() / getTotalTachesNumber());
     }
 
     public HashMap<Category, Integer> countCompletedCategory() {
