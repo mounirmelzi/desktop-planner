@@ -15,7 +15,7 @@ public class User implements Serializable {
     //region Attributes
 
     private String pseudo;
-    private Calendrier calendrier;
+    private final Calendrier calendrier;
     private Planning planning;
     private final TreeSet<Tache> taches;
     private final HashSet<Project> projects;
@@ -57,7 +57,7 @@ public class User implements Serializable {
 
     public boolean setPseudo(String pseudo) {
         try {
-            User user = User.load(pseudo);
+            User.load(pseudo);
             return false;
         } catch (IOException | ClassNotFoundException ignored) {}
 
