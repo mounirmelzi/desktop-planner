@@ -161,14 +161,14 @@ public class EditTacheSimplePopupController extends Controller implements Initia
                 tacheSimple.setDeadline(deadline);
                 parentTache.getChildren().add(tacheSimple);
             } else if (projectOfTache != null) {
-                projectOfTache.getTaches().remove(tacheSimple);
+                //projectOfTache.getTaches().remove(tacheSimple);
                 tacheSimple.setNom(nom);
                 tacheSimple.setPriority(priority);
                 tacheSimple.setState(state, user.getPlanning());
                 tacheSimple.setCategory(category);
                 tacheSimple.setDuree(duration);
                 tacheSimple.setDeadline(deadline);
-                projectOfTache.addTache(tacheSimple);
+                //projectOfTache.addTache(tacheSimple);
             } else {
                 user.getTaches().remove(tacheSimple);
                 tacheSimple.setNom(nom);

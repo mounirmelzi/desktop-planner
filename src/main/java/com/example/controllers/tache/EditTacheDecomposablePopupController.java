@@ -152,14 +152,14 @@ public class EditTacheDecomposablePopupController extends Controller implements 
                 tacheDecomposable.setDeadline(deadline);
                 user.addTache(tacheDecomposable);
             } else {
-                projectOfTache.getTaches().remove(tacheDecomposable);
+                //projectOfTache.getTaches().remove(tacheDecomposable);
                 tacheDecomposable.setNom(nom);
                 tacheDecomposable.setPriority(priority);
                 tacheDecomposable.setState(state, user.getPlanning());
                 tacheDecomposable.setCategory(category);
                 tacheDecomposable.setDuree(duration);
                 tacheDecomposable.setDeadline(deadline);
-                projectOfTache.addTache(tacheDecomposable);
+                //projectOfTache.addTache(tacheDecomposable);
             }
 
             ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
