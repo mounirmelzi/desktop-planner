@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URL;
@@ -54,7 +55,7 @@ public class ProjectItemController extends Controller implements Initializable {
     }
 
     @FXML
-    private void handleInfoButtonAction(ActionEvent event) {
+    private void handleInfoButtonAction(@NotNull ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/project/InfoProjectPopup.fxml"));
             loader.setControllerFactory(param -> new InfoProjectPopupController(project, user));

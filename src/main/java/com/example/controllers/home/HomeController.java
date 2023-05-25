@@ -143,7 +143,7 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
-    private void newPlanningButtonAction(ActionEvent event) {
+    private void newPlanningButtonAction(@NotNull ActionEvent event) {
         try {
             if (user.hasPlanning()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -200,7 +200,7 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
-    private void extendPlanningButtonAction(ActionEvent event) {
+    private void extendPlanningButtonAction(@NotNull ActionEvent event) {
         try {
             if (!user.hasPlanning()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -232,7 +232,7 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
-    private void addCreneauLibreButtonAction(ActionEvent event) {
+    private void addCreneauLibreButtonAction(@NotNull ActionEvent event) {
         try {
             if (!user.hasPlanning()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);

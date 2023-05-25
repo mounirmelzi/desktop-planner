@@ -150,7 +150,7 @@ public class ProfileController extends Controller implements Initializable {
     }
 
     @FXML
-    private void handleAddCategoryButtonAction(ActionEvent event) {
+    private void handleAddCategoryButtonAction(@NotNull ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/profile/AddCategoryPopup.fxml"));
             loader.setControllerFactory(param -> new AddCategoryPopupController(user));

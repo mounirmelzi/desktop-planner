@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class Day implements Comparable<Day>, Serializable {
     //region Attributes
 
-    private LocalDate date;
+    private final LocalDate date;
     private TreeSet<Creneau> creneaux;
 
     //endregion

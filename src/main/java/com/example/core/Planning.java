@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.time.*;
-import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.TreeSet;
 
@@ -18,8 +17,8 @@ public class Planning implements Serializable {
 
     private LocalDate dateDebut;
     private LocalDate dateFin;
-    private Calendrier calendrier;
-    private HashMap<Badge, Integer> badges;
+    private final Calendrier calendrier;
+    private final HashMap<Badge, Integer> badges;
 
     private int tachesCompletedCounter;
     private int nbrTachesMinParJour;
@@ -49,14 +48,6 @@ public class Planning implements Serializable {
     //endregion
 
     //region Setter and Getters
-
-    public Period getPeriod() {
-        return Period.between(dateDebut, dateFin);
-    }
-
-    public long getNumberOfDays() {
-        return ChronoUnit.DAYS.between(dateDebut, dateFin);
-    }
 
     public TreeSet<Day> getDays() {
         return (TreeSet<Day>) calendrier.getDays().subSet(

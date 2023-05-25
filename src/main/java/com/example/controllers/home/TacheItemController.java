@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URL;
@@ -58,7 +59,7 @@ public class TacheItemController extends Controller implements Initializable {
     }
 
     @FXML
-    private void handleInfoButtonAction(ActionEvent event) {
+    private void handleInfoButtonAction(@NotNull ActionEvent event) {
         try {
             FXMLLoader loader;
             if (tache instanceof TacheSimple) {

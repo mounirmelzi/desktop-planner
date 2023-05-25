@@ -19,7 +19,7 @@ public class User implements Serializable {
     private Planning planning;
     private final TreeSet<Tache> taches;
     private final HashSet<Project> projects;
-    private Historique historique;
+    private final Historique historique;
     private final TreeMap<String, Category> categories;
     private Duration dureeCreneauLibreMin;
     private int nbrTachesMinParJour;
@@ -87,10 +87,6 @@ public class User implements Serializable {
 
     public Planning getPlanning() {
         return planning;
-    }
-
-    public void setCalendrier(Calendrier calendrier) {
-        this.calendrier = calendrier;
     }
 
     public TreeSet<Tache> getTaches() {

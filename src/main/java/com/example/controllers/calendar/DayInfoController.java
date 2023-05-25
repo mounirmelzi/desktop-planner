@@ -159,12 +159,12 @@ public class DayInfoController extends Controller implements Initializable {
             this.setStyle("-fx-background-color: white;" + "-fx-background-radius: 10;" + "-fx-padding: 10;" + "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 1);");
         }
 
-        private void handleDeleteButtonAction(ActionEvent event) {
+        private void handleDeleteButtonAction(@NotNull ActionEvent event) {
             day.getCreneaux().remove(this.creneauLibre);
             updateCreneaux();
         }
 
-        private void handlePlanifierButtonAction(ActionEvent event) {
+        private void handlePlanifierButtonAction(@NotNull ActionEvent event) {
             if (!user.hasPlanning()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Planification failed");
@@ -265,7 +265,7 @@ public class DayInfoController extends Controller implements Initializable {
             this.setStyle("-fx-background-color: white;" + "-fx-background-radius: 10;" + "-fx-padding: 10;" + "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 1);");
         }
 
-        private void handleDeleteButtonAction(ActionEvent event) {
+        private void handleDeleteButtonAction(@NotNull ActionEvent event) {
             Tache tache = this.creneauOccupe.getTache();
 
             if (tache.isPeriodique()) {
@@ -277,12 +277,12 @@ public class DayInfoController extends Controller implements Initializable {
             updateCreneaux();
         }
 
-        private void handleBlockButtonAction(ActionEvent event) {
+        private void handleBlockButtonAction(@NotNull ActionEvent event) {
             creneauOccupe.setBlocked(!creneauOccupe.isBlocked());
             blockButton.setText(creneauOccupe.isBlocked() ? "Unblock" : "Block");
         }
 
-        private void handleShowMoreInfoButtonAction(ActionEvent event) {
+        private void handleShowMoreInfoButtonAction(@NotNull ActionEvent event) {
             Tache tache = creneauOccupe.getTache();
 
             try {
