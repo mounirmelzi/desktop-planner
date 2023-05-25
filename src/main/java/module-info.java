@@ -23,4 +23,6 @@ module com.example.planner {
     opens com.example.controllers.tache to javafx.fxml;
     exports com.example.controllers.project;
     opens com.example.controllers.project to javafx.fxml;
+    exports com.example.controllers.profile;
+    opens com.example.controllers.profile to javafx.fxml;
 }

@@ -59,9 +59,13 @@ public class SidebarController extends Controller implements Initializable {
 
         logoImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png"))));
 
-        usernameLabel.setText(user.getPseudo());
+        update();
 
         showPage("/views/home/Home.fxml", new HomeController(user));
+    }
+
+    public void update() {
+        usernameLabel.setText(user.getPseudo());
     }
 
 
@@ -82,11 +86,6 @@ public class SidebarController extends Controller implements Initializable {
 
 
     @FXML
-    private void handleProfile() {
-        showPage("/views/profile/Profile.fxml", new ProfileController(user));
-    }
-
-    @FXML
     private void handleHome() {
         showPage("/views/home/Home.fxml", new HomeController(user));
     }
@@ -99,6 +98,11 @@ public class SidebarController extends Controller implements Initializable {
     @FXML
     private void handleHistorique() {
         showPage("/views/historique/Historique.fxml", new HistoriqueController(user));
+    }
+
+    @FXML
+    private void handleProfile() {
+        showPage("/views/profile/Profile.fxml", new ProfileController(user, this));
     }
 
     @FXML

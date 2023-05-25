@@ -7,7 +7,7 @@ public class Category implements Serializable {
 
     private String name;
     private String color;
-    static final String defaultColor = "WHITE";
+    static final String defaultColor = "#FFFFFF";
 
     //endregion
 

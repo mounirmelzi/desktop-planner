@@ -20,7 +20,6 @@
             </top>
             <center>
                 <VBox prefWidth="150.0" styleClass="my-menu">
-                    <Button text="Profile" onAction="#handleProfile" styleClass="my-menu-item"/>
                     <Button text="Home" onAction="#handleHome" styleClass="my-menu-item"/>
                     <Button text="Calendar" onAction="#handleCalendar" styleClass="my-menu-item"/>
                     <Button text="Historique" onAction="#handleHistorique" styleClass="my-menu-item"/>
@@ -28,6 +27,7 @@
             </center>
             <bottom>
                 <VBox prefWidth="150.0" styleClass="my-menu">
+                    <Button text="Profile" onAction="#handleProfile" styleClass="my-menu-item"/>
                     <Button text="Logout" onAction="#handleLogout" styleClass="my-menu-item"/>
                 </VBox>
             </bottom>

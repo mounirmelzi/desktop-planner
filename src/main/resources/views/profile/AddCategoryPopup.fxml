@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.example.controllers.profile.AddCategoryPopupController"
+          style="-fx-padding: 20" vgap="10" hgap="10"
+>
+    <HBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER">
+        <Label style="-fx-font-size: 24px; -fx-text-fill: #2196f3;">Add / Update Category</Label>
+    </HBox>
+
+    <Label GridPane.rowIndex="2" GridPane.columnIndex="0" underline="true">Name</Label>
+    <TextField fx:id="nameTextField" GridPane.rowIndex="2" GridPane.columnIndex="1" minWidth="200" maxWidth="200"/>
+
+    <Label GridPane.rowIndex="4" GridPane.columnIndex="0" underline="true">Color</Label>
+    <ColorPicker fx:id="colorPicker" GridPane.rowIndex="4" GridPane.columnIndex="1" minWidth="200" maxWidth="200"/>
+
+    <HBox GridPane.rowIndex="6" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER">
+        <Button onAction="#handleAddButtonAction" style="-fx-background-color: #2196f3; -fx-text-fill: white; -fx-font-size: 16px; -fx-pref-height: 30px; -fx-effect: dropshadow(gaussian, rgba(33,150,243,0.7), 5, 0, 0, 0); -fx-cursor: hand;">
+            Apply Changes
+        </Button>
+    </HBox>
+</GridPane>

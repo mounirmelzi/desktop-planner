@@ -190,7 +190,7 @@ public class Project implements IPlanifiable, Serializable {
         }
 
         if (getTaches().size() == 0)
-            return 0.0;
+            return 1.0;
 
         return ((double)completedTachesCounter / getTaches().size());
     }

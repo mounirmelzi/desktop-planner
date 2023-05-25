@@ -9,10 +9,7 @@ import java.io.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class User implements Serializable {
     //region Attributes
@@ -23,7 +20,7 @@ public class User implements Serializable {
     private final TreeSet<Tache> taches;
     private final HashSet<Project> projects;
     private Historique historique;
-    private final HashMap<String, Category> categories;
+    private final TreeMap<String, Category> categories;
     private Duration dureeCreneauLibreMin;
     private int nbrTachesMinParJour;
 
@@ -42,12 +39,12 @@ public class User implements Serializable {
         this.setNbrTachesMinParJour(5);
         this.setDureeCreneauLibreMin(Duration.ofMinutes(30));
 
-        this.categories = new HashMap<>();
-        categories.put("Studies", new Category("Studies", "#ff000044"));
-        categories.put("Work", new Category("Work", "#0000ff44"));
-        categories.put("Hobby", new Category("Hobby", "#00ff0044"));
-        categories.put("Sport", new Category("Sport", "#0ff00044"));
-        categories.put("Health", new Category("Health", "#000ff044"));
+        this.categories = new TreeMap<>();
+        this.addCategory("Studies", "#ff000044");
+        this.addCategory("Work", "#0000ff44");
+        this.addCategory("Hobby", "#00ff0044");
+        this.addCategory("Sport", "#0ff00044");
+        this.addCategory("Health", "#000ff044");
     }
 
     //endregion
@@ -56,6 +53,30 @@ public class User implements Serializable {
 
     public String getPseudo() {
         return pseudo;
+    }
+
+    public boolean setPseudo(String pseudo) {
+        try {
+            User user = User.load(pseudo);
+            return false;
+        } catch (IOException | ClassNotFoundException ignored) {}
+
+        String oldPseudo = this.pseudo;
+
+        File file = new File(String.format(
+                "data%susers%s%s.bin", File.separator, File.separator, oldPseudo
+        ));
+
+        this.pseudo = pseudo;
+
+        try {
+            this.save();
+            boolean deleted = file.delete();
+            return true;
+        } catch (IOException e) {
+            this.pseudo = oldPseudo;
+            return false;
+        }
     }
 
     public Calendrier getCalendrier() {
@@ -97,6 +118,15 @@ public class User implements Serializable {
         return categories.get(name);
     }
 
+    public void addCategory(String name, String color) {
+        if (color == null) {
+            categories.put(name, new Category(name));
+            return;
+        }
+
+        categories.put(name, new Category(name, color));
+    }
+
     public int getNbrTachesMinParJour() {
         return nbrTachesMinParJour;
     }
@@ -105,6 +135,10 @@ public class User implements Serializable {
         this.nbrTachesMinParJour = nbrTachesMinParJour;
         if (planning != null)
             planning.setNbrTachesMinParJour(nbrTachesMinParJour);
+    }
+
+    public Duration getDureeCreneauLibreMin() {
+        return dureeCreneauLibreMin;
     }
 
     public void setDureeCreneauLibreMin(Duration dureeCreneauLibreMin) {

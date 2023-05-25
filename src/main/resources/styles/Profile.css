@@ -1,0 +1,26 @@
+.badge-card {
+    -fx-background-color: #E3F2FD;
+}
+
+.badge-card:hover {
+    -fx-background-color: #E3F2FD44;
+}
+
+.custom-button {
+    -fx-background-color: #2196f3;
+    -fx-background-radius: 10;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-min-width: 40px;
+    -fx-pref-height: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(33,150,243,0.7), 5, 0, 0, 0);
+    -fx-cursor: hand;
+}
+
+.custom-button:hover {
+    -fx-background-color: #1565c0;
+}
+
+.custom-button:pressed {
+    -fx-background-color: #0d47a1;
+}

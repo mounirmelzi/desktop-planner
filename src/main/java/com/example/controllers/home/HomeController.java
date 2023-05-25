@@ -7,17 +7,23 @@ import com.example.core.Project;
 import com.example.core.Tache;
 import com.example.core.User;
 import com.example.core.exceptions.UnscheduledException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URL;
@@ -93,7 +99,7 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
-    private void addTacheButtonAction() {
+    private void addTacheButtonAction(@NotNull ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/tache/AddTachePopup.fxml"));
             loader.setControllerFactory(param -> new AddTachePopupController(user));
@@ -103,8 +109,13 @@ public class HomeController extends Controller implements Initializable {
             stage.setTitle("Create New Tache");
             stage.setResizable(false);
             stage.setScene(scene);
+
+            Parent root = ((Node)event.getSource()).getScene().getRoot();
+            root.setEffect(new GaussianBlur(15));
+
             stage.showAndWait();
 
+            root.setEffect(null);
             updateTaches();
             updateProjects();
         } catch (IOException e) {
@@ -113,7 +124,7 @@ public class HomeController extends Controller implements Initializable {
     }
 
     @FXML
-    private void addProjetButtonAction() {
+    private void addProjetButtonAction(@NotNull ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/project/AddProjectPopup.fxml"));
             loader.setControllerFactory(param -> new AddProjectPopupController(user));
@@ -122,8 +133,13 @@ public class HomeController extends Controller implements Initializable {
             Stage stage = new Stage();
             stage.setTitle("Create New Project");
             stage.setScene(scene);
+
+            Parent root = ((Node)event.getSource()).getScene().getRoot();
+            root.setEffect(new GaussianBlur(15));
+
             stage.showAndWait();
 
+            root.setEffect(null);
             updateProjects();
         } catch (IOException e) {
             e.printStackTrace();

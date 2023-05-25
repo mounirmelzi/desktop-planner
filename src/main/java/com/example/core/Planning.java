@@ -65,16 +65,6 @@ public class Planning implements Serializable {
         );
     }
 
-    public TreeSet<Day> getDays(@NotNull LocalDate dateDebut) {
-        if (dateDebut.isBefore(this.dateDebut))
-            dateDebut = this.dateDebut;
-
-        return (TreeSet<Day>) calendrier.getDays().subSet(
-                new Day(dateDebut), true,
-                new Day(dateFin), true
-        );
-    }
-
     public TreeSet<Day> getDays(@NotNull LocalDate dateDebut, @NotNull LocalDate dateFin) {
         if (dateDebut.isBefore(this.dateDebut))
             dateDebut = this.dateDebut;
@@ -113,6 +103,7 @@ public class Planning implements Serializable {
 
     void setNbrTachesMinParJour(int nbrTachesMinParJour) {
         this.nbrTachesMinParJour = nbrTachesMinParJour;
+        this.tachesCompletedCounter = 0;
     }
 
     public int getNbTachesCompletees() {
@@ -202,7 +193,7 @@ public class Planning implements Serializable {
 
         Day dayPlusRentable = getDays().first();
         for (Day day : getDays()) {
-            if (day.getRendement() > dayPlusRentable.getRendement())
+            if (day.getCompletedTachesNumber() > dayPlusRentable.getCompletedTachesNumber())
                 dayPlusRentable = day;
         }
 
@@ -210,14 +201,15 @@ public class Planning implements Serializable {
     }
 
     public double rendementMoyen() {
-        if (getDays().size() == 0)
-            return 0.0;
+        int totalCompletedTachesNumber = 0;
+        int totalTachesNumber = 0;
 
-        double rendement = 0;
-        for (Day day : getDays())
-            rendement += day.getRendement();
+        for (Day day : getDays()) {
+            totalCompletedTachesNumber += day.getCompletedTachesNumber();
+            totalTachesNumber += day.getTotalTachesNumber();
+        }
 
-        return rendement / getDays().size();
+        return (totalTachesNumber == 0) ? 1.0 : ((double) totalCompletedTachesNumber / totalTachesNumber);
     }
 
     void updateTacheCompletedCounter(int nbrTachesCompleted) {
