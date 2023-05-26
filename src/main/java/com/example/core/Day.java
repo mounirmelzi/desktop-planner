@@ -278,6 +278,10 @@ public class Day implements Comparable<Day>, Serializable {
         }
     }
 
+    /**
+     * deplanifier les taches des creneauOccupe non blockés d'un planning
+     * @param planning le planning a liberer ses CreneauxOccupés non blockés
+     */
     void libererCreneauxOccupes(Planning planning) {
         for (CreneauOccupe creneauOccupe : getCreneauxOccupes()) {
             if (creneauOccupe.isBlocked())

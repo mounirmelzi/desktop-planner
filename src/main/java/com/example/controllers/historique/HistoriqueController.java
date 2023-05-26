@@ -33,7 +33,7 @@ import java.util.ResourceBundle;
 
 public class HistoriqueController extends Controller implements Initializable {
 
-
+    //region attributs
     private final User user;
 
     @FXML
@@ -53,7 +53,9 @@ public class HistoriqueController extends Controller implements Initializable {
     @FXML
     private Label nbTachesCompletees,nbProjetCompletes ;
     private final DayInfoController dayInfoController;
+    //endregion
 
+    //region constructeur
     /**
      * Constructeur
      * @param user l'utilisateur associé
@@ -62,7 +64,9 @@ public class HistoriqueController extends Controller implements Initializable {
         this.user = user;
         dayInfoController = new DayInfoController(user);
     }
+    //endregion
 
+    //region methodes
     /**
      * Initialiser l'affichage de la page Historique, pour afficher la liste des plannings arrchivés
      * @param url
@@ -210,9 +214,7 @@ public class HistoriqueController extends Controller implements Initializable {
      */
     public void handleNextMonth() {
         Month monthInMonthLabel = Month.valueOf(monthLabel.getText());
-        //Month dayInfoMonth = dayInfo.getDate().getMonth() ;
         Month dateFin = dayInfoController.getPlanning().getDateFin().getMonth() ;
-        //Month archivageMonth = (user.getHistorique().getDateArchivage(dayInfoController.getPlanning())).getMonth();
         if (dateFin.compareTo(monthInMonthLabel) > 0) {
             if (monthInMonthLabel.getValue() < 12) {
                 afficherPlanning(dayInfoController.getPlanning(), LocalDate.of(Integer.parseInt(yearLabel.getText()), monthInMonthLabel.plus(1).getValue(), 1));
@@ -227,7 +229,6 @@ public class HistoriqueController extends Controller implements Initializable {
      */
     public void handlePrevMonth() {
         Month monthInMonthLabel = Month.valueOf(monthLabel.getText());
-        //Month dayInfoMonth = dayInfo.getDate().getMonth() ;
         Month dateDebutMonth = dayInfoController.getPlanning().getDateDebut().getMonth();
         if (monthInMonthLabel.compareTo(dateDebutMonth) > 0) {
             if (monthInMonthLabel.getValue() > 1) {
@@ -319,4 +320,5 @@ public class HistoriqueController extends Controller implements Initializable {
                 afficherDayInfo(day, date);
         }
     }
+    //endregion
 }

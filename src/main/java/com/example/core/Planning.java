@@ -156,6 +156,9 @@ public class Planning implements Serializable {
         return Utils.dateTimePairToLocalDateTime(new Pair<>(day, creneaux));
     }
 
+    /**
+     * deplanifier les taches des creneauOccupe non blockés d'un planning de toutes les journées qu'il comporte
+     */
     void libererCreneauxOccupes() {
         for (Day day : getDays()) {
             day.libererCreneauxOccupes(this);
@@ -183,6 +186,10 @@ public class Planning implements Serializable {
         }
     }
 
+    /**
+     * fait la recherche de la journée la plus rentable dans le planning, celui qui a le plus grand pourcentage de rendement
+     * @return Day qui est la journée la plus rentable
+     */
     public Day dayPlusRentable() {
         if (getDays().size() == 0)
             return null;
@@ -196,6 +203,10 @@ public class Planning implements Serializable {
         return dayPlusRentable;
     }
 
+    /**
+     * Calcul de rendement moyen pour un planning, rapport entre les taches completees et prevues
+     * @return double reoreentant de rendement moyen
+     */
     public double rendementMoyen() {
         int totalCompletedTachesNumber = 0;
         int totalTachesNumber = 0;
@@ -208,6 +219,10 @@ public class Planning implements Serializable {
         return (totalTachesNumber == 0) ? 0.0 : ((double) totalCompletedTachesNumber / totalTachesNumber);
     }
 
+    /**
+     * recherche la categorie qui comporte le plus de taches completees
+     * @return Category qui comporte plus de taches completees
+     */
     public Category getMostCompletedCategory() {
         HashMap<Category, Integer> categoriesCounter = new HashMap<>();
 
@@ -236,6 +251,10 @@ public class Planning implements Serializable {
         return maxCategory;
     }
 
+    /**
+     * met a jour le nombre de taches completees dans le planning
+     * @param nbrTachesCompleted le nombre de taches completees en plus
+     */
     void updateTacheCompletedCounter(int nbrTachesCompleted) {
         if (!currentDate.isEqual(LocalDate.now())) {
             currentDate = LocalDate.now();

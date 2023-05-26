@@ -191,7 +191,11 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
 
     //endregion
 
+    //region Classes Internes
 
+    /**
+     * sert a comparer la priorité entre deux taches
+     */
     public static class PriorityComparator implements Comparator<Tache> {
         @Override
         public int compare(@NotNull Tache t1, @NotNull Tache t2) {
@@ -199,10 +203,14 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
         }
     }
 
+    /**
+     * sert a comparer entre les deadlines de deux taches
+     */
     public static class DeadlineComparator implements Comparator<Tache> {
         @Override
         public int compare(@NotNull Tache t1, @NotNull Tache t2) {
             return t1.deadline.compareTo(t2.deadline);
         }
     }
+    //endregion
 }

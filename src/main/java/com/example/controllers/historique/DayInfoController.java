@@ -14,6 +14,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DayInfoController extends Controller{
+
+    //region attributs
     @FXML
     private VBox ensembleTaches ;
     @FXML
@@ -25,15 +27,17 @@ public class DayInfoController extends Controller{
     private Day day ;
     private Planning planning ;
 
+    //endregion
 
-    //CONSTRUCTEUR
+
+    //region CONSTRUCTEUR
     public DayInfoController(User user) {
         this.user = user ;
         ensembleTaches = new VBox() ;
-        //day = new Day() ;
     }
+    //endregion
 
-    //SETTER, GETTERS
+    // region SETTER, GETTERS
     public void setDay (Day day) {this.day = day ;}
     public void setDate(LocalDate date) {this.date = date ;}
     public void setPlanning(Planning planning ) { this.planning = planning ;}
@@ -41,8 +45,9 @@ public class DayInfoController extends Controller{
     public LocalDate getDate() {return date ;}
     public Day getDay(){return day;}
     public Planning getPlanning(){return planning;}
-    //FIN SETTERS, GETTERS
+    //endregion
 
+    //region methodes
     /**
      * afficher la date associé a ce controller dans son conteneur précis
      */
@@ -121,6 +126,8 @@ public class DayInfoController extends Controller{
         }
         catch (NullPointerException e) {afficherAucuneTache();}
     }
+
+    //endregion
 }
 
 

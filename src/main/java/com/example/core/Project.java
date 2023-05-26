@@ -138,6 +138,11 @@ public class Project implements IPlanifiable, Serializable {
         return !getTaches().isEmpty();
     }
 
+    /**
+     * recherche si ce projet contient une tache ou non
+     * @param tache la tache que l'oncherche si elle est presente ou pas
+     * @return true si elle y est, false sinon
+     */
     public boolean hasTache(Tache tache) {
         for (Tache t: getTaches()) {
             if (t.compareTo(tache)==0) {return true;}

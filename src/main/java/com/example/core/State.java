@@ -7,12 +7,17 @@ public enum State {
     CANCELLED("Cancelled"),
     DELAYED("Delayed");
 
+    //region attributs
     private final String name;
+    //endregion
 
+    //region Constructeur
     State(String name) {
         this.name = name;
     }
+    //endregion
 
+    // region setters, getters
     public static State getStateByName(String name) {
         if (name == null)
             return null;
@@ -28,4 +33,6 @@ public enum State {
     public String getName() {
         return name;
     }
+
+    //endregion
 }

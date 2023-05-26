@@ -3,6 +3,7 @@ package com.example.core;
 import java.time.LocalTime;
 
 public class CreneauOccupe extends Creneau {
+
     //region Attributes
 
     private final Tache tache;

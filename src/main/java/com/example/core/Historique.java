@@ -29,68 +29,49 @@ public class Historique implements Serializable {
     public TreeMap<LocalDateTime, HashSet<Project>> getHistoriqueProjets() {
         return  historiqueProjets ;
     }
-   //endregion
-
-    //region Methods
-
     public HashSet<Project> getProjetsByDate(LocalDateTime date) {
         return getHistoriqueProjets().get(date);
     }
-    public Project rechercheTacheDansProjets(LocalDateTime date, Tache tache) {
+    //endregion
+
+    //region Methods
+    /**
+     * recherche une tache dans les projets archivés a une date precise
+     * @param date date de l'archivage des projet
+     * @param tache la tache que l'on cherche
+     * @return Projet ou se trouve la tache, si elle n'y est nul part retourne null
+     */
+     public Project rechercheTacheDansProjets(LocalDateTime date, Tache tache) {
         for (Project projet: getProjetsByDate(date) ) {
             if (projet.hasTache(tache)) { return projet;}
         }
         return null;
     }
+
+    /**
+     * retourne le nombre des plannings achivés
+     * @return int le nombre de plannings archivés de l'utilisateur
+     */
     public int getNbPlannings() {
         return historiquePlannings.size();
     }
 
+    /**
+     * ajoute a la collection de l'archive un planning et une collection de projet a archiver, date de l'archivage correspont a la date actuelle
+     * @param planning le planning à archiver
+     * @param projects HashSet des projets à archiver
+     */
     public void archive(Planning planning, HashSet<Project> projects) {
         LocalDateTime now = LocalDateTime.now();
         historiquePlannings.put(now, planning);
         historiqueProjets.put(now, projects);
     }
 
-    public Planning[] getAllPlannings() {
-        return historiquePlannings.values().toArray(new Planning[0]);
-    }
-
-    public Planning getPlaningByDate(LocalDateTime archiveDateTime) {
-        return historiquePlannings.get(archiveDateTime);
-    }
-
-    public Planning getPlanningByIndex(int index) {
-        if (index < 0 || index >= getNbPlannings())
-            return null;
-
-        try {
-            return getAllPlannings()[index];
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
-    }
-
-    public Planning deletePlaningByDate(LocalDateTime archiveDateTime) {
-        return historiquePlannings.remove(archiveDateTime);
-    }
-
-    public Planning deletePlanningByIndex(int index) {
-        if (index < 0 || index >= getNbPlannings())
-            return null;
-
-        ArrayList<LocalDateTime> keys = new ArrayList<>(historiquePlannings.keySet());
-        LocalDateTime key = keys.get(index);
-
-        return historiquePlannings.remove(key);
-    }
-
-    public Planning restore() {
-        Map.Entry<LocalDateTime, Planning> firstEntry = historiquePlannings.firstEntry();
-        historiquePlannings.remove(firstEntry.getKey());
-        return firstEntry.getValue();
-    }
-
+    /**
+     * recherche l date de l'archivage d'un planning pour l'utilisateur associé
+     * @param p le planning que l'on cherche sa date d'archivage
+     * @return LocalDateTime la date de l'archivage si le planning est archivé, sinon null
+     */
     public LocalDateTime getDateArchivage (Planning p) {
         LocalDateTime key = null ;
         for (Map.Entry<LocalDateTime, Planning> entry : historiquePlannings.entrySet()) {
@@ -103,10 +84,19 @@ public class Historique implements Serializable {
         return key;
     }
 
+    /**
+     * retourne le dernier planning ajouté à la collection des plannings archivés
+     * @return entry <LocalDateTime, Planning> ou planning est le planning archivé, et la clé est la date de son archivage
+     */
     public Map.Entry<LocalDateTime, Planning> getLastPlanningArchive () {
         return historiquePlannings.firstEntry();
     }
 
+    /**
+     * calculer le nombre de projets completes archivés dans une date precis
+     * @param date date de l'archivage des projets
+     * @return int le nombre des projets completes
+     */
     public int getNbProjetsCompletes(LocalDateTime date) {
         if (getProjetsByDate(date) == null)
             return 0;

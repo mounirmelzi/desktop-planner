@@ -174,6 +174,10 @@ public class User implements Serializable {
         getPlanning().setDateFin(newEndDate);
     }
 
+    /**
+     * creer deepCopy du planning et l'ajoute dans la collection de l'historique des planning,
+     * et deplanifie toutes les taches presentes dedans
+     */
     public void archiverCurrentPlanning() {
         if (this.planning == null)
             return;
@@ -252,14 +256,17 @@ public class User implements Serializable {
             throw new UnscheduledException();
     }
 
+    /**
+     * refait la planification de toutes les taches y compris celles ou les creneaux sont blockés
+     * @throws UnscheduledException si une tache n'a pas pu etre planifié proprement
+     */
     public void replanifier() throws UnscheduledException {
         planning.libererCreneauxOccupes();
         planifierAuto();
     }
 
     /**
-     * Read an User object from .bin file
-     *
+     * Read a User object from .bin file
      * @param pseudo user's pseudo
      * @return User object
      */
@@ -280,7 +287,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Save an User object in .bin file
+     * Save a User object in .bin file
      */
     public void save() throws IOException {
         // create the save folder if it doesn't exist
