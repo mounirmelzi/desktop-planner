@@ -212,5 +212,6 @@ public abstract class Tache implements IPlanifiable, Comparable<Tache>, Serializ
             return t1.deadline.compareTo(t2.deadline);
         }
     }
+
     //endregion
 }

@@ -3,7 +3,6 @@ package com.example.core;
 import java.time.LocalTime;
 
 public class CreneauOccupe extends Creneau {
-
     //region Attributes
 
     private final Tache tache;
@@ -34,10 +33,6 @@ public class CreneauOccupe extends Creneau {
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
     }
-
-    //endregion
-
-    //region Methods
 
     //endregion
 }

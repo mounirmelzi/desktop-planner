@@ -18,10 +18,6 @@ public class Calendrier implements Serializable {
         this.days = new TreeSet<>();
     }
 
-    public Calendrier(TreeSet<Day> days) {
-        this.days = days;
-    }
-
     //endregion
 
     //region Setter and Getters

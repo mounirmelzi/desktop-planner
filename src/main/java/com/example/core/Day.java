@@ -28,11 +28,6 @@ public class Day implements Comparable<Day>, Serializable {
         this.creneaux = new TreeSet<>();
     }
 
-    public Day(@NotNull LocalDate date, TreeSet<Creneau> creneaux) {
-        this(date);
-        this.creneaux = creneaux;
-    }
-
     //endregion
 
     //region Setter and Getters
@@ -306,6 +301,21 @@ public class Day implements Comparable<Day>, Serializable {
         return null;
     }
 
+    /**
+     * parcourir treeSet des creneaux et recherche le premier creneauOccupe
+     * @return le premier CreneauOccupe si trouvé sinon null
+     */
+    public CreneauOccupe getPremierCreneauOccupe() {
+        CreneauOccupe premierCreneauOccupe = null;
+        for (Creneau creneau : creneaux) {
+            if (creneau instanceof CreneauOccupe) {
+                premierCreneauOccupe = (CreneauOccupe) creneau;
+                break;
+            }
+        }
+        return premierCreneauOccupe ;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -322,21 +332,6 @@ public class Day implements Comparable<Day>, Serializable {
     @Override
     public int compareTo(@NotNull Day other) {
         return date.compareTo(other.date);
-    }
-
-    /**
-     * parcourir treeSet des creneaux et recherche le premier creneauOccupe
-     * @return le premier CreneauOccupe si trouvé sinon null
-     */
-    public CreneauOccupe getPremierCreneauOccupe() {
-        CreneauOccupe premierCreneauOccupe = null;
-        for (Creneau creneau : creneaux) {
-            if (creneau instanceof CreneauOccupe) {
-                premierCreneauOccupe = (CreneauOccupe) creneau;
-                break;
-            }
-        }
-        return premierCreneauOccupe ;
     }
 
     //endregion

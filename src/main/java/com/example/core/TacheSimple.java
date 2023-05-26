@@ -17,11 +17,6 @@ public class TacheSimple extends Tache {
 
     //region Constructors
 
-    public TacheSimple(String nom, Duration duree, Priority priority, LocalDateTime deadline) {
-        super(nom, duree, priority, deadline);
-        periodicity = 0;
-    }
-
     public TacheSimple(String nom, Duration duree, Priority priority, LocalDateTime deadline, Category category) {
         super(nom, duree, priority, deadline, category);
         periodicity = 0;

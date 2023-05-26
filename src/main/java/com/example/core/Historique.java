@@ -32,9 +32,11 @@ public class Historique implements Serializable {
     public HashSet<Project> getProjetsByDate(LocalDateTime date) {
         return getHistoriqueProjets().get(date);
     }
+
     //endregion
 
     //region Methods
+
     /**
      * recherche une tache dans les projets archivés a une date precise
      * @param date date de l'archivage des projet
